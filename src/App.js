@@ -1,23 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import Header from "./components/Header";
+import MapView from "./components/MapView";
+import SharkChart from "./components/SharkChart";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <main style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "20px", padding: "20px" }}>
+        <MapView />
+        <SharkChart />
+      </main>
     </div>
   );
 }

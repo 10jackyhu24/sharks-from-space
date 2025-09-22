@@ -1,0 +1,23 @@
+[
+  {
+    "id": "shark1",
+    "species": "Tiger Shark",
+    "timestamp": "2025-09-21T08:00:00Z",
+    "lat": 25.7617,
+    "lng": -80.1918
+  },
+  {
+    "id": "shark2",
+    "species": "Great White",
+    "timestamp": "2025-09-20T22:00:00Z",
+    "lat": 34.0522,
+    "lng": -118.2437
+  },
+  {
+    "id": "shark3",
+    "species": "Hammerhead",
+    "timestamp": "2025-09-19T16:00:00Z",
+    "lat": 65.6895,
+    "lng": 139.6917
+  }
+]
