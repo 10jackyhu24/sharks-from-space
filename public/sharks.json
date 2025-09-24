@@ -1,23 +1,42 @@
 [
   {
-    "id": "shark1",
+    "id": "tw001", 
     "species": "Tiger Shark",
     "timestamp": "2025-09-21T08:00:00Z",
     "lat": 25.7617,
-    "lng": -80.1918
+    "lng": -80.1918,
+    "size": "3.2m",
+    "age": "Adult",
+    "tagType": "Satellite"
   },
   {
-    "id": "shark2",
-    "species": "Great White",
+    "id": "gw002",
+    "species": "Great White", 
     "timestamp": "2025-09-20T22:00:00Z",
     "lat": 34.0522,
-    "lng": -118.2437
+    "lng": -118.2437,
+    "size": "4.1m", 
+    "age": "Adult",
+    "tagType": "Acoustic"
   },
   {
-    "id": "shark3",
+    "id": "hh003",
     "species": "Hammerhead",
     "timestamp": "2025-09-19T16:00:00Z",
-    "lat": 65.6895,
-    "lng": 139.6917
+    "lat": 19.6895,
+    "lng": 139.6917,
+    "size": "2.8m",
+    "age": "Juvenile", 
+    "tagType": "Satellite"
+  },
+  {
+    "id": "ws004",
+    "species": "Whale Shark",
+    "timestamp": "2025-09-18T12:00:00Z",
+    "lat": 12.5644,
+    "lng": 99.9677,
+    "size": "8.5m",
+    "age": "Adult",
+    "tagType": "Satellite"
   }
 ]
