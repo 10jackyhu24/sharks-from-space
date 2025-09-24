@@ -1,9 +1,10 @@
-// src/pages/Detector.js
+// src/pages/Detector.js - 修復 3D 模型版本
 import React, { useRef, useState } from 'react';
+import { useTranslation } from '../contexts/LanguageContext';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text, Box } from '@react-three/drei';
 
-// 3D 鯊魚標籤組件
+// 3D 鯊魚標籤組件（完整保留）
 function SharkTag({ position = [0, 0, 0] }) {
   const meshRef = useRef();
   const [hovered, setHover] = useState(false);
@@ -16,7 +17,7 @@ function SharkTag({ position = [0, 0, 0] }) {
 
   return (
     <group position={position}>
-      {/* 標籤主體 */}
+      {/* 主要標籤體 */}
       <Box
         ref={meshRef}
         args={[1, 0.3, 0.1]}
@@ -46,9 +47,11 @@ function SharkTag({ position = [0, 0, 0] }) {
 }
 
 function Detector() {
+  const { t } = useTranslation();
+
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
-      {/* Hero */}
+      {/* Hero Section */}
       <section style={{
         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
         color: 'white',
@@ -60,13 +63,13 @@ function Detector() {
           fontWeight: '700',
           marginBottom: '1rem'
         }}>
-          🔬 智能鯊魚偵測器
+          {t('detector.title')}
         </h1>
         <p style={{
           fontSize: '1.2rem',
           opacity: '0.9'
         }}>
-          新一代概念標籤 · 即時行為偵測 · 銥衛星通訊
+          {t('detector.subtitle')}
         </p>
       </section>
 
@@ -78,71 +81,82 @@ function Detector() {
             gap: '4rem',
             alignItems: 'center'
           }}>
-            {/* 3D 展示 */}
+            {/* 3D 展示區域 */}
             <div className="card" style={{ height: '500px', padding: '2rem' }}>
               <h3 style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                🎮 3D 標籤模型
+                {t('detector.modelTitle')}
               </h3>
-              <Canvas camera={{ position: [3, 3, 3], fov: 60 }}>
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={1} />
-                <SharkTag />
-                <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
-              </Canvas>
+              
+              {/* 3D Canvas - 完整保留 */}
+              <div style={{ height: '400px', width: '100%' }}>
+                <Canvas camera={{ position: [3, 3, 3], fov: 60 }}>
+                  <ambientLight intensity={0.5} />
+                  <directionalLight position={[10, 10, 5]} intensity={1} />
+                  <SharkTag />
+                  <OrbitControls 
+                    enablePan={true} 
+                    enableZoom={true} 
+                    enableRotate={true} 
+                    maxDistance={10}
+                    minDistance={2}
+                  />
+                </Canvas>
+              </div>
+              
               <p style={{ 
                 textAlign: 'center', 
                 marginTop: '1rem', 
                 fontSize: '0.9rem',
                 color: '#666'
               }}>
-                滑鼠拖拽旋轉 • 滾輪縮放 • 點擊標籤互動
+                {t('detector.interactionHint')}
               </p>
             </div>
 
-            {/* 規格介紹 */}
+            {/* 技術規格 */}
             <div>
               <h3 style={{
                 fontSize: '2rem',
                 color: '#2d3748',
                 marginBottom: '2rem'
               }}>
-                🚀 技術規格
+                {t('detector.techSpecs')}
               </h3>
 
               <div style={{ display: 'grid', gap: '1.5rem' }}>
                 <div className="card" style={{ padding: '1.5rem' }}>
                   <h4 style={{ color: '#667eea', marginBottom: '0.5rem' }}>
-                    📡 通訊系統
+                    {t('detector.communication.title')}
                   </h4>
                   <p style={{ color: '#4a5568', margin: 0 }}>
-                    銥衛星即時通訊 • 全球覆蓋 • 低功耗設計
+                    {t('detector.communication.description')}
                   </p>
                 </div>
 
                 <div className="card" style={{ padding: '1.5rem' }}>
                   <h4 style={{ color: '#667eea', marginBottom: '0.5rem' }}>
-                    🎯 感測功能
+                    {t('detector.sensing.title')}
                   </h4>
                   <p style={{ color: '#4a5568', margin: 0 }}>
-                    高頻加速度感測 • 覓食行為識別 • GPS 定位追蹤
+                    {t('detector.sensing.description')}
                   </p>
                 </div>
 
                 <div className="card" style={{ padding: '1.5rem' }}>
                   <h4 style={{ color: '#667eea', marginBottom: '0.5rem' }}>
-                    🔋 電源管理
+                    {t('detector.power.title')}
                   </h4>
                   <p style={{ color: '#4a5568', margin: 0 }}>
-                    事件觸發式啟動 • 太陽能充電 • 超長待機時間
+                    {t('detector.power.description')}
                   </p>
                 </div>
 
                 <div className="card" style={{ padding: '1.5rem' }}>
                   <h4 style={{ color: '#667eea', marginBottom: '0.5rem' }}>
-                    🌊 防護設計
+                    {t('detector.protection.title')}
                   </h4>
                   <p style={{ color: '#4a5568', margin: 0 }}>
-                    深海防水 • 抗壓耐腐蝕 • 生物相容材質
+                    {t('detector.protection.description')}
                   </p>
                 </div>
               </div>
@@ -157,7 +171,7 @@ function Detector() {
               marginBottom: '3rem',
               color: '#2d3748'
             }}>
-              ⚡ 工作流程
+              {t('detector.workflow')}
             </h3>
 
             <div style={{
@@ -166,10 +180,10 @@ function Detector() {
               gap: '2rem'
             }}>
               {[
-                { icon: '📍', title: '標籤部署', desc: '安全附著於鯊魚背鰭，開始追蹤任務' },
-                { icon: '📊', title: '數據收集', desc: '持續監測位置、行為、環境參數' },
-                { icon: '🛰️', title: '衛星傳輸', desc: '透過銥衛星即時上傳關鍵數據' },
-                { icon: '🧠', title: '智能分析', desc: 'AI 演算法識別覓食、游泳等行為模式' }
+                { icon: '📍', titleKey: 'detector.deployment.title', descKey: 'detector.deployment.description' },
+                { icon: '📊', titleKey: 'detector.dataCollection.title', descKey: 'detector.dataCollection.description' },
+                { icon: '🛰️', titleKey: 'detector.satelliteTransmission.title', descKey: 'detector.satelliteTransmission.description' },
+                { icon: '🧠', titleKey: 'detector.intelligentAnalysis.title', descKey: 'detector.intelligentAnalysis.description' }
               ].map((step, index) => (
                 <div key={index} className="card" style={{ 
                   textAlign: 'center', 
@@ -185,14 +199,14 @@ function Detector() {
                     color: '#2d3748', 
                     marginBottom: '1rem' 
                   }}>
-                    {step.title}
+                    {t(step.titleKey)}
                   </h4>
                   <p style={{ 
                     color: '#4a5568', 
                     fontSize: '0.9rem',
                     lineHeight: '1.5'
                   }}>
-                    {step.desc}
+                    {t(step.descKey)}
                   </p>
                 </div>
               ))}

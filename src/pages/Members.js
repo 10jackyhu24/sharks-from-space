@@ -1,228 +1,269 @@
-// src/pages/Members.js
+// src/pages/Members.js - 支援翻譯版本  
 import React from 'react';
+import { useTranslation } from '../contexts/LanguageContext';
 
 function Members() {
-  const members = [
-    {
-      name: '李研究員',
-      role: '項目主持人',
-      expertise: '海洋生物學 · 鯊魚生態',
-      avatar: '👨‍🔬',
-      email: 'researcher.li@university.edu',
-      description: '專精鯊魚行為研究，擁有15年海洋生態調查經驗'
-    },
-    {
-      name: '張工程師', 
-      role: '技術總監',
-      expertise: '衛星通訊 · 硬體設計',
-      avatar: '👩‍💻',
-      email: 'engineer.zhang@university.edu',
-      description: '負責智能標籤硬體開發與衛星通訊系統整合'
-    },
-    {
-      name: '陳數據師',
-      role: '數據科學家',
-      expertise: '機器學習 · 大數據分析', 
-      avatar: '👨‍💼',
-      email: 'data.chen@university.edu',
-      description: '專責 AI 模型開發與 NASA 衛星數據處理分析'
-    },
-    {
-      name: '王開發者',
-      role: '前端工程師',
-      expertise: 'React · 數據視覺化',
-      avatar: '👩‍🎨',
-      email: 'dev.wang@university.edu', 
-      description: '建置互動式網頁平台與地理空間數據視覺化'
-    }
-  ];
+  const { t } = useTranslation();
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
-      {/* Hero */}
+      {/* Hero Section */}
       <section style={{
         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
         color: 'white',
         padding: '60px 2rem',
         textAlign: 'center'
       }}>
-        <h1 style={{
-          fontSize: '2.5rem',
-          fontWeight: '700',
-          marginBottom: '1rem'
-        }}>
-          👥 研究團隊
+        <h1 style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '1rem' }}>
+          {t('members.title')}
         </h1>
-        <p style={{
-          fontSize: '1.2rem',
-          opacity: '0.9'
-        }}>
-          跨領域專家團隊 · 結合海洋科學與太空技術
+        <p style={{ fontSize: '1.2rem', opacity: '0.9' }}>
+          {t('members.subtitle')}
         </p>
       </section>
 
       <div style={{ padding: '60px 2rem' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
           {/* 團隊介紹 */}
-          <section style={{ marginBottom: '4rem' }}>
-            <div className="card" style={{ padding: '3rem', textAlign: 'center' }}>
-              <h2 style={{
-                fontSize: '2rem',
-                color: '#2d3748',
-                marginBottom: '2rem'
-              }}>
-                🌊 關於我們的團隊
-              </h2>
-              <p style={{
-                fontSize: '1.1rem',
-                color: '#4a5568',
-                lineHeight: '1.8',
-                maxWidth: '700px',
-                margin: '0 auto'
-              }}>
-                我們是一支由海洋生物學家、工程師、數據科學家與軟體開發者組成的跨領域團隊。
-                結合各自的專業知識，致力於運用最新的太空技術來探索海洋生態，
-                為鯊魚保育與海洋研究開創新的可能性。
-              </p>
-            </div>
-          </section>
+          <div className="card" style={{ padding: '3rem', marginBottom: '4rem' }}>
+            <h2 style={{
+              fontSize: '2rem',
+              color: '#2d3748',
+              marginBottom: '2rem',
+              textAlign: 'center'
+            }}>
+              {t('members.aboutTeam')}
+            </h2>
+            <p style={{
+              fontSize: '1.1rem',
+              color: '#4a5568',
+              lineHeight: '1.8',
+              textAlign: 'center',
+              maxWidth: '800px',
+              margin: '0 auto'
+            }}>
+              {t('members.teamDescription')}
+            </p>
+          </div>
 
-          {/* 成員卡片 */}
-          <section>
+          {/* 團隊成員 */}
+          <section style={{ marginBottom: '4rem' }}>
+            <h3 style={{
+              fontSize: '2rem',
+              textAlign: 'center',
+              marginBottom: '3rem',
+              color: '#2d3748'
+            }}>
+              👥 核心團隊成員
+            </h3>
+            
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
               gap: '2rem'
             }}>
-              {members.map((member, index) => (
-                <div key={index} className="card" style={{ padding: '2rem', textAlign: 'center' }}>
-                  {/* 頭像 */}
+              {[
+                {
+                  name: 'Dr. Sarah Chen',
+                  role: '海洋生物學家',
+                  expertise: '鯊魚生態行為研究',
+                  icon: '🦈',
+                  color: '#3B82F6'
+                },
+                {
+                  name: 'Prof. Michael Rodriguez', 
+                  role: '衛星技術專家',
+                  expertise: 'NASA 數據分析',
+                  icon: '🛰️',
+                  color: '#10B981'
+                },
+                {
+                  name: 'Dr. Emily Wang',
+                  role: '機器學習工程師', 
+                  expertise: '物種分佈模型',
+                  icon: '🧠',
+                  color: '#8B5CF6'
+                },
+                {
+                  name: 'Alex Kim',
+                  role: '軟體開發工程師',
+                  expertise: '全端開發與視覺化',
+                  icon: '💻',
+                  color: '#F59E0B'
+                },
+                {
+                  name: 'Dr. James Liu',
+                  role: '數據科學家',
+                  expertise: '海洋大數據分析',
+                  icon: '📊',
+                  color: '#EF4444'
+                },
+                {
+                  name: 'Maria Garcia',
+                  role: '項目協調員',
+                  expertise: '跨領域團隊管理',
+                  icon: '🤝',
+                  color: '#06B6D4'
+                }
+              ].map((member, index) => (
+                <div key={index} className="card" style={{
+                  padding: '2rem',
+                  textAlign: 'center',
+                  transition: 'transform 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => e.target.style.transform = 'translateY(-5px)'}
+                onMouseLeave={(e) => e.target.style.transform = 'translateY(0px)'}
+                >
                   <div style={{
-                    width: '100px',
-                    height: '100px',
-                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                    width: '80px',
+                    height: '80px',
+                    margin: '0 auto 1rem',
+                    background: `linear-gradient(135deg, ${member.color}20, ${member.color}40)`,
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '3rem',
-                    margin: '0 auto 1.5rem auto',
-                    boxShadow: '0 8px 32px rgba(102, 126, 234, 0.3)'
+                    fontSize: '2rem',
+                    border: `3px solid ${member.color}`
                   }}>
-                    {member.avatar}
+                    {member.icon}
                   </div>
-
-                  {/* 基本資訊 */}
-                  <h3 style={{
-                    fontSize: '1.4rem',
-                    color: '#2d3748',
-                    marginBottom: '0.5rem'
-                  }}>
+                  <h4 style={{ color: '#2d3748', marginBottom: '0.5rem' }}>
                     {member.name}
-                  </h3>
-                  
-                  <div style={{
-                    color: '#667eea',
-                    fontWeight: '600',
-                    marginBottom: '1rem'
+                  </h4>
+                  <p style={{ 
+                    color: member.color, 
+                    fontWeight: '600', 
+                    marginBottom: '0.5rem' 
                   }}>
                     {member.role}
-                  </div>
-
-                  <div style={{
-                    background: '#f7fafc',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '20px',
-                    color: '#4a5568',
-                    fontSize: '0.9rem',
-                    marginBottom: '1rem',
-                    display: 'inline-block'
-                  }}>
-                    {member.expertise}
-                  </div>
-
-                  {/* 描述 */}
-                  <p style={{
-                    color: '#4a5568',
-                    fontSize: '0.9rem',
-                    lineHeight: '1.6',
-                    marginBottom: '1.5rem'
-                  }}>
-                    {member.description}
                   </p>
-
-                  {/* 聯絡方式 */}
-                  <div style={{
-                    padding: '1rem',
-                    background: '#f7fafc',
-                    borderRadius: '8px',
-                    border: '1px solid #e2e8f0'
-                  }}>
-                    <div style={{
-                      color: '#4a5568',
-                      fontSize: '0.8rem',
-                      marginBottom: '0.5rem'
-                    }}>
-                      📧 聯絡方式
-                    </div>
-                    <a 
-                      href={`mailto:${member.email}`}
-                      style={{
-                        color: '#667eea',
-                        textDecoration: 'none',
-                        fontSize: '0.9rem',
-                        fontWeight: '500'
-                      }}
-                    >
-                      {member.email}
-                    </a>
-                  </div>
+                  <p style={{ color: '#4a5568', fontSize: '0.9rem' }}>
+                    {member.expertise}
+                  </p>
                 </div>
               ))}
             </div>
           </section>
 
           {/* 合作機構 */}
-          <section style={{ marginTop: '5rem' }}>
-            <h2 style={{
+          <section>
+            <h3 style={{
               fontSize: '2rem',
               textAlign: 'center',
               marginBottom: '3rem',
               color: '#2d3748'
             }}>
-              🤝 合作機構
-            </h2>
-
+              {t('members.collaboration')}
+            </h3>
+            
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
               gap: '2rem'
             }}>
               {[
-                { name: 'NASA', desc: '衛星數據提供與技術支援', icon: '🛰️' },
-                { name: 'OCEARCH', desc: '鯊魚追蹤數據合作夥伴', icon: '🦈' },
-                { name: '海洋研究所', desc: '海洋生態學術研究合作', icon: '🏛️' },
-                { name: '國家太空中心', desc: '太空技術應用指導', icon: '🚀' }
-              ].map((org, index) => (
-                <div key={index} className="card" style={{ 
-                  padding: '2rem', 
+                {
+                  name: 'NASA',
+                  description: '衛星數據提供與技術支援',
+                  icon: '🚀',
+                  color: '#DC2626'
+                },
+                {
+                  name: 'OCEARCH',
+                  description: '鯊魚追蹤數據合作夥伴',
+                  icon: '🦈',
+                  color: '#2563EB'
+                },
+                {
+                  name: '海洋研究所',
+                  description: '海洋生態學術研究合作',
+                  icon: '🏛️',
+                  color: '#059669'
+                },
+                {
+                  name: '國家太空中心',
+                  description: '太空技術應用指導',
+                  icon: '🛰️',
+                  color: '#7C3AED'
+                }
+              ].map((partner, index) => (
+                <div key={index} className="card" style={{
+                  padding: '2rem',
                   textAlign: 'center',
-                  border: '2px solid #e2e8f0'
-                }}>
-                  <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>
-                    {org.icon}
+                  border: `2px solid ${partner.color}30`,
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.borderColor = partner.color;
+                  e.target.style.boxShadow = `0 10px 25px ${partner.color}20`;
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.borderColor = `${partner.color}30`;
+                  e.target.style.boxShadow = 'none';
+                }}
+                >
+                  <div style={{
+                    fontSize: '3rem',
+                    marginBottom: '1rem'
+                  }}>
+                    {partner.icon}
                   </div>
-                  <h4 style={{ color: '#2d3748', marginBottom: '0.5rem' }}>
-                    {org.name}
+                  <h4 style={{ 
+                    color: partner.color, 
+                    marginBottom: '1rem',
+                    fontSize: '1.3rem'
+                  }}>
+                    {partner.name}
                   </h4>
-                  <p style={{ color: '#4a5568', fontSize: '0.9rem' }}>
-                    {org.desc}
+                  <p style={{ 
+                    color: '#4a5568', 
+                    fontSize: '0.9rem',
+                    lineHeight: '1.5'
+                  }}>
+                    {partner.description}
                   </p>
                 </div>
               ))}
             </div>
           </section>
+          
+          {/* 聯絡資訊 */}
+          <div className="card" style={{ 
+            padding: '3rem', 
+            marginTop: '4rem',
+            background: 'linear-gradient(135deg, #667eea10, #764ba210)',
+            border: '2px solid #667eea30',
+            textAlign: 'center'
+          }}>
+            <h3 style={{ color: '#2d3748', marginBottom: '2rem' }}>
+              📧 聯絡我們
+            </h3>
+            <p style={{ color: '#4a5568', fontSize: '1.1rem', marginBottom: '1rem' }}>
+              對我們的研究感興趣？歡迎與我們聯繫！
+            </p>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              gap: '2rem',
+              flexWrap: 'wrap'
+            }}>
+              <div>
+                <strong style={{ color: '#667eea' }}>📧 Email:</strong>
+                <div>sharks.from.space@research.org</div>
+              </div>
+              <div>
+                <strong style={{ color: '#667eea' }}>🐦 Twitter:</strong>
+                <div>@SharksFromSpace</div>
+              </div>
+              <div>
+                <strong style={{ color: '#667eea' }}>🔗 GitHub:</strong>
+                <div>github.com/sharks-from-space</div>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>

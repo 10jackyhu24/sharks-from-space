@@ -1,18 +1,19 @@
-// src/pages/Dashboard.js - 整合視覺化控制版本
+// src/pages/Dashboard.js - 支援翻譯版本
 import React, { useState } from 'react';
+import { useTranslation } from '../contexts/LanguageContext';
 import Header from "../components/Header";
 import MapView from "../components/MapView";
 import SharkChart from "../components/SharkChart";
 
 function Dashboard() {
+  const { t } = useTranslation();
+  
   // 原有的狀態管理
   const [selectedSpecies, setSelectedSpecies] = useState([
     'Tiger Shark', 'Great White', 'Hammerhead'
   ]);
   const [showHeatmap, setShowHeatmap] = useState(false);
   const [activeLayer, setActiveLayer] = useState('openstreetmap');
-  
-  // 新增視覺化模式狀態
   const [visualizationMode, setVisualizationMode] = useState('markers');
 
   // 原有的切換邏輯
@@ -24,54 +25,68 @@ function Dashboard() {
     }
   };
 
+  // 物種配置
+  const getSpeciesConfig = (species) => {
+    const configs = {
+      'Tiger Shark': { color: '#FF8C00', icon: '🟠', name: t('species.tigerShark') },
+      'Great White': { color: '#FF0000', icon: '🔴', name: t('species.greatWhite') },
+      'Hammerhead': { color: '#00AA00', icon: '🟢', name: t('species.hammerhead') },
+      'Whale Shark': { color: '#0066FF', icon: '🔵', name: t('species.whaleShark') }
+    };
+    return configs[species] || configs['Tiger Shark'];
+  };
+
   return (
     <div className="app-container">
       <main className="main-grid">
         {/* 左側：整合的控制面板 */}
         <div className="control-panel">
-          <h3 className="section-title">🎛️ 控制面板</h3>
+          <h3 className="section-title">{t('dashboard.controlPanel')}</h3>
           
           {/* 物種篩選 */}
           <div>
-            <h4 className="section-subtitle">🐟 物種篩選</h4>
+            <h4 className="section-subtitle">{t('dashboard.speciesFilter')}</h4>
             <div className="checkbox-group">
-              {['Tiger Shark', 'Great White', 'Hammerhead', 'Whale Shark'].map(species => (
-                <label key={species} className="checkbox-item">
-                  <input
-                    type="checkbox"
-                    checked={selectedSpecies.includes(species)}
-                    onChange={() => toggleSpecies(species)}
-                  />
-                  <span 
-                    className="species-label"
-                    style={{ color: getSpeciesColor(species) }}
-                  >
-                    {getSpeciesIcon(species)} {getSpeciesName(species)}
-                  </span>
-                </label>
-              ))}
+              {['Tiger Shark', 'Great White', 'Hammerhead', 'Whale Shark'].map(species => {
+                const config = getSpeciesConfig(species);
+                return (
+                  <label key={species} className="checkbox-item">
+                    <input
+                      type="checkbox"
+                      checked={selectedSpecies.includes(species)}
+                      onChange={() => toggleSpecies(species)}
+                    />
+                    <span 
+                      className="species-label"
+                      style={{ color: config.color }}
+                    >
+                      {config.icon} {config.name}
+                    </span>
+                  </label>
+                );
+              })}
             </div>
           </div>
 
-          {/* 視覺化模式選擇 - 新增 */}
+          {/* 視覺化模式選擇 */}
           <div>
-            <h4 className="section-subtitle">🎨 視覺化模式</h4>
+            <h4 className="section-subtitle">{t('dashboard.visualization')}</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {[
                 { 
                   value: 'markers', 
-                  label: '🦈 鯊魚標記', 
-                  desc: `顯示 ${selectedSpecies.length > 0 ? selectedSpecies.length : 0} 個物種`
+                  label: t('dashboard.sharkMarkers'), 
+                  desc: t('dashboard.markerModeDesc')
                 },
                 { 
                   value: 'heatmap', 
-                  label: '🔥 密度分佈', 
-                  desc: '熱力圖顯示鯊魚集中區域'
+                  label: t('dashboard.densityDistribution'), 
+                  desc: t('dashboard.densityModeDesc')
                 },
                 { 
                   value: 'environmental', 
-                  label: '🌊 環境數據', 
-                  desc: '海洋環境參數與營養分佈'
+                  label: t('dashboard.environmentalData'), 
+                  desc: t('dashboard.environmentalModeDesc')
                 }
               ].map(mode => (
                 <label 
@@ -123,9 +138,9 @@ function Dashboard() {
             </div>
           </div>
 
-          {/* 地圖樣式選擇 - 改為下拉式 */}
+          {/* 地圖樣式選擇 */}
           <div>
-            <h4 className="section-subtitle">🗺️ 地圖樣式</h4>
+            <h4 className="section-subtitle">{t('dashboard.mapStyle')}</h4>
             <select 
               className="custom-select"
               value={activeLayer}
@@ -150,7 +165,7 @@ function Dashboard() {
 
           {/* 顯示選項 */}
           <div>
-            <h4 className="section-subtitle">👁️ 顯示選項</h4>
+            <h4 className="section-subtitle">{t('dashboard.displayOptions')}</h4>
             <div style={{ 
               background: '#f8fafc', 
               padding: '12px', 
@@ -174,52 +189,29 @@ function Dashboard() {
                 paddingTop: '8px',
                 borderTop: '1px solid #e2e8f0'
               }}>
-                <div><strong>當前模式:</strong> {
-                  visualizationMode === 'markers' ? '🦈 鯊魚標記' :
-                  visualizationMode === 'heatmap' ? '🔥 密度分佈' :
-                  '🌊 環境數據'
+                <div><strong>{t('dashboard.currentMode') || '當前模式'}:</strong> {
+                  visualizationMode === 'markers' ? t('dashboard.sharkMarkers') :
+                  visualizationMode === 'heatmap' ? t('dashboard.densityDistribution') :
+                  t('dashboard.environmentalData')
                 }</div>
-                <div><strong>地圖樣式:</strong> {getLayerName(activeLayer)}</div>
+                <div><strong>{t('dashboard.mapStyle')}:</strong> {getLayerName(activeLayer)}</div>
               </div>
             </div>
           </div>
 
           {/* 即時統計 */}
           <div>
-            <h4 className="section-subtitle">📊 即時統計</h4>
+            <h4 className="section-subtitle">{t('dashboard.realTimeStats')}</h4>
             <div className="stats-grid">
               <div className="stat-item">
-                <div className="stat-label">選中物種</div>
+                <div className="stat-label">{t('dashboard.selectedSpecies')}</div>
                 <div className="stat-value">{selectedSpecies.length}/4</div>
               </div>
               <div className="stat-item">
-                <div className="stat-label">顯示狀態</div>
+                <div className="stat-label">{t('dashboard.displayStatus')}</div>
                 <div className="stat-value">
                   {selectedSpecies.length > 0 ? '✅' : '❌'}
                 </div>
-              </div>
-            </div>
-            
-            {/* 詳細統計 */}
-            <div style={{ 
-              marginTop: '12px',
-              padding: '10px',
-              background: '#f7fafc',
-              borderRadius: '6px',
-              fontSize: '11px',
-              color: '#4a5568'
-            }}>
-              <div style={{ marginBottom: '4px' }}>
-                <strong>視覺化:</strong> {
-                  visualizationMode === 'markers' ? '標記模式' :
-                  visualizationMode === 'heatmap' ? '密度分析' : '環境監測'
-                }
-              </div>
-              <div style={{ marginBottom: '4px' }}>
-                <strong>地圖:</strong> {getLayerName(activeLayer)}
-              </div>
-              <div>
-                <strong>物種:</strong> {selectedSpecies.length > 0 ? selectedSpecies.join(', ') : '未選擇'}
               </div>
             </div>
           </div>
@@ -228,7 +220,7 @@ function Dashboard() {
         {/* 中間：地圖區域 */}
         <div className="map-container">
           <h3 className="map-title">
-            🗺️ 鯊魚追蹤地圖
+            🗺️ {t('dashboard.mapTitle')}
             <span className="species-count">
               ({
                 visualizationMode === 'markers' ? `顯示 ${selectedSpecies.length} 個物種` :
@@ -252,26 +244,26 @@ function Dashboard() {
           </div>
           
           <div className="card">
-            <h3 className="section-title">📚 研究資訊</h3>
+            <h3 className="section-title">{t('dashboard.researchInfo')}</h3>
             <div className="research-info">
-              <p><strong>項目名稱:</strong> Sharks from Space</p>
-              <p><strong>數據來源:</strong> NASA 衛星追蹤</p>
-              <p><strong>追蹤物種:</strong> {selectedSpecies.join(', ')}</p>
-              <p><strong>研究目的:</strong> 海洋生態保護與鯊魚行為分析</p>
-              <p><strong>更新頻率:</strong> 即時更新</p>
-              <p><strong>覆蓋範圍:</strong> 全球海域</p>
+              <p><strong>{t('dashboard.projectName')}:</strong> Sharks from Space</p>
+              <p><strong>{t('dashboard.dataSource')}:</strong> NASA 衛星追蹤</p>
+              <p><strong>{t('dashboard.trackedSpecies')}:</strong> {selectedSpecies.map(s => getSpeciesConfig(s).name).join(', ')}</p>
+              <p><strong>{t('dashboard.researchPurpose')}:</strong> 海洋生態保護與鯊魚行為分析</p>
+              <p><strong>{t('dashboard.updateFrequency')}:</strong> {t('common.realTimeUpdate')}</p>
+              <p><strong>{t('dashboard.coverage')}:</strong> {t('common.globalCoverage')}</p>
             </div>
           </div>
 
           <div className="card">
-            <h3 className="section-title">🌊 海洋數據</h3>
+            <h3 className="section-title">{t('dashboard.oceanData')}</h3>
             <div className="stats-grid">
               <div className="stat-item">
-                <div className="stat-label">追蹤標籤</div>
+                <div className="stat-label">{t('dashboard.trackingTags')}</div>
                 <div className="stat-value">3</div>
               </div>
               <div className="stat-item">
-                <div className="stat-label">數據點</div>
+                <div className="stat-label">{t('dashboard.dataPoints')}</div>
                 <div className="stat-value">1.2K</div>
               </div>
             </div>
@@ -289,9 +281,9 @@ function Dashboard() {
                 visualizationMode === 'markers' ? '標記模式' :
                 visualizationMode === 'heatmap' ? '密度模式' : '環境模式'
               }:</strong> {
-                visualizationMode === 'markers' ? '顯示個別鯊魚精確位置' :
-                visualizationMode === 'heatmap' ? '分析鯊魚聚集熱點區域' :
-                '監測海洋環境與生態關聯'
+                visualizationMode === 'markers' ? t('dashboard.markerModeDesc') :
+                visualizationMode === 'heatmap' ? t('dashboard.densityModeDesc') :
+                t('dashboard.environmentalModeDesc')
               }
             </div>
           </div>
@@ -301,37 +293,7 @@ function Dashboard() {
   );
 }
 
-// 保持原有的輔助函數
-function getSpeciesColor(species) {
-  const colors = {
-    'Tiger Shark': '#FF8C00',
-    'Great White': '#FF0000', 
-    'Hammerhead': '#00AA00',
-    'Whale Shark': '#0066FF'
-  };
-  return colors[species] || '#808080';
-}
-
-function getSpeciesIcon(species) {
-  const icons = {
-    'Tiger Shark': '🟠',
-    'Great White': '🔴',
-    'Hammerhead': '🟢',
-    'Whale Shark': '🔵'
-  };
-  return icons[species] || '⚪';
-}
-
-function getSpeciesName(species) {
-  const names = {
-    'Tiger Shark': '虎鯊',
-    'Great White': '大白鯊',
-    'Hammerhead': '雙髻鯊',
-    'Whale Shark': '鯨鯊'
-  };
-  return names[species] || species;
-}
-
+// 輔助函數
 function getLayerName(layer) {
   const names = {
     'openstreetmap': '標準地圖',
