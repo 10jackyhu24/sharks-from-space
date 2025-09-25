@@ -140,7 +140,7 @@ function Dashboard() {
 
           {/* 地圖樣式選擇 */}
           <div>
-            <h4 className="section-subtitle">{t('dashboard.mapStyle')}</h4>
+            <h4 className="section-subtitle">🗺️ {t('dashboard.mapStyle')}</h4>
             <select 
               className="custom-select"
               value={activeLayer}
@@ -157,9 +157,9 @@ function Dashboard() {
                 transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
               }}
             >
-              <option value="openstreetmap">🗺️ 標準地圖</option>
-              <option value="satellite">🛰️ 衛星圖像</option>
-              <option value="terrain">🏔️ 地形圖</option>
+              <option value="openstreetmap">🗺️ {t('dashboard.standardMap')}</option>
+              <option value="satellite">🛰️ {t('dashboard.satelliteImages')}</option>
+              <option value="terrain">🏔️ {t('dashboard.terrainMap')}</option>
             </select>
           </div>
 
@@ -178,7 +178,7 @@ function Dashboard() {
                   checked={showHeatmap}
                   onChange={(e) => setShowHeatmap(e.target.checked)}
                 />
-                <span className="species-label">🔥 熱力圖模式</span>
+                <span className="species-label">🔥 {t('dashboard.heatmapMode')}</span>
               </label>
               
               {/* 視覺化模式提示 */}
@@ -189,12 +189,12 @@ function Dashboard() {
                 paddingTop: '8px',
                 borderTop: '1px solid #e2e8f0'
               }}>
-                <div><strong>{t('dashboard.currentMode') || '當前模式'}:</strong> {
+                <div><strong>{t('dashboard.currentMode')}:</strong> {
                   visualizationMode === 'markers' ? t('dashboard.sharkMarkers') :
                   visualizationMode === 'heatmap' ? t('dashboard.densityDistribution') :
                   t('dashboard.environmentalData')
                 }</div>
-                <div><strong>{t('dashboard.mapStyle')}:</strong> {getLayerName(activeLayer)}</div>
+                <div><strong>{t('dashboard.mapStyle')}:</strong> {getLayerName(activeLayer, t)}</div>
               </div>
             </div>
           </div>
@@ -223,9 +223,9 @@ function Dashboard() {
             🗺️ {t('dashboard.mapTitle')}
             <span className="species-count">
               ({
-                visualizationMode === 'markers' ? `顯示 ${selectedSpecies.length} 個物種` :
-                visualizationMode === 'heatmap' ? '密度分佈模式' :
-                '環境數據模式'
+                visualizationMode === 'markers' ? t('dashboard.speciesDisplayed', {count: selectedSpecies.length}) :
+                visualizationMode === 'heatmap' ? t('dashboard.densityMode') :
+                t('dashboard.environmentMode')
               })
             </span>
           </h3>
@@ -234,22 +234,23 @@ function Dashboard() {
             showHeatmap={showHeatmap}
             activeLayer={activeLayer}
             visualizationMode={visualizationMode}
+            t={t}
           />
         </div>
         
         {/* 右側：圖表和資訊 */}
         <div className="sidebar">
           <div className="card">
-            <SharkChart />
+            <SharkChart t={t}/>
           </div>
           
           <div className="card">
             <h3 className="section-title">{t('dashboard.researchInfo')}</h3>
             <div className="research-info">
               <p><strong>{t('dashboard.projectName')}:</strong> Sharks from Space</p>
-              <p><strong>{t('dashboard.dataSource')}:</strong> NASA 衛星追蹤</p>
+              <p><strong>{t('dashboard.dataSource')}:</strong> {t('dashboard.satelliteTracking')}</p>
               <p><strong>{t('dashboard.trackedSpecies')}:</strong> {selectedSpecies.map(s => getSpeciesConfig(s).name).join(', ')}</p>
-              <p><strong>{t('dashboard.researchPurpose')}:</strong> 海洋生態保護與鯊魚行為分析</p>
+              <p><strong>{t('dashboard.researchPurpose')}:</strong> {t('dashboard.researchPurposeDesc')}</p>
               <p><strong>{t('dashboard.updateFrequency')}:</strong> {t('common.realTimeUpdate')}</p>
               <p><strong>{t('dashboard.coverage')}:</strong> {t('common.globalCoverage')}</p>
             </div>
@@ -278,8 +279,8 @@ function Dashboard() {
               fontSize: '11px'
             }}>
               <strong>📍 {
-                visualizationMode === 'markers' ? '標記模式' :
-                visualizationMode === 'heatmap' ? '密度模式' : '環境模式'
+                visualizationMode === 'markers' ? t('dashboard.markingMode') :
+                visualizationMode === 'heatmap' ? t('dashboard.densityMode') : t('dashboard.environmentMode')
               }:</strong> {
                 visualizationMode === 'markers' ? t('dashboard.markerModeDesc') :
                 visualizationMode === 'heatmap' ? t('dashboard.densityModeDesc') :
@@ -294,11 +295,11 @@ function Dashboard() {
 }
 
 // 輔助函數
-function getLayerName(layer) {
+function getLayerName(layer, t) {
   const names = {
-    'openstreetmap': '標準地圖',
-    'satellite': '衛星圖像', 
-    'terrain': '地形圖'
+    'openstreetmap':'🗺️  ' + t('dashboard.standardMap'),
+    'satellite': '🛰️  ' + t('dashboard.satelliteImages'),
+    'terrain': '🏔️ ' + t('dashboard.terrainMap')
   };
   return names[layer] || layer;
 }

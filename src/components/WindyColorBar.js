@@ -6,7 +6,8 @@ function WindyColorBar({
   minValue = 0, 
   maxValue = 100, 
   unit = '',
-  position = 'bottom-right' 
+  position = 'bottom-right',
+  t
 }) {
   
   // 根據模式獲取漸變配置
@@ -15,21 +16,21 @@ function WindyColorBar({
       case 'density':
         return {
           gradient: 'linear-gradient(to right, #0080ff 0%, #80ff00 20%, #ffff00 40%, #ff8000 60%, #ff4000 80%, #ff0000 100%)',
-          title: '鯊魚密度',
-          unit: '隻/區域',
+          title: t('dashboard.mapView.windyColorBar.density.title'),
+          unit: t('dashboard.mapView.windyColorBar.density.unit'),
           steps: [0, 2, 5, 8, 12, 20]
         };
       case 'chlorophyll':
         return {
           gradient: 'linear-gradient(to right, #f7fcf5 0%, #c2e699 25%, #78c679 50%, #31a354 75%, #006837 100%)',
-          title: '葉綠素-a',
+          title: t('dashboard.mapView.windyColorBar.chlorophyll.title'),
           unit: 'mg/m³',
           steps: [0, 0.3, 0.5, 0.8, 1.2, 2.0]
         };
       case 'temperature':
         return {
           gradient: 'linear-gradient(to right, #2166ac 0%, #67a9cf 20%, #d1e5f0 40%, #fddbc7 60%, #ef8a62 80%, #b2182b 100%)',
-          title: '海表溫度',
+          title: t('dashboard.mapView.windyColorBar.temperature.title'),
           unit: '°C',
           steps: [5, 10, 15, 20, 25, 30]
         };

@@ -46,7 +46,7 @@ const translations = {
       controlPanel: "🎛️ 控制面板",
       speciesFilter: "🐟 物種篩選", 
       visualization: "🎨 視覺化模式",
-      mapStyle: "🗺️ 地圖樣式",
+      mapStyle: "地圖樣式",
       displayOptions: "👁️ 顯示選項",
       realTimeStats: "📊 即時統計",
       selectedSpecies: "選中物種",
@@ -67,7 +67,45 @@ const translations = {
       dataPoints: "數據點",
       markerModeDesc: "顯示個別鯊魚精確位置",
       densityModeDesc: "分析鯊魚聚集熱點區域",
-      environmentalModeDesc: "監測海洋環境與生態關聯"
+      environmentalModeDesc: "監測海洋環境與生態關聯",
+      standardMap: "標準地圖",
+      satelliteImages: "衛星圖像",
+      terrainMap: "地形圖",
+      heatmapMode: "熱力圖模式",
+      currentMode: "當前模式",
+      satelliteTracking: "NASA 衛星追蹤",
+      researchPurposeDesc: "海洋生態保護與鯊魚行為分析",
+      markingMode: "標記模式",
+      densityMode: "密度分布模式",
+      environmentMode: "環境數據模式",
+      sharkSightingStatistics: "鯊魚出現統計",
+      numberOfOccurrences: '出現次數',
+      tigerShark: "虎鯊",
+      greatWhite: "大白鯊",
+      hammerhead: "雙髻鯊",
+      whaleShark: "鯨鯊",
+      speciesDisplayed: "顯示 {{count}} 個物種",
+
+      mapView: {
+        trackingSpecies: "追蹤物種",
+        windyColorBar: {
+          density: {
+            title: "鯊魚密度",
+            unit: "隻/區域"
+          },
+          chlorophyll: {
+            title: "葉綠素-a",
+          },
+          temperature: {
+            title: "海表溫度"
+          }
+        },
+        dataDtatistics: {
+          shark: "{{count}} 隻鯊魚",
+          densityZones: "{{count}} 個密度區",
+          monitoringPoints: "{{count}} 個監測點"
+        }
+      }
     },
     detector: {
       title: "智能鯊魚偵測器",
@@ -174,7 +212,7 @@ const translations = {
       controlPanel: "🎛️ Control Panel",
       speciesFilter: "🐟 Species Filter", 
       visualization: "🎨 Visualization Mode",
-      mapStyle: "🗺️ Map Style",
+      mapStyle: "Map Style",
       displayOptions: "👁️ Display Options",
       realTimeStats: "📊 Real-time Statistics",
       selectedSpecies: "Selected Species",
@@ -195,7 +233,44 @@ const translations = {
       dataPoints: "Data Points",
       markerModeDesc: "Display individual shark precise locations",
       densityModeDesc: "Analyze shark aggregation hotspots",
-      environmentalModeDesc: "Monitor marine environment and ecological relationships"
+      environmentalModeDesc: "Monitor marine environment and ecological relationships",
+      standardMap: "Standard Map",
+      satelliteImages: "Satellite Images",
+      terrainMap: "Terrain Map",
+      heatmapMode: "Heatmap Mode",
+      currentMode: "Current Mode",
+      satelliteTracking: "NASA satellite tracking",
+      researchPurposeDesc: "Marine Ecological Conservation and Shark Behavior Analysis",
+      markingMode: "Marking Mode",
+      densityMode: "Density Mode",
+      environmentMode: "Environment Mode",
+      sharkSightingStatistics: "Shark Sighting Statistics",
+      numberOfOccurrences: "Number of Occurrences",
+      tigerShark: "Tiger Shark",
+      greatWhite: "Great White",
+      hammerhead: "Hammerhead",
+      whaleShark: "Whale Shark",
+      speciesDisplayed: "{{count}} species displayed",
+      mapView: {
+        trackingSpecies: "Tracking Species",
+        windyColorBar: {
+          density: {
+            title: "Shark Density",
+            unit: "/Area"
+          },
+          chlorophyll: {
+            title: "Chlorophyll-a",
+          },
+          temperature: {
+            title: "Sea Surface Temperature"
+          }
+        },
+        dataDtatistics: {
+          shark: "{{count}} Sharks",
+          densityZones: "{{count}} Density Zones",
+          monitoringPoints: "{{count}} Monitoring Points"
+        }
+      }
     },
     detector: {
       title: "Smart Shark Detector",
@@ -284,7 +359,17 @@ export function LanguageProvider({ children }) {
     console.log(`✅ 語言切換為: ${language}`);
   };
 
-  const t = (key) => {
+  const interpolate = (template, params) => {
+    // 如果沒有傳 params，就直接回傳原始字串
+    if (!params) return template;
+
+    // 有 params 就進行替換
+    return template.replace(/\{\{(.*?)\}\}/g, (_, key) => {
+      return params[key.trim()] ?? `{{${key}}}`;
+    });
+  };
+
+  const t = (key, params) => {
     const keys = key.split('.');
     let value = translations[currentLanguage];
     
@@ -297,7 +382,7 @@ export function LanguageProvider({ children }) {
       return key;
     }
     
-    return value;
+    return interpolate(value, params);
   };
 
   const value = {

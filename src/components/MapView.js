@@ -9,7 +9,8 @@ function MapView({
   selectedSpecies = [], 
   showHeatmap = false, 
   activeLayer = 'openstreetmap',
-  visualizationMode = 'markers'
+  visualizationMode = 'markers',
+  t
 }) {
   const [sharks, setSharks] = useState([]);
   const [environmentalData, setEnvironmentalData] = useState([]);
@@ -183,6 +184,7 @@ function MapView({
         <WindyColorBar 
           mode={getColorBarMode()}
           position="bottom-right"
+          t={t}
         />
       )}
 
@@ -202,7 +204,7 @@ function MapView({
           backdropFilter: 'blur(10px)'
         }}>
           <div style={{fontWeight: 'bold', marginBottom: '8px', color: '#2d3748'}}>
-            🦈 追蹤物種
+            🦈 {t('dashboard.mapView.trackingSpecies')}
           </div>
           
           <div>
@@ -229,14 +231,14 @@ function MapView({
                   <div style={{
                     width: '12px',
                     height: '12px', 
-                    backgroundColor: getSpeciesColor(species),
+                    backgroundColor: getSpeciesColor(species, t),
                     borderRadius: '50%',
                     marginRight: '8px',
                     border: '1px solid white',
                     boxShadow: '0 1px 2px rgba(0,0,0,0.2)'
                   }}></div>
                 )}
-                <span style={{ fontSize: '10px' }}>{getSpeciesName(species)}</span>
+                <span style={{ fontSize: '10px' }}>{getSpeciesName(species, t)}</span>
               </div>
             ))}
           </div>
@@ -258,9 +260,9 @@ function MapView({
       }}>
         <div style={{ fontWeight: 'bold', color: '#2d3748' }}>
           {
-            visualizationMode === 'markers' ? `🦈 ${filteredSharks.length} 隻鯊魚` :
-            visualizationMode === 'heatmap' ? `🔥 ${heatmapData.length} 個密度區` :
-            `🌊 ${processedEnvData.length} 個監測點`
+            visualizationMode === 'markers' ? `🦈 ${t('dashboard.mapView.dataDtatistics.shark', {count: filteredSharks.length})}`:
+            visualizationMode === 'heatmap' ? `🔥 ${t('dashboard.mapView.dataDtatistics.densityZones', {count: heatmapData.length})}` :
+            `🌊 ${t('dashboard.mapView.dataDtatistics.monitoringPoints', {count: filteredSharks.length})}`
           }
         </div>
       </div>
@@ -280,7 +282,7 @@ function MapView({
           <Marker 
             key={shark.id} 
             position={[shark.lat, shark.lng]}
-            icon={createCustomSharkIcon(shark.species, iconsLoaded)}
+            icon={createCustomSharkIcon(shark.species, iconsLoaded, t)}
           >
             <Popup>
               <div style={{ minWidth: '200px' }}>
@@ -289,7 +291,7 @@ function MapView({
                   alignItems: 'center',
                   marginBottom: '12px',
                   padding: '10px',
-                  backgroundColor: getSpeciesColor(shark.species) + '20',
+                  backgroundColor: getSpeciesColor(shark.species, t) + '20',
                   borderRadius: '8px'
                 }}>
                   {iconsLoaded[shark.species] && (
@@ -306,10 +308,10 @@ function MapView({
                   )}
                   <h3 style={{ 
                     margin: 0,
-                    color: getSpeciesColor(shark.species),
+                    color: getSpeciesColor(shark.species, t),
                     fontSize: '16px'
                   }}>
-                    {getSpeciesName(shark.species)}
+                    {getSpeciesName(shark.species, t)}
                   </h3>
                 </div>
                 
@@ -405,8 +407,8 @@ function MapView({
 }
 
 // 創建自定義鯊魚圖標
-function createCustomSharkIcon(species, iconsLoaded) {
-  const config = getSharkConfig(species);
+function createCustomSharkIcon(species, iconsLoaded, t) {
+  const config = getSharkConfig(species, t);
   
   // 如果有自定義圖標，使用 PNG 圖標
   if (iconsLoaded[species]) {
@@ -468,22 +470,22 @@ function createCustomSharkIcon(species, iconsLoaded) {
 }
 
 // 保持原有的輔助函數
-function getSharkConfig(species) {
+function getSharkConfig(species, t) {
   const configs = {
-    'Tiger Shark': { labelColor: '#FF8C00', name: '虎鯊' },
-    'Great White': { labelColor: '#FF0000', name: '大白鯊' },
-    'Hammerhead': { labelColor: '#00AA00', name: '雙髻鯊' },
-    'Whale Shark': { labelColor: '#0066FF', name: '鯨鯊' }
+    'Tiger Shark': { labelColor: '#FF8C00', name: t('dashboard.tigerShark') },
+    'Great White': { labelColor: '#FF0000', name: t('dashboard.greatWhite') },
+    'Hammerhead': { labelColor: '#00AA00', name: t('dashboard.hammerhead') },
+    'Whale Shark': { labelColor: '#0066FF', name: t('dashboard.whaleShark') }
   };
   return configs[species] || configs['Tiger Shark'];
 }
 
-function getSpeciesColor(species) {
-  return getSharkConfig(species).labelColor;
+function getSpeciesColor(species, t) {
+  return getSharkConfig(species, t).labelColor;
 }
 
-function getSpeciesName(species) {
-  return getSharkConfig(species).name;
+function getSpeciesName(species, t) {
+  return getSharkConfig(species, t).name;
 }
 
 export default MapView;
