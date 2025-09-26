@@ -138,7 +138,7 @@ const translations = {
     ml: {
       title: "機器學習架構",
       subtitle: "隨機森林演算法 · 物種分佈模型 · 棲地預測系統",
-      sdmTitle: "Species Distribution Model (SDM)",
+      sdmTitle: "物種分布模型 (SDM)",
       randomForest: "🌲 隨機森林演算法",
       randomForestDesc: "結合多棵決策樹的集成學習方法，透過分析海洋環境特徵預測鯊魚棲地適宜性，提供高準確度的分佈預測模型",
       dataProcessing: "📊 數據處理流程",
@@ -146,7 +146,69 @@ const translations = {
       accuracy: "準確率",
       precision: "精確率", 
       recall: "召回率",
-      f1Score: "F1 分數"
+      f1Score: "F1 分數",
+      dataProcessingWorkflow: {
+        satelliteData: {
+          title: "衛星數據",
+          first: "SWOT 海面高度",
+          second: "PACE 葉綠素-a",
+          third: "MODIS 海溫"
+        },
+        featureEngineering: {
+          title: "特徵工程",
+          first: "渦流偵測",
+          second: "溫度梯度",
+          third: "營養上升流",
+        },
+        modelTrainning: {
+          title: "模型訓練",
+          first: "隨機森林",
+          second: "交叉驗證",
+          third: "超參數調優"
+        },
+        predictOutput: {
+          title: "預測輸出",
+          first: "棲地適宜性",
+          second: "分佈熱點",
+          third: "置信區間"
+        }
+      },
+      technicalImplementationDetails: {
+        title: "技術實現細節",
+        featureVariables: {
+          title: "特徵變數",
+          content: {
+            ssha: "海面高度異常 (SSHA)",
+            chlorophyll: "葉綠素-a 濃度",
+            sst: "海面溫度 (SST)",
+            eddy: "渦流強度與方向",
+            depthSlope: "深度與坡度",
+            nutrients: "營養鹽分佈"
+          }
+        },
+        modelArchitecture: {
+          title: "模型架構",
+          content: {
+            0: "決策樹數量：{{count}} 棵",
+            1: "最大深度：{{count}} 層",
+            2: "最小樣本分割：{{count}}",
+            3: "特徵抽樣：√n 隨機選取",
+            4: "Bootstrap 抽樣：{{count}}%",
+            5: "交叉驗證：{{count}}-fold"
+          }
+        },
+        applicationScenarios: {
+          title: "應用場景",
+          content: {
+            0: "即時棲地預測",
+            1: "保護區劃設",
+            2: "漁業管理建議",
+            3: "氣候變遷影響評估",
+            4: "生態廊道規劃",
+            5: "研究航次路線優化",
+          }
+        }
+      }
     },
     members: {
       title: "研究團隊",
@@ -311,7 +373,69 @@ const translations = {
       accuracy: "Accuracy",
       precision: "Precision", 
       recall: "Recall",
-      f1Score: "F1 Score"
+      f1Score: "F1 Score",
+      dataProcessingWorkflow: {
+        satelliteData: {
+          title: "Satellite Data",
+          first: "SWOT sea surface height",
+          second: "PACE chlorophyll-a",
+          third: "MODIS sea surface temperature"
+        },
+        featureEngineering: {
+          title: "Feature Engineering",
+          first: "Eddy Detection",
+          second: "Temperature Gradient",
+          third: "Nutrient Upwelling",
+        },
+        modelTrainning: {
+          title: "Model Trainning",
+          first: "random forest",
+          second: "Cross-Validation",
+          third: "Hyperparameter Tuning"
+        },
+        predictOutput: {
+          title: "Predicted Output",
+          first: "Habitat Suitability",
+          second: "Distribution Hotspot",
+          third: "Confidence Interval"
+        }
+      },
+      technicalImplementationDetails: {
+        title: "Technical implementation details",
+        featureVariables: {
+          title: "Feature Variables",
+          content: {
+            ssha: "Sea Surface Height Anomaly (SSHA)",
+            chlorophyll: "Chlorophyll-a Concentration",
+            sst: "Sea Surface Temperature (SST)",
+            eddy: "Eddy Intensity and Direction",
+            depthSlope: "Depth and Slope",
+            nutrients: "Nutrient Distribution"
+          }
+        },
+        modelArchitecture: {
+          title: "Model Architecture",
+          content: {
+            0: "Number of decision trees: {{count}}",
+            1: "Maximum depth: {{count}} layers",
+            2: "Minimum samples for split: {{count}}",
+            3: "Feature sampling: √n randomly selected",
+            4: "Bootstrap sampling: {{count}}%",
+            5: "Cross-validation: {{count}}-fold"
+          }
+        },
+        applicationScenarios: {
+          title: "Application Scenarios",
+          content: {
+            0: "Real-time habitat prediction",
+            1: "Protected area planning",
+            2: "Fisheries management recommendations",
+            3: "Climate change impact assessment",
+            4: "Ecological corridor planning",
+            5: "Research voyage route optimization",
+          }
+        }
+      }
     },
     members: {
       title: "Research Team",

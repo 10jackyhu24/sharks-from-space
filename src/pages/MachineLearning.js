@@ -73,23 +73,23 @@ function MachineLearning() {
               {[
                 {
                   icon: '🛰️',
-                  title: '衛星數據',
-                  items: ['SWOT 海面高度', 'PACE 葉綠素-a', 'MODIS 海溫']
+                  title: t('ml.dataProcessingWorkflow.satelliteData.title'),
+                  items: [t('ml.dataProcessingWorkflow.satelliteData.first'), t('ml.dataProcessingWorkflow.satelliteData.second'), t('ml.dataProcessingWorkflow.satelliteData.third')]
                 },
                 {
                   icon: '⚙️', 
-                  title: '特徵工程',
-                  items: ['渦流偵測', '溫度梯度', '營養上升流']
+                  title: t('ml.dataProcessingWorkflow.featureEngineering.title'),
+                  items: [t('ml.dataProcessingWorkflow.featureEngineering.first'), t('ml.dataProcessingWorkflow.featureEngineering.second'), t('ml.dataProcessingWorkflow.featureEngineering.third')]
                 },
                 {
                   icon: '🧠',
-                  title: '模型訓練', 
-                  items: ['隨機森林', '交叉驗證', '超參數調優']
+                  title: t('ml.dataProcessingWorkflow.modelTrainning.title'), 
+                  items: [t('ml.dataProcessingWorkflow.modelTrainning.first'), t('ml.dataProcessingWorkflow.modelTrainning.second'), t('ml.dataProcessingWorkflow.modelTrainning.third')]
                 },
                 {
                   icon: '📈',
-                  title: '預測輸出',
-                  items: ['棲地適宜性', '分佈熱點', '置信區間']
+                  title: t('ml.dataProcessingWorkflow.predictOutput.title'),
+                  items: [t('ml.dataProcessingWorkflow.predictOutput.first'), t('ml.dataProcessingWorkflow.predictOutput.second'), t('ml.dataProcessingWorkflow.predictOutput.third')]
                 }
               ].map((step, index) => (
                 <div key={index} className="card" style={{ textAlign: 'center', padding: '2rem' }}>
@@ -183,7 +183,7 @@ function MachineLearning() {
               marginBottom: '3rem',
               color: '#2d3748'
             }}>
-              🔧 技術實現細節
+              🔧 {t('ml.technicalImplementationDetails.title')}
             </h3>
             
             <div style={{ 
@@ -193,43 +193,43 @@ function MachineLearning() {
             }}>
               <div className="card" style={{ padding: '2rem' }}>
                 <h4 style={{ color: '#667eea', marginBottom: '1rem' }}>
-                  📊 特徵變數
+                  📊 {t('ml.technicalImplementationDetails.featureVariables.title')}
                 </h4>
                 <ul style={{ color: '#4a5568', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                  <li>海面高度異常 (SSHA)</li>
-                  <li>葉綠素-a 濃度</li>
-                  <li>海面溫度 (SST)</li>
-                  <li>渦流強度與方向</li>
-                  <li>深度與坡度</li>
-                  <li>營養鹽分佈</li>
+                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.ssha')}</li>
+                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.chlorophyll')}</li>
+                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.sst')}</li>
+                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.eddy')}</li>
+                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.depthSlope')}</li>
+                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.nutrients')}</li>
                 </ul>
               </div>
 
               <div className="card" style={{ padding: '2rem' }}>
                 <h4 style={{ color: '#667eea', marginBottom: '1rem' }}>
-                  🏗️ 模型架構
+                  🏗️ {t('ml.technicalImplementationDetails.modelArchitecture.title')}
                 </h4>
                 <ul style={{ color: '#4a5568', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                  <li>決策樹數量：500 棵</li>
-                  <li>最大深度：15 層</li>
-                  <li>最小樣本分割：5</li>
-                  <li>特徵抽樣：√n 隨機選取</li>
-                  <li>Bootstrap 抽樣：63.2%</li>
-                  <li>交叉驗證：5-fold</li>
+                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.0', {count: 500})}</li>
+                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.1', {count: 15})}</li>
+                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.2', {count: 5})}</li>
+                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.3')}</li>
+                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.4', {count: 63.2})}</li>
+                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.5', {count: 5})}</li>
                 </ul>
               </div>
 
               <div className="card" style={{ padding: '2rem' }}>
                 <h4 style={{ color: '#667eea', marginBottom: '1rem' }}>
-                  🎯 應用場景
+                  🎯 {t('ml.technicalImplementationDetails.applicationScenarios.title')}
                 </h4>
                 <ul style={{ color: '#4a5568', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                  <li>即時棲地預測</li>
-                  <li>保護區劃設</li>
-                  <li>漁業管理建議</li>
-                  <li>氣候變遷影響評估</li>
-                  <li>生態廊道規劃</li>
-                  <li>研究航次路線優化</li>
+                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.0')}</li>
+                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.1')}</li>
+                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.2')}</li>
+                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.3')}</li>
+                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.4')}</li>
+                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.5')}</li>
                 </ul>
               </div>
             </div>
