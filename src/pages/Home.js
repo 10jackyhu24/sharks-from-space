@@ -1,501 +1,458 @@
-// src/pages/Home.js - 支援翻譯版本
-import React from 'react';
+// src/pages/Home.js - 移除 Members 連結版本
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '../contexts/LanguageContext';
 
 function Home() {
   const { t } = useTranslation();
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  // Smooth scroll to story section
+  const scrollToStory = () => {
+    const storySection = document.getElementById('mission-section');
+    if (storySection) {
+      storySection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
+  // Smooth scroll to any section
+  const scrollToSection = (targetId = 'mission-section') => {
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   return (
-    <div style={{ minHeight: '100vh' }}>
-      {/* Hero Section */}
+    <div style={{ minHeight: '100vh', overflow: 'hidden' }}>
+      
+      {/* Full-Screen Hero Section with Background Image */}
       <section style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        height: '100vh',
+        position: 'relative',
+        background: `
+          linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%),
+          url('/images/hero-background.png') center/cover no-repeat
+        `,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         color: 'white',
-        padding: '80px 2rem',
-        textAlign: 'center'
+        textAlign: 'center',
+        overflow: 'hidden'
       }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h1 style={{
-            fontSize: '3.5rem',
-            fontWeight: '700',
-            marginBottom: '2rem',
-            textShadow: '0 4px 8px rgba(0,0,0,0.3)'
+        
+        {/* Animated Background Overlay */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%)',
+          animation: 'pulse 4s ease-in-out infinite alternate'
+        }}></div>
+        
+        {/* Hero Content */}
+        <div style={{ 
+          maxWidth: '1000px', 
+          padding: '0 2rem',
+          position: 'relative',
+          zIndex: 2,
+          transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
+          opacity: isVisible ? 1 : 0,
+          transition: 'all 1.2s ease-out'
+        }}>
+          
+          {/* Logo and Main Title */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '20px',
+            marginBottom: '1.5rem',
+            flexWrap: 'wrap'
           }}>
-            🦈 {t('home.title')}
-          </h1>
+            {/* Logo */}
+            <img 
+              src="/images/logo-white.png" 
+              alt="Sharks from Space Logo"
+              style={{
+                height: 'clamp(60px, 10vw, 100px)',
+                width: 'auto',
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.3))',
+                transition: 'all 0.3s ease'
+              }}
+              onError={(e) => {
+                e.target.src = '/images/logo.png';
+                e.target.onerror = () => {
+                  e.target.style.display = 'none';
+                  const emojiBackup = e.target.nextSibling;
+                  if (emojiBackup) {
+                    emojiBackup.style.display = 'inline';
+                  }
+                };
+              }}
+            />
+            
+            {/* Fallback Emoji */}
+            <span style={{ 
+              display: 'none',
+              fontSize: 'clamp(60px, 10vw, 100px)',
+              filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.3))'
+            }}>
+              🦈
+            </span>
+            
+            {/* Main Title */}
+            <h1 style={{
+              fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
+              fontWeight: '800',
+              textShadow: '0 4px 20px rgba(0,0,0,0.5)',
+              lineHeight: '1.1',
+              letterSpacing: '-0.02em',
+              margin: 0
+            }}>
+              {t('home.heroTitle')}
+            </h1>
+          </div>
+          
+          {/* Subtitle */}
+          <p style={{
+            fontSize: 'clamp(1.2rem, 4vw, 2rem)',
+            fontWeight: '600',
+            marginBottom: '2rem',
+            opacity: '0.95',
+            textShadow: '0 2px 10px rgba(0,0,0,0.3)'
+          }}>
+            {t('home.heroSubtitle')}
+          </p>
+          
+          {/* Description */}
+          <p style={{
+            fontSize: 'clamp(1rem, 3vw, 1.3rem)',
+            lineHeight: '1.6',
+            marginBottom: '2rem',
+            opacity: '0.9',
+            maxWidth: '800px',
+            margin: '0 auto 2rem'
+          }}>
+            {t('home.heroDescription')}
+          </p>
+          
+          {/* Mission Statement */}
+          <div style={{
+            background: 'rgba(255,255,255,0.1)',
+            backdropFilter: 'blur(10px)',
+            padding: '1.5rem 2rem',
+            borderRadius: '20px',
+            border: '1px solid rgba(255,255,255,0.2)',
+            marginBottom: '3rem',
+            maxWidth: '600px',
+            margin: '0 auto 3rem'
+          }}>
+            <p style={{
+              fontSize: '1.1rem',
+              fontStyle: 'italic',
+              margin: 0,
+              textShadow: '0 1px 5px rgba(0,0,0,0.3)'
+            }}>
+              {t('home.heroMission')}
+            </p>
+          </div>
+          
+          {/* Action Buttons */}
+          <div style={{
+            display: 'flex',
+            gap: '1.5rem',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            marginTop: '3rem'
+          }}>
+            <Link 
+              to="/dashboard"
+              style={{
+                background: 'rgba(255,255,255,0.2)',
+                border: '2px solid rgba(255,255,255,0.3)',
+                color: 'white',
+                padding: '18px 36px',
+                borderRadius: '50px',
+                fontSize: '1.1rem',
+                fontWeight: '700',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                backdropFilter: 'blur(10px)',
+                transition: 'all 0.3s ease',
+                textShadow: '0 1px 3px rgba(0,0,0,0.3)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.3)';
+                e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                e.target.style.boxShadow = '0 12px 40px rgba(0,0,0,0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.2)';
+                e.target.style.transform = 'translateY(0px) scale(1)';
+                e.target.style.boxShadow = '0 8px 32px rgba(0,0,0,0.2)';
+              }}
+            >
+              <span>🚀</span>
+              {t('home.exploreButton')}
+            </Link>
+            
+            <button
+              onClick={scrollToStory}
+              style={{
+                background: 'transparent',
+                border: '2px solid rgba(255,255,255,0.5)',
+                color: 'white',
+                padding: '18px 36px',
+                borderRadius: '50px',
+                fontSize: '1.1rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                backdropFilter: 'blur(10px)',
+                transition: 'all 0.3s ease',
+                textShadow: '0 1px 3px rgba(0,0,0,0.3)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.1)';
+                e.target.style.borderColor = 'rgba(255,255,255,0.8)';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'transparent';
+                e.target.style.borderColor = 'rgba(255,255,255,0.5)';
+                e.target.style.transform = 'translateY(0px)';
+              }}
+            >
+              📖 {t('home.watchStory')}
+            </button>
+          </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div 
+          onClick={() => scrollToSection('mission-section')}
+          style={{
+            position: 'absolute',
+            bottom: '40px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            animation: 'bounce 2s infinite',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.transform = 'translateX(-50%) scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = 'translateX(-50%) scale(1)';
+          }}
+        >
+          <div style={{
+            width: '30px',
+            height: '50px',
+            border: '2px solid rgba(255,255,255,0.5)',
+            borderRadius: '25px',
+            position: 'relative'
+          }}>
+            <div style={{
+              width: '4px',
+              height: '10px',
+              background: 'white',
+              borderRadius: '2px',
+              position: 'absolute',
+              top: '10px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              animation: 'scroll 2s infinite'
+            }}></div>
+          </div>
+          <div style={{
+            color: 'rgba(255,255,255,0.7)',
+            fontSize: '12px',
+            marginTop: '10px',
+            letterSpacing: '1px'
+          }}>
+            SCROLL
+          </div>
+        </div>
+      </section>
+
+      {/* 區域 1: Mission Section */}
+      <section 
+        id="mission-section"
+        style={{
+          padding: '100px 2rem',
+          background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+          position: 'relative'
+        }}
+      >
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{
+            fontSize: 'clamp(2rem, 6vw, 3rem)',
+            color: '#2d3748',
+            marginBottom: '2rem',
+            fontWeight: '800'
+          }}>
+            {t('home.missionTitle')}
+          </h2>
           <p style={{
             fontSize: '1.3rem',
-            opacity: '0.95',
-            lineHeight: '1.6',
-            marginBottom: '3rem'
+            color: '#4a5568',
+            lineHeight: '1.8',
+            maxWidth: '1000px',
+            margin: '0 auto',
+            marginBottom: '4rem',
+            textAlign: 'left'
           }}>
-            {t('home.subtitle')}
+            {t('home.missionDesc')}
           </p>
-          <Link 
-            to="/dashboard"
-            style={{
-              background: 'rgba(255,255,255,0.2)',
-              border: '2px solid rgba(255,255,255,0.3)',
-              color: 'white',
-              padding: '15px 30px',
-              borderRadius: '50px',
-              fontSize: '1.1rem',
-              fontWeight: '600',
-              textDecoration: 'none',
-              display: 'inline-block',
-              backdropFilter: 'blur(10px)',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.3)';
-              e.target.style.transform = 'translateY(-2px)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.2)';
-              e.target.style.transform = 'translateY(0px)';
-            }}
-          >
-            {t('home.exploreButton')}
-          </Link>
         </div>
       </section>
 
-      {/* Project Story */}
-      <section style={{ padding: '80px 2rem', background: '#f8fafc' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <h2 style={{
-            fontSize: '2.5rem',
-            textAlign: 'center',
-            marginBottom: '3rem',
-            color: '#2d3748'
-          }}>
-            {t('home.projectBackground')}
-          </h2>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '2rem',
-            marginBottom: '4rem'
-          }}>
-            <div className="card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🛰️</div>
-              <h3 style={{ color: '#2d3748', marginBottom: '1rem' }}>
-                {t('home.satelliteTech.title')}
-              </h3>
-              <p style={{ color: '#4a5568', lineHeight: '1.6' }}>
-                {t('home.satelliteTech.description')}
-              </p>
-            </div>
-            
-            <div className="card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔬</div>
-              <h3 style={{ color: '#2d3748', marginBottom: '1rem' }}>
-                {t('home.smartTag.title')}
-              </h3>
-              <p style={{ color: '#4a5568', lineHeight: '1.6' }}>
-                {t('home.smartTag.description')}
-              </p>
-            </div>
-            
-            <div className="card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🧠</div>
-              <h3 style={{ color: '#2d3748', marginBottom: '1rem' }}>
-                {t('home.machineLearning.title')}
-              </h3>
-              <p style={{ color: '#4a5568', lineHeight: '1.6' }}>
-                {t('home.machineLearning.description')}
-              </p>
-            </div>
-          </div>
-
-          {/* Research Goals */}
-          <div className="card" style={{ padding: '3rem' }}>
-            <h3 style={{
-              fontSize: '2rem',
+      {/* 區域 2: Technology Section */}
+      <section 
+        id="tech-section"
+        style={{
+          padding: '100px 2rem',
+          background: 'white',
+          position: 'relative'
+        }}
+      >
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 style={{
+              fontSize: 'clamp(2rem, 6vw, 3rem)',
               color: '#2d3748',
-              marginBottom: '2rem',
-              textAlign: 'center'
+              marginBottom: '3rem',
+              fontWeight: '800'
             }}>
-              {t('home.researchGoals')}
-            </h3>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-              gap: '2rem'
-            }}>
-              <div style={{ padding: '1.5rem', background: '#f7fafc', borderRadius: '12px' }}>
-                <h4 style={{ color: '#667eea', marginBottom: '0.5rem' }}>
-                  {t('home.conservation.title')}
-                </h4>
-                <p style={{ color: '#4a5568', fontSize: '0.9rem' }}>
-                  {t('home.conservation.description')}
-                </p>
-              </div>
-              <div style={{ padding: '1.5rem', background: '#f7fafc', borderRadius: '12px' }}>
-                <h4 style={{ color: '#667eea', marginBottom: '0.5rem' }}>
-                  {t('home.fisheries.title')}
-                </h4>
-                <p style={{ color: '#4a5568', fontSize: '0.9rem' }}>
-                  {t('home.fisheries.description')}
-                </p>
-              </div>
-              <div style={{ padding: '1.5rem', background: '#f7fafc', borderRadius: '12px' }}>
-                <h4 style={{ color: '#667eea', marginBottom: '0.5rem' }}>
-                  {t('home.climate.title')}
-                </h4>
-                <p style={{ color: '#4a5568', fontSize: '0.9rem' }}>
-                  {t('home.climate.description')}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section style={{ padding: '80px 2rem', background: 'white' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{
-            fontSize: '2.5rem',
-            textAlign: 'center',
-            marginBottom: '3rem',
-            color: '#2d3748'
-          }}>
-            {t('home.milestones')}
-          </h2>
-          
-          <div style={{ position: 'relative' }}>
-            {/* Timeline line */}
-            <div style={{
-              position: 'absolute',
-              left: '50%',
-              top: '0',
-              bottom: '0',
-              width: '2px',
-              background: 'linear-gradient(to bottom, #667eea, #764ba2)',
-              transform: 'translateX(-50%)'
-            }}></div>
+              {t('home.techTitle')}
+            </h2>
             
-            {[
-              { 
-                phase: t('home.phase1.title') || '第一階段', 
-                title: t('home.phase1.name') || '數據收集與整合', 
-                desc: t('home.phase1.desc') || '建立 NASA 衛星數據獲取管道，整合海洋環境資料' 
-              },
-              { 
-                phase: t('home.phase2.title') || '第二階段', 
-                title: t('home.phase2.name') || '標籤系統開發', 
-                desc: t('home.phase2.desc') || '設計智能標籤原型，測試銥衛星通訊功能' 
-              },
-              { 
-                phase: t('home.phase3.title') || '第三階段', 
-                title: t('home.phase3.name') || '機器學習模型', 
-                desc: t('home.phase3.desc') || '訓練物種分佈預測模型，驗證預測準確性' 
-              },
-              { 
-                phase: t('home.phase4.title') || '第四階段', 
-                title: t('home.phase4.name') || '平台建置', 
-                desc: t('home.phase4.desc') || '開發互動式視覺化平台，提供即時監測功能' 
-              }
-            ].map((item, index) => (
-              <div key={index} style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '3rem',
-                flexDirection: index % 2 === 0 ? 'row' : 'row-reverse'
+            <div style={{
+              maxWidth: '1000px',
+              margin: '0 auto',
+              textAlign: 'left'
+            }}>
+              <p style={{
+                fontSize: '1.3rem',
+                color: '#4a5568',
+                lineHeight: '1.8',
+                margin: '0'
               }}>
-                <div style={{
-                  flex: '1',
-                  padding: index % 2 === 0 ? '0 2rem 0 0' : '0 0 0 2rem',
-                  textAlign: index % 2 === 0 ? 'right' : 'left'
-                }}>
-                  <div className="card" style={{ display: 'inline-block', maxWidth: '300px' }}>
-                    <h4 style={{ color: '#667eea', marginBottom: '0.5rem' }}>{item.phase}</h4>
-                    <h5 style={{ color: '#2d3748', marginBottom: '0.5rem' }}>{item.title}</h5>
-                    <p style={{ color: '#4a5568', fontSize: '0.9rem', margin: 0 }}>{item.desc}</p>
-                  </div>
-                </div>
-                <div style={{
-                  width: '16px',
-                  height: '16px',
-                  background: '#667eea',
-                  borderRadius: '50%',
-                  border: '3px solid white',
-                  boxShadow: '0 0 10px rgba(102, 126, 234, 0.3)',
-                  zIndex: 1
-                }}></div>
-                <div style={{ flex: '1' }}></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section>
-        <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
-          {/* Hero Section */}
-          <section style={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            color: 'white',
-            padding: '60px 2rem',
-            textAlign: 'center'
-          }}>
-            <h1 style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '1rem' }}>
-              {t('members.title')}
-            </h1>
-            <p style={{ fontSize: '1.2rem', opacity: '0.9' }}>
-              {t('members.subtitle')}
-            </p>
-          </section>
-
-          <div style={{ padding: '60px 2rem' }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-              
-              {/* 團隊介紹 */}
-              <div className="card" style={{ padding: '3rem', marginBottom: '4rem' }}>
-                <h2 style={{
-                  fontSize: '2rem',
-                  color: '#2d3748',
-                  marginBottom: '2rem',
-                  textAlign: 'center'
-                }}>
-                  {t('members.aboutTeam')}
-                </h2>
-                <p style={{
-                  fontSize: '1.1rem',
-                  color: '#4a5568',
-                  lineHeight: '1.8',
-                  textAlign: 'center',
-                  maxWidth: '800px',
-                  margin: '0 auto'
-                }}>
-                  {t('members.teamDescription')}
-                </p>
-              </div>
-
-              {/* 團隊成員 */}
-              <section style={{ marginBottom: '4rem' }}>
-                <h3 style={{
-                  fontSize: '2rem',
-                  textAlign: 'center',
-                  marginBottom: '3rem',
-                  color: '#2d3748'
-                }}>
-                  👥 核心團隊成員
-                </h3>
-                
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                  gap: '2rem'
-                }}>
-                  {[
-                    {
-                      name: 'Dr. Sarah Chen',
-                      role: '海洋生物學家',
-                      expertise: '鯊魚生態行為研究',
-                      icon: '🦈',
-                      color: '#3B82F6'
-                    },
-                    {
-                      name: 'Prof. Michael Rodriguez', 
-                      role: '衛星技術專家',
-                      expertise: 'NASA 數據分析',
-                      icon: '🛰️',
-                      color: '#10B981'
-                    },
-                    {
-                      name: 'Dr. Emily Wang',
-                      role: '機器學習工程師', 
-                      expertise: '物種分佈模型',
-                      icon: '🧠',
-                      color: '#8B5CF6'
-                    },
-                    {
-                      name: 'Alex Kim',
-                      role: '軟體開發工程師',
-                      expertise: '全端開發與視覺化',
-                      icon: '💻',
-                      color: '#F59E0B'
-                    },
-                    {
-                      name: 'Dr. James Liu',
-                      role: '數據科學家',
-                      expertise: '海洋大數據分析',
-                      icon: '📊',
-                      color: '#EF4444'
-                    },
-                    {
-                      name: 'Maria Garcia',
-                      role: '項目協調員',
-                      expertise: '跨領域團隊管理',
-                      icon: '🤝',
-                      color: '#06B6D4'
-                    }
-                  ].map((member, index) => (
-                    <div key={index} className="card" style={{
-                      padding: '2rem',
-                      textAlign: 'center',
-                      transition: 'transform 0.3s ease',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => e.target.style.transform = 'translateY(-5px)'}
-                    onMouseLeave={(e) => e.target.style.transform = 'translateY(0px)'}
-                    >
-                      <div style={{
-                        width: '80px',
-                        height: '80px',
-                        margin: '0 auto 1rem',
-                        background: `linear-gradient(135deg, ${member.color}20, ${member.color}40)`,
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '2rem',
-                        border: `3px solid ${member.color}`
-                      }}>
-                        {member.icon}
-                      </div>
-                      <h4 style={{ color: '#2d3748', marginBottom: '0.5rem' }}>
-                        {member.name}
-                      </h4>
-                      <p style={{ 
-                        color: member.color, 
-                        fontWeight: '600', 
-                        marginBottom: '0.5rem' 
-                      }}>
-                        {member.role}
-                      </p>
-                      <p style={{ color: '#4a5568', fontSize: '0.9rem' }}>
-                        {member.expertise}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* 合作機構 */}
-              <section>
-                <h3 style={{
-                  fontSize: '2rem',
-                  textAlign: 'center',
-                  marginBottom: '3rem',
-                  color: '#2d3748'
-                }}>
-                  {t('members.collaboration')}
-                </h3>
-                
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                  gap: '2rem'
-                }}>
-                  {[
-                    {
-                      name: 'NASA',
-                      description: '衛星數據提供與技術支援',
-                      icon: '🚀',
-                      color: '#DC2626'
-                    },
-                    {
-                      name: 'OCEARCH',
-                      description: '鯊魚追蹤數據合作夥伴',
-                      icon: '🦈',
-                      color: '#2563EB'
-                    },
-                    {
-                      name: '海洋研究所',
-                      description: '海洋生態學術研究合作',
-                      icon: '🏛️',
-                      color: '#059669'
-                    },
-                    {
-                      name: '國家太空中心',
-                      description: '太空技術應用指導',
-                      icon: '🛰️',
-                      color: '#7C3AED'
-                    }
-                  ].map((partner, index) => (
-                    <div key={index} className="card" style={{
-                      padding: '2rem',
-                      textAlign: 'center',
-                      border: `2px solid ${partner.color}30`,
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.borderColor = partner.color;
-                      e.target.style.boxShadow = `0 10px 25px ${partner.color}20`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.borderColor = `${partner.color}30`;
-                      e.target.style.boxShadow = 'none';
-                    }}
-                    >
-                      <div style={{
-                        fontSize: '3rem',
-                        marginBottom: '1rem'
-                      }}>
-                        {partner.icon}
-                      </div>
-                      <h4 style={{ 
-                        color: partner.color, 
-                        marginBottom: '1rem',
-                        fontSize: '1.3rem'
-                      }}>
-                        {partner.name}
-                      </h4>
-                      <p style={{ 
-                        color: '#4a5568', 
-                        fontSize: '0.9rem',
-                        lineHeight: '1.5'
-                      }}>
-                        {partner.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-              
-              {/* 聯絡資訊 */}
-              <div className="card" style={{ 
-                padding: '3rem', 
-                marginTop: '4rem',
-                background: 'linear-gradient(135deg, #667eea10, #764ba210)',
-                border: '2px solid #667eea30',
-                textAlign: 'center'
-              }}>
-                <h3 style={{ color: '#2d3748', marginBottom: '2rem' }}>
-                  📧 聯絡我們
-                </h3>
-                <p style={{ color: '#4a5568', fontSize: '1.1rem', marginBottom: '1rem' }}>
-                  對我們的研究感興趣？歡迎與我們聯繫！
-                </p>
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'center', 
-                  gap: '2rem',
-                  flexWrap: 'wrap'
-                }}>
-                  <div>
-                    <strong style={{ color: '#667eea' }}>📧 Email:</strong>
-                    <div>sharks.from.space@research.org</div>
-                  </div>
-                  <div>
-                    <strong style={{ color: '#667eea' }}>🐦 Twitter:</strong>
-                    <div>@SharksFromSpace</div>
-                  </div>
-                  <div>
-                    <strong style={{ color: '#667eea' }}>🔗 GitHub:</strong>
-                    <div>github.com/sharks-from-space</div>
-                  </div>
-                </div>
-              </div>
-
+                {t('home.techDesc')}
+              </p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* 區域 3: Method Section */}
+      <section 
+        id="method-section"
+        style={{
+          padding: '100px 2rem',
+          background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+          position: 'relative'
+        }}
+      >
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{
+            fontSize: 'clamp(2rem, 6vw, 3rem)',
+            color: '#2d3748',
+            marginBottom: '2rem',
+            fontWeight: '800'
+          }}>
+            {t('home.methodTitle')}
+          </h2>
+          <p style={{
+            fontSize: '1.3rem',
+            color: '#4a5568',
+            lineHeight: '1.8',
+            maxWidth: '1000px',
+            margin: '0 auto',
+            marginBottom: '4rem',
+            textAlign: 'left'
+          }}>
+            {t('home.methodDesc')}
+          </p>
+        </div>
+      </section>
+
+      {/* 區域 4: Vision Section */}
+      <section 
+        id="vision-section"
+        style={{
+          padding: '100px 2rem',
+          background: 'white',
+          position: 'relative'
+        }}
+      >
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 style={{
+              fontSize: 'clamp(2rem, 6vw, 3rem)',
+              color: '#2d3748',
+              marginBottom: '3rem',
+              fontWeight: '800'
+            }}>
+              {t('home.visionTitle')}
+            </h2>
+            
+            <div style={{
+              maxWidth: '1000px',
+              margin: '0 auto',
+              textAlign: 'left'
+            }}>
+              <p style={{
+                fontSize: '1.3rem',
+                color: '#4a5568',
+                lineHeight: '1.8',
+                margin: '0'
+              }}>
+                {t('home.visionDesc')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 0.7; }
+          50% { opacity: 1; }
+        }
+        
+        @keyframes bounce {
+          0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+          40% { transform: translateY(-10px); }
+          60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes scroll {
+          0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+          50% { opacity: 0.5; transform: translateX(-50%) translateY(10px); }
+          100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+      `}</style>
     </div>
   );
 }

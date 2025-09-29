@@ -1,14 +1,13 @@
-// src/App.js - 使用自製翻譯系統
+// src/App.js - 移除 Members 頁面版本
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
-// import UploadPage from './pages/UploadPage';
 import Detector from './pages/Detector';
 import MachineLearning from './pages/MachineLearning';
-import Story from './pages/Members';
+// import Members from './pages/Members'; // ❌ 移除 Members 導入
 import './App.css';
 
 function App() {
@@ -19,10 +18,10 @@ function App() {
           <Navigation />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/story" element={<Story />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/ml" element={<MachineLearning />} />
             <Route path="/detector" element={<Detector />} />
+            <Route path="/ml" element={<MachineLearning />} />
+            {/* <Route path="/members" element={<Members />} /> */} {/* ❌ 移除 Members 路由 */}
           </Routes>
         </div>
       </Router>

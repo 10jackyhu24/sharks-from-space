@@ -1,4 +1,4 @@
-// src/components/Navigation.js - 使用自製翻譯
+// src/components/Navigation.js - 移除 Members 導航項目
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from '../contexts/LanguageContext';
@@ -38,6 +38,18 @@ function LanguageSwitcher() {
             transition: 'all 0.3s ease',
             backdropFilter: 'blur(10px)'
           }}
+          onMouseEnter={(e) => {
+            if (currentLanguage !== language.code) {
+              e.target.style.background = 'rgba(255,255,255,0.2)';
+              e.target.style.transform = 'translateY(-1px)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (currentLanguage !== language.code) {
+              e.target.style.background = 'rgba(255,255,255,0.1)';
+              e.target.style.transform = 'translateY(0px)';
+            }
+          }}
         >
           <span>{language.flag}</span>
           <span>{language.name}</span>
@@ -47,16 +59,74 @@ function LanguageSwitcher() {
   );
 }
 
+// 圖標組件
+function NavIcon({ src, alt, fallbackEmoji, size = '18px' }) {
+  return (
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      width: size, 
+      height: size 
+    }}>
+      <img 
+        src={src}
+        alt={alt}
+        style={{
+          width: size,
+          height: size,
+          objectFit: 'contain',
+          transition: 'all 0.3s ease'
+        }}
+        onError={(e) => {
+          // 如果 PNG 載入失敗，顯示 emoji 後備
+          e.target.style.display = 'none';
+          const emojiSpan = document.createElement('span');
+          emojiSpan.textContent = fallbackEmoji;
+          emojiSpan.style.fontSize = size;
+          e.target.parentNode.appendChild(emojiSpan);
+        }}
+      />
+    </div>
+  );
+}
+
 function Navigation() {
   const location = useLocation();
   const { t } = useTranslation();
   
+  // ❌ 移除 Members 導航項目，只保留 4 個
   const navItems = [
-    { path: '/', label: t('navigation.home'), icon: '🏠' },
-    { path: '/story', label: t('navigation.story'), icon: '📖' },
-    { path: '/dashboard', label: t('navigation.dashboard'), icon: '🗺️' },
-    { path: '/ml', label: t('navigation.ml'), icon: '🧠' },
-    { path: '/detector', label: t('navigation.detector'), icon: '🔬' },
+    { 
+      path: '/', 
+      label: t('navigation.home'), 
+      icon: '/images/icon-home.png',
+      fallbackEmoji: '🏠'
+    },
+    { 
+      path: '/dashboard', 
+      label: t('navigation.dashboard'), 
+      icon: '/images/icon-dashboard.png',
+      fallbackEmoji: '🗺️'
+    },
+    { 
+      path: '/detector', 
+      label: t('navigation.detector'), 
+      icon: '/images/icon-detector.png',
+      fallbackEmoji: '🔬'
+    },
+    { 
+      path: '/ml', 
+      label: t('navigation.ml'), 
+      icon: '/images/icon-ml.png',
+      fallbackEmoji: '🧠'
+    }
+    // ❌ 移除 Members 項目
+    // { 
+    //   path: '/members', 
+    //   label: t('navigation.members'), 
+    //   icon: '/images/icon-members.png',
+    //   fallbackEmoji: '👥'
+    // }
   ];
 
   return (
@@ -77,6 +147,8 @@ function Navigation() {
         maxWidth: '1400px',
         margin: '0 auto'
       }}>
+        
+        {/* Logo 和品牌區域 */}
         <Link 
           to="/"
           style={{
@@ -86,10 +158,44 @@ function Navigation() {
             fontSize: '1.4rem',
             fontWeight: '700',
             color: '#2d3748',
-            textDecoration: 'none'
+            textDecoration: 'none',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.transform = 'scale(1.05)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = 'scale(1)';
           }}
         >
-          🦈 Sharks from Space
+          {/* Logo 圖片 */}
+          <img 
+            src="/images/logo.png" 
+            alt="Sharks from Space Logo"
+            style={{
+              height: '45px',
+              width: 'auto',
+              objectFit: 'contain',
+              transition: 'all 0.3s ease'
+            }}
+            onError={(e) => {
+              e.target.style.display = 'none';
+              e.target.nextSibling.style.display = 'inline';
+            }}
+          />
+          
+          {/* 後備 Emoji */}
+          <span style={{ 
+            display: 'none',
+            fontSize: '2rem'
+          }}>
+            🦈
+          </span>
+          
+          {/* 品牌名稱 */}
+          <span>
+            Sharks from Space
+          </span>
         </Link>
         
         <div style={{
@@ -97,7 +203,7 @@ function Navigation() {
           alignItems: 'center',
           gap: '1rem'
         }}>
-          {/* 導航選項 */}
+          {/* 導航選項 - 只顯示 4 個項目 */}
           <div style={{ display: 'flex', gap: '1rem' }}>
             {navItems.map((item) => (
               <Link
@@ -117,8 +223,25 @@ function Navigation() {
                     'linear-gradient(135deg, #667eea20, #764ba220)' : 'transparent',
                   fontSize: '0.9rem'
                 }}
+                onMouseEnter={(e) => {
+                  if (location.pathname !== item.path) {
+                    e.target.style.background = '#f7fafc';
+                    e.target.style.transform = 'translateY(-1px)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (location.pathname !== item.path) {
+                    e.target.style.background = 'transparent';
+                    e.target.style.transform = 'translateY(0px)';
+                  }
+                }}
               >
-                <span>{item.icon}</span>
+                <NavIcon 
+                  src={item.icon}
+                  alt={item.label}
+                  fallbackEmoji={item.fallbackEmoji}
+                  size="18px"
+                />
                 <span>{item.label}</span>
               </Link>
             ))}
