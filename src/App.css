@@ -89,6 +89,16 @@ body {
   box-shadow: 0 12px 40px rgba(0,0,0,0.15);
 }
 
+#upload-area {
+  border: 3px dashed #667eea;
+  border-radius: 15px;
+  padding: 50px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f8f9ff;
+}
+
 .section-title {
   font-size: 1.5rem;
   font-weight: 600;

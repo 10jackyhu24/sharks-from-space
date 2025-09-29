@@ -19,6 +19,7 @@ function MapView({
   useEffect(() => {
     // 預載入自定義圖標
     const iconFiles = {
+      'Shark_pin': '/images/icons/shark_pin.svg',
       'Tiger Shark': '/images/icons/tiger-shark.png',
       'Great White': '/images/icons/great-white.png',
       'Hammerhead': '/images/icons/hammerhead.png',

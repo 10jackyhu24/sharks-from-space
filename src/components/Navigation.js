@@ -53,10 +53,10 @@ function Navigation() {
   
   const navItems = [
     { path: '/', label: t('navigation.home'), icon: '🏠' },
+    { path: '/story', label: t('navigation.story'), icon: '📖' },
     { path: '/dashboard', label: t('navigation.dashboard'), icon: '🗺️' },
-    { path: '/detector', label: t('navigation.detector'), icon: '🔬' },
     { path: '/ml', label: t('navigation.ml'), icon: '🧠' },
-    { path: '/members', label: t('navigation.members'), icon: '👥' },
+    { path: '/detector', label: t('navigation.detector'), icon: '🔬' },
   ];
 
   return (

@@ -2,7 +2,7 @@
 import React from 'react';
 import { useTranslation } from '../contexts/LanguageContext';
 
-function Members() {
+function Story() {
   const { t } = useTranslation();
 
   return (
@@ -271,4 +271,4 @@ function Members() {
   );
 }
 
-export default Members;
+export default Story;

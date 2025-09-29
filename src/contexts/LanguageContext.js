@@ -5,10 +5,10 @@ const translations = {
   zh: {
     navigation: {
       home: "首頁",
+      story: "故事",
       dashboard: "追蹤儀表板",
-      detector: "智能偵測器", 
       ml: "機器學習",
-      members: "研究團隊"
+      detector: "智能偵測器", 
     },
     home: {
       title: "Sharks from Space",
@@ -233,10 +233,10 @@ const translations = {
   en: {
     navigation: {
       home: "Home",
+      members: "Story",
       dashboard: "Tracking Dashboard", 
-      detector: "Smart Detector",
       ml: "Machine Learning",
-      members: "Research Team"
+      detector: "Smart Detector",
     },
     home: {
       title: "Sharks from Space",

@@ -1,244 +1,376 @@
-// src/pages/MachineLearning.js - 支援翻譯版本
-import React from 'react';
+// src/pages/Dashboard.js - 支援翻譯版本
+import React, { useState } from 'react';
 import { useTranslation } from '../contexts/LanguageContext';
+import Header from "../components/Header";
+import MapView from "../components/MapView";
+import SharkChart from "../components/SharkChart";
 
 function MachineLearning() {
   const { t } = useTranslation();
+  readCSV();
+  
+  // 原有的狀態管理
+  const [selectedSpecies, setSelectedSpecies] = useState([
+    'Tiger Shark', 'Great White', 'Hammerhead'
+  ]);
+  const [showHeatmap, setShowHeatmap] = useState(false);
+  const [activeLayer, setActiveLayer] = useState('openstreetmap');
+  const [visualizationMode, setVisualizationMode] = useState('markers');
+
+  // 原有的切換邏輯
+  const toggleSpecies = (species) => {
+    if (selectedSpecies.includes(species)) {
+      setSelectedSpecies(selectedSpecies.filter(s => s !== species));
+    } else {
+      setSelectedSpecies([...selectedSpecies, species]);
+    }
+  };
+
+  // 物種配置
+  const getSpeciesConfig = (species) => {
+    const configs = {
+      'Tiger Shark': { color: '#FF8C00', icon: '🟠', name: t('species.tigerShark') },
+      'Great White': { color: '#FF0000', icon: '🔴', name: t('species.greatWhite') },
+      'Hammerhead': { color: '#00AA00', icon: '🟢', name: t('species.hammerhead') },
+      'Whale Shark': { color: '#0066FF', icon: '🔵', name: t('species.whaleShark') }
+    };
+    return configs[species] || configs['Tiger Shark'];
+  };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
-      {/* Hero Section */}
-      <section style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        color: 'white',
-        padding: '60px 2rem',
-        textAlign: 'center'
-      }}>
-        <h1 style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '1rem' }}>
-          {t('ml.title')}
-        </h1>
-        <p style={{ fontSize: '1.2rem', opacity: '0.9' }}>
-          {t('ml.subtitle')}
-        </p>
-      </section>
-
-      <div style={{ padding: '60px 2rem' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <div className="app-container">
+      <main className="main-grid">
+        {/* 左側：整合的控制面板 */}
+        <div className="control-panel">
+          <h3 className="section-title">{t('dashboard.controlPanel')}</h3>
           
-          {/* SDM 介紹 */}
-          <div className="card" style={{ padding: '3rem', marginBottom: '4rem', textAlign: 'center' }}>
-            <h2 style={{ fontSize: '2.5rem', color: '#2d3748', marginBottom: '2rem' }}>
-              {t('ml.sdmTitle')}
-            </h2>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '3rem', alignItems: 'center' }}>
-              <div>
-                <h3 style={{ color: '#667eea', fontSize: '1.8rem', marginBottom: '1rem' }}>
-                  {t('ml.randomForest')}
-                </h3>
-                <div style={{ 
-                  width: '200px', 
-                  height: '200px', 
-                  margin: '0 auto',
-                  background: 'linear-gradient(135deg, #667eea20, #764ba220)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '4rem'
-                }}>
-                  🌲
-                </div>
-              </div>
+          {/* 物種篩選 */}
+          <div>
+            <h4 className="section-subtitle">{t('dashboard.speciesFilter')}</h4>
+            <div className="checkbox-group">
+              {['Tiger Shark', 'Great White', 'Hammerhead', 'Whale Shark'].map(species => {
+                const config = getSpeciesConfig(species);
+                return (
+                  <label key={species} className="checkbox-item">
+                    <input
+                      type="checkbox"
+                      checked={selectedSpecies.includes(species)}
+                      onChange={() => toggleSpecies(species)}
+                    />
+                    <span 
+                      className="species-label"
+                      style={{ color: config.color }}
+                    >
+                      {config.icon} {config.name}
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 視覺化模式選擇 */}
+          <div>
+            <h4 className="section-subtitle">{t('dashboard.visualization')}</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {[
+                { 
+                  value: 'markers', 
+                  label: t('dashboard.sharkMarkers'), 
+                  desc: t('dashboard.markerModeDesc')
+                },
+                { 
+                  value: 'heatmap', 
+                  label: t('dashboard.densityDistribution'), 
+                  desc: t('dashboard.densityModeDesc')
+                },
+                { 
+                  value: 'environmental', 
+                  label: t('dashboard.environmentalData'), 
+                  desc: t('dashboard.environmentalModeDesc')
+                }
+              ].map(mode => (
+                <label 
+                  key={mode.value} 
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    cursor: 'pointer',
+                    padding: '10px 12px',
+                    borderRadius: '8px',
+                    background: visualizationMode === mode.value ? 
+                      'linear-gradient(135deg, #667eea20, #764ba220)' : '#f8fafc',
+                    border: visualizationMode === mode.value ? 
+                      '2px solid #667eea' : '2px solid #e2e8f0',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="visualization"
+                    value={mode.value}
+                    checked={visualizationMode === mode.value}
+                    onChange={(e) => setVisualizationMode(e.target.value)}
+                    style={{ 
+                      marginRight: '10px', 
+                      marginTop: '2px',
+                      accentColor: '#667eea'
+                    }}
+                  />
+                  <div>
+                    <div style={{ 
+                      fontSize: '13px', 
+                      fontWeight: '600', 
+                      color: '#2d3748',
+                      marginBottom: '2px'
+                    }}>
+                      {mode.label}
+                    </div>
+                    <div style={{ 
+                      fontSize: '11px', 
+                      color: '#718096', 
+                      lineHeight: '1.3'
+                    }}>
+                      {mode.desc}
+                    </div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* 地圖樣式選擇 */}
+          <div>
+            <h4 className="section-subtitle">🗺️ {t('dashboard.mapStyle')}</h4>
+            <select 
+              className="custom-select"
+              value={activeLayer}
+              onChange={(e) => setActiveLayer(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '12px 16px',
+                border: '2px solid #e2e8f0',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: '500',
+                backgroundColor: 'white',
+                cursor: 'pointer',
+                transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
+              }}
+            >
+              <option value="openstreetmap">🗺️ {t('dashboard.standardMap')}</option>
+              <option value="satellite">🛰️ {t('dashboard.satelliteImages')}</option>
+              <option value="terrain">🏔️ {t('dashboard.terrainMap')}</option>
+            </select>
+          </div>
+
+          {/* 顯示選項 */}
+          <div>
+            <h4 className="section-subtitle">{t('dashboard.displayOptions')}</h4>
+            <div style={{ 
+              background: '#f8fafc', 
+              padding: '12px', 
+              borderRadius: '8px',
+              border: '1px solid #e2e8f0'
+            }}>
+              <label className="checkbox-item" style={{ marginBottom: '8px' }}>
+                <input
+                  type="checkbox"
+                  checked={showHeatmap}
+                  onChange={(e) => setShowHeatmap(e.target.checked)}
+                />
+                <span className="species-label">🔥 {t('dashboard.heatmapMode')}</span>
+              </label>
               
-              <div style={{ textAlign: 'left' }}>
-                <p style={{ fontSize: '1.1rem', color: '#4a5568', lineHeight: '1.7' }}>
-                  {t('ml.randomForestDesc')}
-                </p>
+              {/* 視覺化模式提示 */}
+              <div style={{ 
+                fontSize: '11px', 
+                color: '#718096',
+                marginTop: '8px',
+                paddingTop: '8px',
+                borderTop: '1px solid #e2e8f0'
+              }}>
+                <div><strong>{t('dashboard.currentMode')}:</strong> {
+                  visualizationMode === 'markers' ? t('dashboard.sharkMarkers') :
+                  visualizationMode === 'heatmap' ? t('dashboard.densityDistribution') :
+                  t('dashboard.environmentalData')
+                }</div>
+                <div><strong>{t('dashboard.mapStyle')}:</strong> {getLayerName(activeLayer, t)}</div>
               </div>
             </div>
           </div>
 
-          {/* 數據處理流程 */}
-          <section style={{ marginBottom: '4rem' }}>
-            <h3 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '3rem', color: '#2d3748' }}>
-              {t('ml.dataProcessing')}
-            </h3>
-            
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
-              gap: '2rem' 
-            }}>
-              {[
-                {
-                  icon: '🛰️',
-                  title: t('ml.dataProcessingWorkflow.satelliteData.title'),
-                  items: [t('ml.dataProcessingWorkflow.satelliteData.first'), t('ml.dataProcessingWorkflow.satelliteData.second'), t('ml.dataProcessingWorkflow.satelliteData.third')]
-                },
-                {
-                  icon: '⚙️', 
-                  title: t('ml.dataProcessingWorkflow.featureEngineering.title'),
-                  items: [t('ml.dataProcessingWorkflow.featureEngineering.first'), t('ml.dataProcessingWorkflow.featureEngineering.second'), t('ml.dataProcessingWorkflow.featureEngineering.third')]
-                },
-                {
-                  icon: '🧠',
-                  title: t('ml.dataProcessingWorkflow.modelTrainning.title'), 
-                  items: [t('ml.dataProcessingWorkflow.modelTrainning.first'), t('ml.dataProcessingWorkflow.modelTrainning.second'), t('ml.dataProcessingWorkflow.modelTrainning.third')]
-                },
-                {
-                  icon: '📈',
-                  title: t('ml.dataProcessingWorkflow.predictOutput.title'),
-                  items: [t('ml.dataProcessingWorkflow.predictOutput.first'), t('ml.dataProcessingWorkflow.predictOutput.second'), t('ml.dataProcessingWorkflow.predictOutput.third')]
-                }
-              ].map((step, index) => (
-                <div key={index} className="card" style={{ textAlign: 'center', padding: '2rem' }}>
-                  <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>
-                    {step.icon}
-                  </div>
-                  <h4 style={{ color: '#2d3748', marginBottom: '1rem' }}>
-                    {step.title}
-                  </h4>
-                  <ul style={{ 
-                    listStyle: 'none', 
-                    padding: 0, 
-                    color: '#4a5568',
-                    fontSize: '0.9rem'
-                  }}>
-                    {step.items.map((item, idx) => (
-                      <li key={idx} style={{ marginBottom: '0.5rem' }}>
-                        • {item}
-                      </li>
-                    ))}
-                  </ul>
+          {/* 即時統計 */}
+          <div>
+            <h4 className="section-subtitle">{t('dashboard.realTimeStats')}</h4>
+            <div className="stats-grid">
+              <div className="stat-item">
+                <div className="stat-label">{t('dashboard.selectedSpecies')}</div>
+                <div className="stat-value">{selectedSpecies.length}/4</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-label">{t('dashboard.displayStatus')}</div>
+                <div className="stat-value">
+                  {selectedSpecies.length > 0 ? '✅' : '❌'}
                 </div>
-              ))}
-            </div>
-          </section>
-
-          {/* 模型效能指標 */}
-          <section style={{ marginBottom: '4rem' }}>
-            <div className="card" style={{ padding: '3rem' }}>
-              <h3 style={{ 
-                fontSize: '2rem', 
-                textAlign: 'center', 
-                marginBottom: '3rem', 
-                color: '#2d3748' 
-              }}>
-                {t('ml.performanceMetrics')}
-              </h3>
-              
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-                gap: '2rem' 
-              }}>
-                {[
-                  { key: 'accuracy', value: '94.2%', color: '#10B981' },
-                  { key: 'precision', value: '91.7%', color: '#3B82F6' },
-                  { key: 'recall', value: '89.3%', color: '#8B5CF6' },
-                  { key: 'f1Score', value: '90.5%', color: '#F59E0B' }
-                ].map(metric => (
-                  <div key={metric.key} style={{ textAlign: 'center' }}>
-                    <div style={{
-                      width: '120px',
-                      height: '120px',
-                      margin: '0 auto 1rem',
-                      borderRadius: '50%',
-                      background: `conic-gradient(${metric.color} ${parseFloat(metric.value)}%, #e5e7eb 0%)`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      position: 'relative'
-                    }}>
-                      <div style={{
-                        width: '80px',
-                        height: '80px',
-                        background: 'white',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '1.2rem',
-                        fontWeight: 'bold',
-                        color: metric.color
-                      }}>
-                        {metric.value}
-                      </div>
-                    </div>
-                    <h4 style={{ color: '#2d3748', margin: 0 }}>
-                      {t(`ml.${metric.key}`)}
-                    </h4>
-                  </div>
-                ))}
               </div>
             </div>
-          </section>
-
-          {/* 技術實現細節 */}
-          <section>
-            <h3 style={{
-              fontSize: '2rem',
-              textAlign: 'center', 
-              marginBottom: '3rem',
-              color: '#2d3748'
-            }}>
-              🔧 {t('ml.technicalImplementationDetails.title')}
-            </h3>
-            
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
-              gap: '2rem' 
-            }}>
-              <div className="card" style={{ padding: '2rem' }}>
-                <h4 style={{ color: '#667eea', marginBottom: '1rem' }}>
-                  📊 {t('ml.technicalImplementationDetails.featureVariables.title')}
-                </h4>
-                <ul style={{ color: '#4a5568', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.ssha')}</li>
-                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.chlorophyll')}</li>
-                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.sst')}</li>
-                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.eddy')}</li>
-                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.depthSlope')}</li>
-                  <li>{t('ml.technicalImplementationDetails.featureVariables.content.nutrients')}</li>
-                </ul>
-              </div>
-
-              <div className="card" style={{ padding: '2rem' }}>
-                <h4 style={{ color: '#667eea', marginBottom: '1rem' }}>
-                  🏗️ {t('ml.technicalImplementationDetails.modelArchitecture.title')}
-                </h4>
-                <ul style={{ color: '#4a5568', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.0', {count: 500})}</li>
-                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.1', {count: 15})}</li>
-                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.2', {count: 5})}</li>
-                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.3')}</li>
-                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.4', {count: 63.2})}</li>
-                  <li>{t('ml.technicalImplementationDetails.modelArchitecture.content.5', {count: 5})}</li>
-                </ul>
-              </div>
-
-              <div className="card" style={{ padding: '2rem' }}>
-                <h4 style={{ color: '#667eea', marginBottom: '1rem' }}>
-                  🎯 {t('ml.technicalImplementationDetails.applicationScenarios.title')}
-                </h4>
-                <ul style={{ color: '#4a5568', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.0')}</li>
-                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.1')}</li>
-                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.2')}</li>
-                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.3')}</li>
-                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.4')}</li>
-                  <li>{t('ml.technicalImplementationDetails.applicationScenarios.content.5')}</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
+          </div>
         </div>
-      </div>
+        
+        {/* 中間：地圖區域 */}
+        <div className="map-container">
+          <h3 className="map-title">
+            🗺️ {t('dashboard.mapTitle')}
+            <span className="species-count">
+              ({
+                visualizationMode === 'markers' ? t('dashboard.speciesDisplayed', {count: selectedSpecies.length}) :
+                visualizationMode === 'heatmap' ? t('dashboard.densityMode') :
+                t('dashboard.environmentMode')
+              })
+            </span>
+          </h3>
+          <MapView 
+            selectedSpecies={selectedSpecies}
+            showHeatmap={showHeatmap}
+            activeLayer={activeLayer}
+            visualizationMode={visualizationMode}
+            t={t}
+          />
+        </div>
+        
+        {/* 右側：圖表和資訊 */}
+        <div className="sidebar">
+          <div className="card" id="upload-area">
+            <h3>📁 檔案上傳</h3>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">☁️</div>
+                <div class="upload-text">點擊或拖曳檔案到這裡</div>
+                {/* <input type="file" id="fileInput" onChange={readCSV()}/> */}
+            </div>
+            <div class="file-list" id="fileList"></div>
+
+            {/* <button class="upload-btn" id="uploadBtn" onclick={printData()}>上傳檔案</button> */}
+            <div class="message" id="message"></div>
+          </div>
+          
+          <div className="card">
+            <h3 className="section-title">{t('dashboard.researchInfo')}</h3>
+            <div className="research-info">
+              <p><strong>{t('dashboard.projectName')}:</strong> Sharks from Space</p>
+              <p><strong>{t('dashboard.dataSource')}:</strong> {t('dashboard.satelliteTracking')}</p>
+              <p><strong>{t('dashboard.trackedSpecies')}:</strong> {selectedSpecies.map(s => getSpeciesConfig(s).name).join(', ')}</p>
+              <p><strong>{t('dashboard.researchPurpose')}:</strong> {t('dashboard.researchPurposeDesc')}</p>
+              <p><strong>{t('dashboard.updateFrequency')}:</strong> {t('common.realTimeUpdate')}</p>
+              <p><strong>{t('dashboard.coverage')}:</strong> {t('common.globalCoverage')}</p>
+            </div>
+          </div>
+
+          <div className="card">
+            <h3 className="section-title">{t('dashboard.oceanData')}</h3>
+            <div className="stats-grid">
+              <div className="stat-item">
+                <div className="stat-label">{t('dashboard.trackingTags')}</div>
+                <div className="stat-value">3</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-label">{t('dashboard.dataPoints')}</div>
+                <div className="stat-value">1.2K</div>
+              </div>
+            </div>
+            
+            {/* 視覺化模式說明 */}
+            <div style={{ 
+              marginTop: '12px',
+              padding: '8px',
+              background: '#f0f9ff',
+              borderLeft: '3px solid #0ea5e9',
+              borderRadius: '4px',
+              fontSize: '11px'
+            }}>
+              <strong>📍 {
+                visualizationMode === 'markers' ? t('dashboard.markingMode') :
+                visualizationMode === 'heatmap' ? t('dashboard.densityMode') : t('dashboard.environmentMode')
+              }:</strong> {
+                visualizationMode === 'markers' ? t('dashboard.markerModeDesc') :
+                visualizationMode === 'heatmap' ? t('dashboard.densityModeDesc') :
+                t('dashboard.environmentalModeDesc')
+              }
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
+}
+
+// 輔助函數
+function getLayerName(layer, t) {
+  const names = {
+    'openstreetmap':'🗺️  ' + t('dashboard.standardMap'),
+    'satellite': '🛰️  ' + t('dashboard.satelliteImages'),
+    'terrain': '🏔️ ' + t('dashboard.terrainMap')
+  };
+  return names[layer] || layer;
+}
+
+// let csvData = []
+
+// function loadCSV(event) {
+//   const file = event.target.files[0];
+//   if (!file) return;
+
+//   const reader = new FileReader();
+//   reader.onload = function(e) {
+//     const text = e.target.result;
+//     parseCSV(text);
+//   };
+//   reader.readAsText(file);
+// }
+
+// function parseCSV(csvText) {
+//   const lines = csvText.split('\n').filter(line => line.trim());
+//   csvData = []; // 清空舊資料
+  
+//   for (let i = 1; i < lines.length; i++) {
+//     const values = lines[i].split(',').map(v => v.trim());
+//     if (values.length >= 5) {
+//       csvData.push({
+//         name: values[0],
+//         age: parseInt(values[1]) || 0,
+//         class: values[2],
+//         fare: parseFloat(values[3]) || 0,
+//         port: values[4]
+//       });
+//     }
+//   }
+  
+//   console.log('檔案已載入,共', csvData.length, '筆資料');
+// }
+
+// function printData() {
+//   if (csvData.length === 0) {
+//     console.log('⚠️ 尚未載入任何資料!');
+//     alert('請先選擇 CSV 檔案');
+//     return;
+//   }
+  
+//   console.log('=== 印出所有資料 ===');
+//   console.log('總共', csvData.length, '筆資料');
+//   console.log(csvData); // 印出整個陣列
+  
+//   // 逐筆印出
+//   csvData.forEach((item, index) => {
+//     console.log(`第 ${index + 1} 筆:`, item);
+//   });
+// }
+
+function readCSV() {
+  fetch('./data/multi_shark_ocean_features_14_individuals.csv')
+  .then(response => response.text())
+  .then(text => {
+    console.log(text);
+  });
 }
 
 export default MachineLearning;

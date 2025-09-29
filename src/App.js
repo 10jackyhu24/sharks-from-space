@@ -5,9 +5,10 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+// import UploadPage from './pages/UploadPage';
 import Detector from './pages/Detector';
 import MachineLearning from './pages/MachineLearning';
-import Members from './pages/Members';
+import Story from './pages/Members';
 import './App.css';
 
 function App() {
@@ -18,10 +19,10 @@ function App() {
           <Navigation />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/story" element={<Story />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/detector" element={<Detector />} />
             <Route path="/ml" element={<MachineLearning />} />
-            <Route path="/members" element={<Members />} />
+            <Route path="/detector" element={<Detector />} />
           </Routes>
         </div>
       </Router>
