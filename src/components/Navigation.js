@@ -1,4 +1,4 @@
-// src/components/Navigation.js - 移除 Members 導航項目
+// src/components/Navigation.js - 調整導航順序版本
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from '../contexts/LanguageContext';
@@ -94,7 +94,7 @@ function Navigation() {
   const location = useLocation();
   const { t } = useTranslation();
   
-  // ❌ 移除 Members 導航項目，只保留 4 個
+  // 🔄 調整順序：機器學習移到儀表板後面（第3位）
   const navItems = [
     { 
       path: '/', 
@@ -109,24 +109,17 @@ function Navigation() {
       fallbackEmoji: '🗺️'
     },
     { 
-      path: '/detector', 
-      label: t('navigation.detector'), 
-      icon: '/images/icon-detector.png',
-      fallbackEmoji: '🔬'
-    },
-    { 
       path: '/ml', 
       label: t('navigation.ml'), 
       icon: '/images/icon-ml.png',
       fallbackEmoji: '🧠'
+    },
+    { 
+      path: '/detector', 
+      label: t('navigation.detector'), 
+      icon: '/images/icon-detector.png',
+      fallbackEmoji: '🔬'
     }
-    // ❌ 移除 Members 項目
-    // { 
-    //   path: '/members', 
-    //   label: t('navigation.members'), 
-    //   icon: '/images/icon-members.png',
-    //   fallbackEmoji: '👥'
-    // }
   ];
 
   return (
@@ -203,7 +196,7 @@ function Navigation() {
           alignItems: 'center',
           gap: '1rem'
         }}>
-          {/* 導航選項 - 只顯示 4 個項目 */}
+          {/* 導航選項 - 新順序：首頁 → 儀表板 → 機器學習 → 偵測器 */}
           <div style={{ display: 'flex', gap: '1rem' }}>
             {navItems.map((item) => (
               <Link
