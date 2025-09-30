@@ -100,6 +100,11 @@ const translations = {
           densityZones: "{{count}} 個密度區",
           monitoringPoints: "{{count}} 個監測點"
         }
+      },
+      sharkChart: {
+        sharkOceanHeatmaps: "鯊魚海域熱力圖",
+        selectPeriod: "選擇週期",
+        selectonePeriod: "請選擇一個週期來查看數據"
       }
     },
     detector: {
@@ -142,6 +147,10 @@ const translations = {
       precision: "精確率", 
       recall: "召回率",
       f1Score: "F1 分數",
+      fileUpload: {
+        title: "CSV檔案上傳",
+        subtitle: "點擊或拖曳檔案到這裡"
+      },
       dataProcessingWorkflow: {
         satelliteData: {
           title: "衛星數據",
@@ -322,6 +331,11 @@ const translations = {
           densityZones: "{{count}} Density Zones",
           monitoringPoints: "{{count}} Monitoring Points"
         }
+      },
+      sharkChart: {
+        sharkOceanHeatmaps: "Shark ocean heatmaps",
+        selectPeriod: "Select period",
+        selectonePeriod: "Please select a weekly period to view the data."
       }
     },
     detector: {
@@ -364,6 +378,10 @@ const translations = {
       precision: "Precision", 
       recall: "Recall",
       f1Score: "F1 Score",
+      fileUpload: {
+        title: "CSV File Upload",
+        subtitle: "Click or drag files here"
+      },
       dataProcessingWorkflow: {
         satelliteData: {
           title: "Satellite Data",

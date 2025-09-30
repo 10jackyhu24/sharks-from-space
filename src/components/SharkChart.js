@@ -53,7 +53,7 @@ function MapCard({ title, points, bounds }) {
   );
 }
 
-export default function SharkHeatmaps() {
+export default function SharkHeatmaps({t}) {
   const [sharkData, setSharkData] = useState([]);
   const [error, setError] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
@@ -137,16 +137,16 @@ export default function SharkHeatmaps() {
 
   return (
     <div className="shark-heatmaps-wrapper">
-      <h2 className="shark-header">Shark ocean heatmaps (CHL / SSHA / SST)</h2>
+      <h2 className="shark-header">{t('dashboard.sharkChart.sharkOceanHeatmaps')} (CHL / SSHA / SST)</h2>
 
       {/* 🔹 Time slot 選單 */}
       <div style={{ marginBottom: "1rem" }}>
-        <label>選擇週期: </label>
+        <label>{t('dashboard.sharkChart.selectPeriod')}: </label>
         <select
           onChange={(e) => setSelectedSlot(timeSlots[e.target.value])}
           defaultValue=""
         >
-          <option value="" disabled>請選擇週期</option>
+          <option value="" disabled>{t('dashboard.sharkChart.selectPeriod')}</option>
           {timeSlots.map(([start, end], idx) => (
             <option key={idx} value={idx}>
               {start} ~ {end}
@@ -168,7 +168,7 @@ export default function SharkHeatmaps() {
       )}
 
       {!loading && sharkData.length === 0 && (
-        <div>請選擇一個週期來查看數據</div>
+        <div>{t('dashboard.sharkChart.selectonePeriod')}</div>
       )}
     </div>
   );

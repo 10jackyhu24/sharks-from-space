@@ -242,10 +242,10 @@ function MachineLearning() {
         {/* 右側：圖表和資訊 */}
         <div className="sidebar">
           <div className="card" id="upload-area">
-            <h3>📁 檔案上傳</h3>
+            <h3>📁 {t('ml.fileUpload.title')}</h3>
             <div class="upload-area" id="uploadArea">
                 <div class="upload-icon">☁️</div>
-                <div class="upload-text">點擊或拖曳檔案到這裡</div>
+                <div class="upload-text">{t('ml.fileUpload.subtitle')}</div>
                 {/* <input type="file" id="fileInput" onChange={readCSV()}/> */}
             </div>
             <div class="file-list" id="fileList"></div>
