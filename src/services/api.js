@@ -1,54 +1,60 @@
 // src/services/api.js - API 管理
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://nasa-backend-hzy3.onrender.com/';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000,
+  timeout: 100000,
   headers: {
     'Content-Type': 'application/json',
   }
 });
 
-export const sharkAPI = {
-  // 獲取鯊魚追蹤數據
-  async getSharkTracks(timeRange, species = null) {
-    const params = {
-      start_date: timeRange.start.toISOString(),
-      end_date: timeRange.end.toISOString(),
-      ...(species && { species })
-    };
-    const response = await apiClient.get('/shark_tracks', { params });
+export const oceanAPI = {
+  // GET: 依日期獲取海洋數據
+  async getOceanDataByDate(targetDate) {
+    const response = await apiClient.get(`/api/v1/ocean-data/date/${targetDate}`);
     return response.data;
   },
 
-  // 獲取棲地預測數據
-  async getHabitatPrediction(species, date, bounds) {
-    const response = await apiClient.post('/habitat_prediction', {
-      species,
-      date: date.toISOString(),
-      bounds
+  // POST: 依日期獲取海洋數據 (提供 JSON body)
+  async postOceanDataByDate(date) {
+    const response = await apiClient.post('/api/v1/ocean-data/date', { date });
+    return response.data;
+  },
+
+  // GET: 獲取可用日期清單
+  async getAvailableDates() {
+    const response = await apiClient.get('/api/v1/ocean-data/available-dates');
+    return response.data;
+  }
+};
+
+export const mlAPI = {
+  // POST: 上傳 CSV 進行預測
+  async predictWithCsv(formData) {
+    const response = await apiClient.post('/api/v1/ml/predict', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
     });
     return response.data;
   },
 
-  // 獲取環境數據圖層
-  async getEnvironmentalLayers(layer, date, bounds) {
-    const response = await apiClient.get(`/environmental_layers/${layer}`, {
-      params: {
-        date: date.toISOString(),
-        bounds: JSON.stringify(bounds)
-      }
-    });
+  // GET: 獲取模型資訊
+  async getModelInfo() {
+    const response = await apiClient.get('/api/v1/ml/model-info');
     return response.data;
   },
 
-  // 獲取數據故事點
-  async getDataStoryPoints(region) {
-    const response = await apiClient.get('/data_story_points', {
-      params: { region }
-    });
+  // POST: 批次資料預測
+  async predictBatch(batchData) {
+    const response = await apiClient.post('/api/v1/ml/predict-batch', batchData);
+    return response.data;
+  },
+
+  // POST: 重新載入模型
+  async reloadModel() {
+    const response = await apiClient.post('/api/v1/ml/reload-model');
     return response.data;
   }
 };

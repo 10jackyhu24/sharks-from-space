@@ -2,10 +2,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "leaflet.heat"; // side-effect: extends L.heatLayer
-//import "./SharkHeatmaps.css"; // optional: small styles (see README below)
+import "leaflet.heat";
+import { oceanAPI } from "../services/api";
 
-// Helper: normalize array of numbers to 0..1 (handles constant arrays)
+// Helper: normalize array of numbers to 0..1
 const normalizeArray = (arr) => {
   const nums = arr.map((v) => Number(v) || 0);
   const min = Math.min(...nums);
@@ -14,35 +14,23 @@ const normalizeArray = (arr) => {
   return nums.map((v) => (v - min) / (max - min));
 };
 
-// Heatmap layer component (adds/removes leaflet.heat layer)
 function HeatmapLayer({ points, options }) {
   const map = useMap();
-
   useEffect(() => {
     if (!map || !points || points.length === 0) return;
-
-    // points already in [lat, lng, intensity] format and intensity 0..1
     const layer = L.heatLayer(points, options);
     layer.addTo(map);
-
     return () => {
       try {
         map.removeLayer(layer);
-      } catch (e) {
-        // ignore
-      }
+      } catch (e) {}
     };
   }, [map, JSON.stringify(points), JSON.stringify(options)]);
-
   return null;
 }
 
-// Single map card: title + heatmap
 function MapCard({ title, points, bounds }) {
-  // Default options for heatmap
   const options = useMemo(() => ({ radius: 25, blur: 20, maxZoom: 6, max: 1 }), []);
-
-  // If bounds is invalid (e.g. single point), set a fallback center/zoom
   const hasValidBounds = Array.isArray(bounds) && bounds.length === 2;
 
   return (
@@ -59,79 +47,129 @@ function MapCard({ title, points, bounds }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
         />
-
         {points && points.length > 0 && <HeatmapLayer points={points} options={options} />}
       </MapContainer>
     </div>
   );
 }
 
-// Main component - loads shark.json and renders three heatmaps (CHL, SSHA, SST)
 export default function SharkHeatmaps() {
   const [sharkData, setSharkData] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [loading, setLoading] = useState(false); // 🔹 loading 狀態
+
+  const timeSlots = [
+    ["2014-07-10", "2014-07-16"], ["2014-07-17", "2014-07-23"], ["2014-07-24", "2014-07-30"],
+    ["2014-07-31", "2014-08-06"], ["2014-08-07", "2014-08-13"], ["2014-08-14", "2014-08-20"],
+    ["2014-08-21", "2014-08-27"], ["2014-08-28", "2014-09-03"], ["2014-09-04", "2014-09-10"],
+    ["2014-09-11", "2014-09-17"], ["2014-09-18", "2014-09-25"], ["2014-09-26", "2014-10-02"],
+    ["2014-10-02", "2014-10-07"], ["2014-10-08", "2014-10-14"], ["2014-10-15", "2014-10-21"],
+    ["2014-10-22", "2014-10-28"], ["2014-10-29", "2014-11-04"], ["2014-11-05", "2014-11-11"],
+    ["2014-11-12", "2014-11-18"], ["2014-11-19", "2014-11-25"], ["2014-11-26", "2014-12-02"],
+    ["2014-12-03", "2014-12-09"], ["2014-12-10", "2014-12-16"], ["2014-12-17", "2014-12-22"],
+    ["2014-12-23", "2014-12-30"]
+  ];
+
+  const generateDatesInRange = (start, end) => {
+    const dates = [];
+    let current = new Date(start);
+    const last = new Date(end);
+    while (current <= last) {
+      dates.push(current.toISOString().slice(0, 10));
+      current.setDate(current.getDate() + 1);
+    }
+    return dates;
+  };
 
   useEffect(() => {
-    fetch("/sharks.json")
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then((data) => setSharkData(Array.isArray(data) ? data : []))
-      .catch((err) => {
-        console.error("Failed to load shark.json:", err);
+    if (!selectedSlot) return;
+
+    async function fetchData() {
+      try {
+        setLoading(true); // 🔹 開始載入
+        setError(null);
+
+        const [start, end] = selectedSlot;
+        const days = generateDatesInRange(start, end);
+
+        let allData = [];
+        for (let day of days) {
+          const response = await oceanAPI.getOceanDataByDate(day);
+          console.log(`📅 ${day} 回傳資料:`, response);
+
+          if (Array.isArray(response)) {
+            allData.push(...response);
+          } else if (response) {
+            allData.push(response);
+          }
+        }
+
+        setSharkData(allData);
+      } catch (err) {
+        console.error("API Error:", err);
         setError(err.message || "載入失敗");
-      });
-  }, []);
+      } finally {
+        setLoading(false); // 🔹 載入完成
+      }
+    }
 
-  // If no data, show message
-  if (error) return <div className="shark-error">Error loading shark.json: {error}</div>;
-  if (!sharkData || sharkData.length === 0)
-    return <div className="shark-loading">載入中或找不到資料 (請把 shark.json 放到 public/ 資料夾)</div>;
+    fetchData();
+  }, [selectedSlot]);
 
-  // compute bounding box exactly from data (min/max lat & lng) as requested by user
-  const lats = sharkData.map((d) => Number(d.lat)).filter((v) => !Number.isNaN(v));
-  const lngs = sharkData.map((d) => Number(d.lng)).filter((v) => !Number.isNaN(v));
+  if (error) return <div className="shark-error">Error loading data: {error}</div>;
 
+  const lats = sharkData.map((d) => Number(d.latitude || d.lat)).filter((v) => !Number.isNaN(v));
+  const lngs = sharkData.map((d) => Number(d.longitude || d.lng)).filter((v) => !Number.isNaN(v));
   const minLat = Math.min(...lats);
   const maxLat = Math.max(...lats);
   const minLng = Math.min(...lngs);
   const maxLng = Math.max(...lngs);
+  const bounds = lats.length > 0 ? [[minLat, minLng], [maxLat, maxLng]] : null;
 
-  const bounds = [[minLat, minLng], [maxLat, maxLng]]; // exact bounding box
+  const CHL_norm = normalizeArray(sharkData.map((d) => Number(d.chl_value ?? 0)));
+  const SSHA_norm = normalizeArray(sharkData.map((d) => Number(d.ssha_value ?? 0)));
+  const SST_norm = normalizeArray(sharkData.map((d) => Number(d.sst_value ?? 0)));
 
-  // Prepare normalized intensity points for each variable
-  const CHL_values = sharkData.map((d) => Number(d.CHL_value ?? 0));
-  const SSHA_values = sharkData.map((d) => Number(d.SSHA_value ?? 0));
-  const SST_values = sharkData.map((d) => Number(d.SST_value ?? 0));
-
-  const CHL_norm = normalizeArray(CHL_values);
-  const SSHA_norm = normalizeArray(SSHA_values);
-  const SST_norm = normalizeArray(SST_values);
-
-  const CHL_points = sharkData.map((d, i) => [Number(d.lat), Number(d.lng), CHL_norm[i]]);
-  const SSHA_points = sharkData.map((d, i) => [Number(d.lat), Number(d.lng), SSHA_norm[i]]);
-  const SST_points = sharkData.map((d, i) => [Number(d.lat), Number(d.lng), SST_norm[i]]);
+  const CHL_points = sharkData.map((d, i) => [d.latitude || d.lat, d.longitude || d.lng, CHL_norm[i]]);
+  const SSHA_points = sharkData.map((d, i) => [d.latitude || d.lat, d.longitude || d.lng, SSHA_norm[i]]);
+  const SST_points = sharkData.map((d, i) => [d.latitude || d.lat, d.longitude || d.lng, SST_norm[i]]);
 
   return (
     <div className="shark-heatmaps-wrapper">
       <h2 className="shark-header">Shark ocean heatmaps (CHL / SSHA / SST)</h2>
-      <br/>
-      <div className="shark-grid">
-        <MapCard title="CHL (chlorophyll)" points={CHL_points} bounds={bounds} />
-        <MapCard title="SSHA (sea surface height anomaly)" points={SSHA_points} bounds={bounds} />
-        <MapCard title="SST (sea surface temperature)" points={SST_points} bounds={bounds} />
+
+      {/* 🔹 Time slot 選單 */}
+      <div style={{ marginBottom: "1rem" }}>
+        <label>選擇週期: </label>
+        <select
+          onChange={(e) => setSelectedSlot(timeSlots[e.target.value])}
+          defaultValue=""
+        >
+          <option value="" disabled>請選擇週期</option>
+          {timeSlots.map(([start, end], idx) => (
+            <option key={idx} value={idx}>
+              {start} ~ {end}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* <div className="shark-note">
-        <strong>說明：</strong>
-        <ul>
-          <li>點的強度已經根據該變數（CHL/SSHA/SST）做 0..1 正規化，讓熱力圖顯色一致。</li>
-          <li>熱力圖使用 <code>leaflet.heat</code> 的模糊/半徑參數來達到「內插/平滑」的視覺效果；若要精準的格網內插（例如 IDW/kriging 產生 raster），我可以再幫你產生一張 image overlay（或用 turf.js / grid-interpolation 實作）。</li>
-          <li>請把 <code>shark.json</code> 放在你的 public/ 資料夾，或改 fetch 路徑指向正確位置。</li>
-        </ul>
-      </div> */}
+      {/* 🔹 載入中提示 */}
+      {loading && <div className="shark-loading">載入中...</div>}
+
+      {/* 🔹 地圖顯示 */}
+      {!loading && sharkData.length > 0 && (
+        <div className="shark-grid">
+          <MapCard title="CHL (chlorophyll)" points={CHL_points} bounds={bounds} />
+          <MapCard title="SSHA (sea surface height anomaly)" points={SSHA_points} bounds={bounds} />
+          <MapCard title="SST (sea surface temperature)" points={SST_points} bounds={bounds} />
+        </div>
+      )}
+
+      {!loading && sharkData.length === 0 && (
+        <div>請選擇一個週期來查看數據</div>
+      )}
     </div>
   );
 }
-
