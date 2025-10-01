@@ -98,10 +98,8 @@ export default function SharkHeatmaps({t}) {
           const response = await oceanAPI.getOceanDataByDate(day);
           console.log(`📅 ${day} 回傳資料:`, response);
 
-          if (Array.isArray(response)) {
-            allData.push(...response);
-          } else if (response) {
-            allData.push(response);
+          if (response?.records && Array.isArray(response.records)) {
+           allData.push(...response.records);  // ✅ 改成展開 records
           }
         }
 
@@ -156,7 +154,7 @@ export default function SharkHeatmaps({t}) {
       </div>
 
       {/* 🔹 載入中提示 */}
-      {loading && <div className="shark-loading">載入中...</div>}
+      {loading && <div className="shark-loading">{t('dashboard.sharkChart.loading')}</div>}
 
       {/* 🔹 地圖顯示 */}
       {!loading && sharkData.length > 0 && (

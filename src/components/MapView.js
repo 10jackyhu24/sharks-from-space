@@ -5,12 +5,22 @@ import WindyColorBar from './WindyColorBar';
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
+const getProbColor = (prob) => {
+  if (prob > 0.8) return '#ff0000';   // 高機率 → 紅
+  if (prob > 0.6) return '#ff8000';   // 中高 → 橘
+  if (prob > 0.4) return '#ffff00';   // 中等 → 黃
+  if (prob > 0.2) return '#80ff00';   // 低 → 綠
+  return '#00ffcc';                   // 極低 → 藍綠
+};
+
+
 function MapView({ 
   selectedSpecies = [], 
   showHeatmap = false, 
   activeLayer = 'openstreetmap',
   visualizationMode = 'markers',
-  t
+  t,
+  predictionPoints = []  
 }) {
   const [sharks, setSharks] = useState([]);
   const [environmentalData, setEnvironmentalData] = useState([]);
@@ -168,15 +178,18 @@ function MapView({
 
   // 獲取色彩條模式
   const getColorBarMode = () => {
-    switch(visualizationMode) {
-      case 'heatmap':
-        return 'density';
-      case 'environmental':
-        return 'chlorophyll';
+  switch(visualizationMode) {
+    case 'heatmap':
+      return 'density';
+    case 'environmental':
+      return 'chlorophyll';
+   case 'ml':
+     return 'probability';  // 🔹 新增 ML 模式
       default:
         return null;
     }
   };
+
 
   return (
     <div style={{ position: 'relative' }}>
@@ -402,6 +415,29 @@ function MapView({
             </Popup>
           </Circle>
         ))}
+        {/* 🔹 ML Predicted Probability Heatmap */}
+        {visualizationMode === 'ml' && predictionPoints.map((p, idx) => (
+          <Circle
+            key={`ml-${idx}`}
+            center={[p.lat, p.lng]}
+            radius={40000}  // 視需求調整
+            pathOptions={{
+              color: getProbColor(p.prob),
+              fillColor: getProbColor(p.prob),
+              fillOpacity: 0.5,
+              weight: 1
+            }}
+          >
+            <Popup>
+              <div style={{ fontSize: '13px' }}>
+                <strong>🦈 ML 預測</strong><br/>
+                Lat: {p.lat.toFixed(3)}, Lng: {p.lng.toFixed(3)}<br/>
+                Predicted Probability: {(p.prob * 100).toFixed(1)}%
+              </div>
+            </Popup>
+          </Circle>
+        ))}
+
       </MapContainer>
     </div>
   );

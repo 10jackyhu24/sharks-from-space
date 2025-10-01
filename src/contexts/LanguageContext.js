@@ -148,8 +148,10 @@ const translations = {
       recall: "召回率",
       f1Score: "F1 分數",
       fileUpload: {
-        title: "CSV檔案上傳",
-        subtitle: "點擊或拖曳檔案到這裡"
+        title: "檔案上傳 (ML 預測)",
+        subtitle: "已選檔案",
+        predictionResult: "預測結果 (機率分布)",
+        resultAlert: "預測/訓練失敗，請檢查後端 API 是否正常運作"
       },
       dataProcessingWorkflow: {
         satelliteData: {
@@ -335,7 +337,8 @@ const translations = {
       sharkChart: {
         sharkOceanHeatmaps: "Shark ocean heatmaps",
         selectPeriod: "Select period",
-        selectonePeriod: "Please select a weekly period to view the data."
+        selectonePeriod: "Please select a weekly period to view the data.",
+        loading: "Loading..."
       }
     },
     detector: {
@@ -379,8 +382,10 @@ const translations = {
       recall: "Recall",
       f1Score: "F1 Score",
       fileUpload: {
-        title: "CSV File Upload",
-        subtitle: "Click or drag files here"
+        title: "CSV File Upload (ML Predict)",
+        subtitle: "Selected files",
+        predictionResult: "Prediction results (probability distribution)",
+        resultAlert: "Prediction / training failed. Please check if the backend API is functioning correctly."
       },
       dataProcessingWorkflow: {
         satelliteData: {

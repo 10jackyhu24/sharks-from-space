@@ -4,10 +4,11 @@ import { useTranslation } from '../contexts/LanguageContext';
 import Header from "../components/Header";
 import MapView from "../components/MapView";
 import SharkChart from "../components/SharkChart";
+import { mlAPI } from "../services/api";
 
 function MachineLearning() {
   const { t } = useTranslation();
-  readCSV();
+  //readCSV();
   
   // 原有的狀態管理
   const [selectedSpecies, setSelectedSpecies] = useState([
@@ -16,6 +17,9 @@ function MachineLearning() {
   const [showHeatmap, setShowHeatmap] = useState(false);
   const [activeLayer, setActiveLayer] = useState('openstreetmap');
   const [visualizationMode, setVisualizationMode] = useState('markers');
+  const [file, setFile] = useState(null);   // 🔹 CSV 檔案
+  const [prediction, setPrediction] = useState(null); // 🔹 預測結果
+
 
   // 原有的切換邏輯
   const toggleSpecies = (species) => {
@@ -25,6 +29,53 @@ function MachineLearning() {
       setSelectedSpecies([...selectedSpecies, species]);
     }
   };
+
+  const [predictionPoints, setPredictionPoints] = useState([]);
+
+  const handleFileUpload = async (event) => {
+    const uploadedFile = event.target.files[0];
+    if (!uploadedFile) return;
+    setFile(uploadedFile);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", uploadedFile);
+
+      console.log("📤 上傳檔案:", uploadedFile.name);
+
+      // Step 1: 先做預測
+      const response = await mlAPI.predictWithCsv(formData);
+      console.log("✅ ML 預測回傳:", response);
+
+      setPrediction(response);
+
+      // Step 2: 自動送去訓練
+      const trainResp = await mlAPI.trainWithCsv(formData);
+      console.log("✅ ML 訓練完成:", trainResp);
+
+      // Step 3: 把預測結果轉換成 {lat, lng, pred}
+      if (response && response["預測"] && response["預測"]["值"]) {
+        const features = response["文件資訊"]["功能名稱"];
+        const latIdx = features.findIndex(f => f.includes("緯度"));
+        const lngIdx = features.findIndex(f => f.includes("經度"));
+
+        const points = response["原始資料"].map((row, i) => ({
+         lat: parseFloat(row[latIdx]),
+         lng: parseFloat(row[lngIdx]),
+         pred: response["預測"]["值"][i],
+         prob: response["預測"]["樣本機率"]?.[i]?.[1] ?? 0  // 🔹 class=1 機率
+         }));
+
+        setPredictionPoints(points);
+      }
+
+
+    } catch (err) {
+      console.error("❌ ML 預測或訓練失敗:", err);
+      alert(t('ml.fileUpload.resultAlert'));
+    }
+  };
+
 
   // 物種配置
   const getSpeciesConfig = (species) => {
@@ -88,6 +139,11 @@ function MachineLearning() {
                   value: 'environmental', 
                   label: t('dashboard.environmentalData'), 
                   desc: t('dashboard.environmentalModeDesc')
+                },
+                { 
+                   value: 'ml',
+                   label: 'ML Probability Heatmap',
+                   desc: '顯示機器學習預測的鯊魚出現機率'
                 }
               ].map(mode => (
                 <label 
@@ -239,19 +295,58 @@ function MachineLearning() {
           />
         </div>
         
-        {/* 右側：圖表和資訊 */}
+        {/* 右側 sidebar */}
         <div className="sidebar">
+          {/* 🔹 檔案上傳 + ML 預測 */}
           <div className="card" id="upload-area">
-            <h3>📁 {t('ml.fileUpload.title')}</h3>
-            <div class="upload-area" id="uploadArea">
-                <div class="upload-icon">☁️</div>
-                <div class="upload-text">{t('ml.fileUpload.subtitle')}</div>
-                {/* <input type="file" id="fileInput" onChange={readCSV()}/> */}
-            </div>
-            <div class="file-list" id="fileList"></div>
+              <input
+              
+                type="file"
+                accept=".csv"
+                id="fileInput"
+                style={{ display: "none"}}
+                onChange={handleFileUpload}
+              />
 
-            {/* <button class="upload-btn" id="uploadBtn" onclick={printData()}>上傳檔案</button> */}
-            <div class="message" id="message"></div>
+              {/* 自訂按鈕 */}
+              <label
+                htmlFor="fileInput"
+                style={{
+                  padding: "8px 15px",
+                  borderRadius: "5px",
+                  fontSize: "28px",
+                  cursor: "pointer",
+                  height: "100%",
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span>
+                  <b>📁 {t('ml.fileUpload.title')}</b>
+                  {file && <div>{t('ml.fileUpload.subtitle')}: <strong>{file.name}</strong></div>}
+                </span>
+              </label>
+
+
+            {/* 🔹 顯示 ML 預測結果 */}
+            {prediction && (
+              <div style={{ marginTop: "12px" }}>
+                <h4>📊 {t('ml.fileUpload.predictionResult')}</h4>
+                <pre style={{ 
+                  background: "#f8fafc", 
+                  padding: "8px", 
+                  borderRadius: "6px", 
+                  fontSize: "12px", 
+                  maxHeight: "200px", 
+                  overflowY: "auto" 
+                }}>
+                  {JSON.stringify(prediction, null, 2)}
+                </pre>
+              </div>
+            )}
           </div>
           
           <div className="card">
@@ -312,65 +407,6 @@ function getLayerName(layer, t) {
     'terrain': '🏔️ ' + t('dashboard.terrainMap')
   };
   return names[layer] || layer;
-}
-
-// let csvData = []
-
-// function loadCSV(event) {
-//   const file = event.target.files[0];
-//   if (!file) return;
-
-//   const reader = new FileReader();
-//   reader.onload = function(e) {
-//     const text = e.target.result;
-//     parseCSV(text);
-//   };
-//   reader.readAsText(file);
-// }
-
-// function parseCSV(csvText) {
-//   const lines = csvText.split('\n').filter(line => line.trim());
-//   csvData = []; // 清空舊資料
-  
-//   for (let i = 1; i < lines.length; i++) {
-//     const values = lines[i].split(',').map(v => v.trim());
-//     if (values.length >= 5) {
-//       csvData.push({
-//         name: values[0],
-//         age: parseInt(values[1]) || 0,
-//         class: values[2],
-//         fare: parseFloat(values[3]) || 0,
-//         port: values[4]
-//       });
-//     }
-//   }
-  
-//   console.log('檔案已載入,共', csvData.length, '筆資料');
-// }
-
-// function printData() {
-//   if (csvData.length === 0) {
-//     console.log('⚠️ 尚未載入任何資料!');
-//     alert('請先選擇 CSV 檔案');
-//     return;
-//   }
-  
-//   console.log('=== 印出所有資料 ===');
-//   console.log('總共', csvData.length, '筆資料');
-//   console.log(csvData); // 印出整個陣列
-  
-//   // 逐筆印出
-//   csvData.forEach((item, index) => {
-//     console.log(`第 ${index + 1} 筆:`, item);
-//   });
-// }
-
-function readCSV() {
-  fetch('./data/multi_shark_ocean_features_14_individuals.csv')
-  .then(response => response.text())
-  .then(text => {
-    console.log(text);
-  });
 }
 
 export default MachineLearning;

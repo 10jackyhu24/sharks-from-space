@@ -92,11 +92,16 @@ body {
 #upload-area {
   border: 3px dashed #667eea;
   border-radius: 15px;
-  padding: 50px 20px;
+  padding: 0;
+  height: 150px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
   background: #f8f9ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .section-title {

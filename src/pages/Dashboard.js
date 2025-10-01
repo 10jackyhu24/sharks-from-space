@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import MapView from "../components/MapView";
 import SharkChart from "../components/SharkChart";
 
+
 function Dashboard() {
   const { t } = useTranslation();
   
@@ -235,7 +236,9 @@ function Dashboard() {
             activeLayer={activeLayer}
             visualizationMode={visualizationMode}
             t={t}
+            //predictionPoints={predictionPoints} 
           />
+
         </div>
         
         {/* 右側：圖表和資訊 */}
