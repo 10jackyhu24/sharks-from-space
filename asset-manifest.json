@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sharks-from-space/static/css/main.8f23c572.css",
-    "main.js": "/sharks-from-space/static/js/main.354d300c.js",
+    "main.js": "/sharks-from-space/static/js/main.93bdcbd6.js",
     "static/js/453.9b7ec7f2.chunk.js": "/sharks-from-space/static/js/453.9b7ec7f2.chunk.js",
     "index.html": "/sharks-from-space/index.html",
     "main.8f23c572.css.map": "/sharks-from-space/static/css/main.8f23c572.css.map",
-    "main.354d300c.js.map": "/sharks-from-space/static/js/main.354d300c.js.map",
+    "main.93bdcbd6.js.map": "/sharks-from-space/static/js/main.93bdcbd6.js.map",
     "453.9b7ec7f2.chunk.js.map": "/sharks-from-space/static/js/453.9b7ec7f2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8f23c572.css",
-    "static/js/main.354d300c.js"
+    "static/js/main.93bdcbd6.js"
   ]
 }
