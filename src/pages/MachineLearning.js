@@ -142,8 +142,8 @@ function MachineLearning() {
                 },
                 { 
                    value: 'ml',
-                   label: 'ML Probability Heatmap',
-                   desc: '顯示機器學習預測的鯊魚出現機率'
+                   label: t('ml.MLProbabilityHeatmap'),
+                   desc: t('MLProbabilityHeatmapDesc')
                 }
               ].map(mode => (
                 <label 

@@ -42,14 +42,14 @@ function Home() {
         position: 'relative',
         background: `
           linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%),
-          url('/images/hero-background.png') center/cover no-repeat
+          url('${process.env.PUBLIC_URL}/images/hero-background.png') center/cover no-repeat
         `,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         color: 'white',
         textAlign: 'center',
-        overflow: 'hidden'
+        overflow: 'hidden',
       }}>
         
         {/* Animated Background Overlay */}
@@ -85,7 +85,7 @@ function Home() {
           }}>
             {/* Logo */}
             <img 
-              src="/images/logo-white.png" 
+              src={`${process.env.PUBLIC_URL}/images/logo-white.png`}
               alt="Sharks from Space Logo"
               style={{
                 height: 'clamp(60px, 10vw, 100px)',
@@ -95,7 +95,7 @@ function Home() {
                 transition: 'all 0.3s ease'
               }}
               onError={(e) => {
-                e.target.src = '/images/logo.png';
+                e.target.src = `${process.env.PUBLIC_URL}/images/logo.png`;
                 e.target.onerror = () => {
                   e.target.style.display = 'none';
                   const emojiBackup = e.target.nextSibling;
@@ -435,7 +435,7 @@ function Home() {
       </section>
 
       {/* CSS Animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes pulse {
           0%, 100% { opacity: 0.7; }
           50% { opacity: 1; }

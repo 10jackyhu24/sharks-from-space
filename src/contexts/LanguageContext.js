@@ -93,6 +93,9 @@ const translations = {
           },
           temperature: {
             title: "海表溫度"
+          },
+          MLProbabilityHeatmap: {
+            unit: "數值"
           }
         },
         dataDtatistics: {
@@ -104,7 +107,8 @@ const translations = {
       sharkChart: {
         sharkOceanHeatmaps: "鯊魚海域熱力圖",
         selectPeriod: "選擇週期",
-        selectonePeriod: "請選擇一個週期來查看數據"
+        selectonePeriod: "請選擇一個週期來查看數據",
+        loading: "載入中..."
       }
     },
     detector: {
@@ -214,7 +218,9 @@ const translations = {
             5: "研究航次路線優化",
           }
         }
-      }
+      },
+      MLProbabilityHeatmap: "機器學習機率熱圖",
+      MLProbabilityHeatmapDesc: "顯示機器學習預測的鯊魚出現機率"
     },
     members: {
       title: "研究團隊",
@@ -326,6 +332,9 @@ const translations = {
           },
           temperature: {
             title: "Sea Surface Temperature"
+          },
+          MLProbabilityHeatmap: {
+            unit: "Value"
           }
         },
         dataDtatistics: {
@@ -448,7 +457,9 @@ const translations = {
             5: "Research voyage route optimization",
           }
         }
-      }
+      },
+      MLProbabilityHeatmap: "ML Probability Heatmap",
+      MLProbabilityHeatmapDesc: "Show the machine learning–predicted probability of shark occurrence."
     },
     members: {
       title: "Research Team",

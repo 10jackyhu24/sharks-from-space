@@ -29,11 +29,11 @@ function MapView({
   useEffect(() => {
     // 預載入自定義圖標
     const iconFiles = {
-      'Shark_pin': '/images/icons/shark_pin.svg',
-      'Tiger Shark': '/images/icons/tiger-shark.png',
-      'Great White': '/images/icons/great-white.png',
-      'Hammerhead': '/images/icons/hammerhead.png',
-      'Whale Shark': '/images/icons/whale-shark.png'
+      'Shark_pin': `${process.env.PUBLIC_URL}/images/shark_pin.svg`,
+      'Tiger Shark': `${process.env.PUBLIC_URL}/images/tiger-shark.png`,
+      'Great White': `${process.env.PUBLIC_URL}/images/great-white.png`,
+      'Hammerhead': `${process.env.PUBLIC_URL}/images/hammerhead.png`,
+      'Whale Shark': `${process.env.PUBLIC_URL}/images/whale-shark.png`
     };
 
     const loadIcons = async () => {
@@ -61,7 +61,7 @@ function MapView({
     loadIcons();
 
     // 載入鯊魚數據
-    fetch("/sharks.json")
+    fetch(`${process.env.PUBLIC_URL}/sharks.json`)
       .then((res) => res.json())
       .then((data) => {
         console.log("載入鯊魚數據:", data);
@@ -70,7 +70,7 @@ function MapView({
       .catch((err) => console.error("載入鯊魚資料失敗：", err));
 
     // 載入環境數據
-    fetch("/environmental_data.csv")
+    fetch(`${process.env.PUBLIC_URL}/environmental_data.csv`)
       .then((res) => res.text())
       .then((csvText) => {
         const lines = csvText.split('\n');

@@ -37,7 +37,7 @@ function WindyColorBar({
       default:
         return {
           gradient: 'linear-gradient(to right, #0080ff, #ff0000)',
-          title: '數值',
+          title: t('dashboard.mapView.windyColorBar.MLProbabilityHeatmap.unit'),
           unit: '',
           steps: [minValue, maxValue]
         };
