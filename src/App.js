@@ -13,7 +13,7 @@ import './App.css';
 function App() {
   return (
     <LanguageProvider>
-      <Router>
+      <Router basename="/sharks-from-space">
         <div className="app-container">
           <Navigation />
           <Routes>
