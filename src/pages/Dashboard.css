@@ -1,0 +1,260 @@
+/* src/pages/Dashboard.css */
+
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.header h1 {
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.header p {
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr 420px;
+  gap: 24px;
+  padding: 24px;
+  min-height: calc(100vh - 120px);
+}
+
+.control-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  height: fit-content;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.map-container {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 24px;
+  border: 1px solid rgba(255,255,255,0.2);
+  min-height: 600px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* 檔案上傳區域 */
+#upload-area {
+  border: 3px dashed #667eea;
+  border-radius: 15px;
+  padding: 50px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f8f9ff;
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+}
+
+#upload-area:hover {
+  border-color: #5568d3;
+  background: #eef1ff;
+}
+
+#upload-area p {
+  margin: 0;
+  color: #667eea;
+  font-weight: 500;
+}
+
+/* 標題樣式 */
+.section-title h3 {
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 20px;
+}
+
+.filter-section {
+  margin-bottom: 24px;
+}
+
+.filter-section h4 {
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 12px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.checkbox-item:hover {
+  background-color: #f7fafc;
+}
+
+.checkbox-item input[type="checkbox"],
+.checkbox-item input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  accent-color: #667eea;
+  cursor: pointer;
+}
+
+.species-label {
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.custom-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.stats-info {
+  line-height: 1.8;
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.stats-info p {
+  margin-bottom: 8px;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.stat-item {
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+}
+
+.stat-label {
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  color: #718096;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.map-title {
+  margin: 0 0 20px 0;
+  color: #2d3748;
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+}
+
+.species-count {
+  font-size: 14px;
+  font-weight: normal;
+  color: #718096;
+  margin-left: 8px;
+}
+
+.research-info {
+  line-height: 1.6;
+  font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.research-info p {
+  margin-bottom: 8px;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.research-info strong {
+  color: #2d3748;
+}
+
+.popup-content h4 {
+  margin-bottom: 8px;
+  color: #2d3748;
+}
+
+.popup-content p {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+/* 響應式設計 */
+@media (max-width: 1200px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .control-panel,
+  .map-container,
+  .card {
+    margin-bottom: 20px;
+  }
+}

@@ -1,23 +1,21 @@
-// src/pages/Dashboard.js - 支援翻譯版本
+// src/pages/Dashboard.js - 修正版本
 import React, { useState } from 'react';
 import { useTranslation } from '../contexts/LanguageContext';
 import Header from "../components/Header";
 import MapView from "../components/MapView";
 import SharkChart from "../components/SharkChart";
 
-
 function Dashboard() {
   const { t } = useTranslation();
   
-  // 原有的狀態管理
+  // 狀態管理：預設選中兩種鯊魚
   const [selectedSpecies, setSelectedSpecies] = useState([
-    'Tiger Shark', 'Great White', 'Hammerhead'
+    'Whale Shark', 'Tiger Shark'  // 確保只選中這兩個正確的物種
   ]);
-  const [showHeatmap, setShowHeatmap] = useState(false);
   const [activeLayer, setActiveLayer] = useState('openstreetmap');
   const [visualizationMode, setVisualizationMode] = useState('markers');
 
-  // 原有的切換邏輯
+  // 物種切換邏輯
   const toggleSpecies = (species) => {
     if (selectedSpecies.includes(species)) {
       setSelectedSpecies(selectedSpecies.filter(s => s !== species));
@@ -26,16 +24,18 @@ function Dashboard() {
     }
   };
 
-  // 物種配置
+  // 物種配置 (已修正並簡化)
   const getSpeciesConfig = (species) => {
     const configs = {
-      'Tiger Shark': { color: '#FF8C00', icon: '🟠', name: t('species.tigerShark') },
-      'Great White': { color: '#FF0000', icon: '🔴', name: t('species.greatWhite') },
-      'Hammerhead': { color: '#00AA00', icon: '🟢', name: t('species.hammerhead') },
-      'Whale Shark': { color: '#0066FF', icon: '🔵', name: t('species.whaleShark') }
+      'Whale Shark': { color: '#FF8C00', icon: '🟠', name: t('species.whaleShark') },
+      'Tiger Shark': { color: '#FF0000', icon: '🔴', name: t('species.tigerShark') },
     };
-    return configs[species] || configs['Tiger Shark'];
+    // 提供一個預設值，以防萬一
+    return configs[species] || { color: '#333', icon: '❓', name: species };
   };
+  
+  // 要顯示的物種列表 (已簡化)
+  const availableSpecies = ['Whale Shark', 'Tiger Shark'];
 
   return (
     <div className="app-container">
@@ -48,7 +48,7 @@ function Dashboard() {
           <div>
             <h4 className="section-subtitle">{t('dashboard.speciesFilter')}</h4>
             <div className="checkbox-group">
-              {['Tiger Shark', 'Great White', 'Hammerhead', 'Whale Shark'].map(species => {
+              {availableSpecies.map(species => {
                 const config = getSpeciesConfig(species);
                 return (
                   <label key={species} className="checkbox-item">
@@ -69,7 +69,7 @@ function Dashboard() {
             </div>
           </div>
 
-          {/* 視覺化模式選擇 */}
+          {/* 視覺化模式選擇 (已移除 Environmental Data 和 Heatmap) */}
           <div>
             <h4 className="section-subtitle">{t('dashboard.visualization')}</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -78,16 +78,6 @@ function Dashboard() {
                   value: 'markers', 
                   label: t('dashboard.sharkMarkers'), 
                   desc: t('dashboard.markerModeDesc')
-                },
-                { 
-                  value: 'heatmap', 
-                  label: t('dashboard.densityDistribution'), 
-                  desc: t('dashboard.densityModeDesc')
-                },
-                { 
-                  value: 'environmental', 
-                  label: t('dashboard.environmentalData'), 
-                  desc: t('dashboard.environmentalModeDesc')
                 }
               ].map(mode => (
                 <label 
@@ -164,7 +154,7 @@ function Dashboard() {
             </select>
           </div>
 
-          {/* 顯示選項 */}
+          {/* 顯示選項 (已移除熱力圖 checkbox) */}
           <div>
             <h4 className="section-subtitle">{t('dashboard.displayOptions')}</h4>
             <div style={{ 
@@ -173,40 +163,25 @@ function Dashboard() {
               borderRadius: '8px',
               border: '1px solid #e2e8f0'
             }}>
-              <label className="checkbox-item" style={{ marginBottom: '8px' }}>
-                <input
-                  type="checkbox"
-                  checked={showHeatmap}
-                  onChange={(e) => setShowHeatmap(e.target.checked)}
-                />
-                <span className="species-label">🔥 {t('dashboard.heatmapMode')}</span>
-              </label>
-              
-              {/* 視覺化模式提示 */}
               <div style={{ 
                 fontSize: '11px', 
-                color: '#718096',
-                marginTop: '8px',
-                paddingTop: '8px',
-                borderTop: '1px solid #e2e8f0'
+                color: '#718096'
               }}>
                 <div><strong>{t('dashboard.currentMode')}:</strong> {
-                  visualizationMode === 'markers' ? t('dashboard.sharkMarkers') :
-                  visualizationMode === 'heatmap' ? t('dashboard.densityDistribution') :
-                  t('dashboard.environmentalData')
+                  visualizationMode === 'markers' ? t('dashboard.sharkMarkers') : t('dashboard.densityDistribution')
                 }</div>
                 <div><strong>{t('dashboard.mapStyle')}:</strong> {getLayerName(activeLayer, t)}</div>
               </div>
             </div>
           </div>
 
-          {/* 即時統計 */}
+          {/* 即時統計 (總數已更新) */}
           <div>
             <h4 className="section-subtitle">{t('dashboard.realTimeStats')}</h4>
             <div className="stats-grid">
               <div className="stat-item">
                 <div className="stat-label">{t('dashboard.selectedSpecies')}</div>
-                <div className="stat-value">{selectedSpecies.length}/4</div>
+                <div className="stat-value">{selectedSpecies.length}/{availableSpecies.length}</div>
               </div>
               <div className="stat-item">
                 <div className="stat-label">{t('dashboard.displayStatus')}</div>
@@ -224,21 +199,16 @@ function Dashboard() {
             🗺️ {t('dashboard.mapTitle')}
             <span className="species-count">
               ({
-                visualizationMode === 'markers' ? t('dashboard.speciesDisplayed', {count: selectedSpecies.length}) :
-                visualizationMode === 'heatmap' ? t('dashboard.densityMode') :
-                t('dashboard.environmentMode')
+                visualizationMode === 'markers' ? t('dashboard.speciesDisplayed', {count: selectedSpecies.length}) : t('dashboard.densityMode')
               })
             </span>
           </h3>
           <MapView 
             selectedSpecies={selectedSpecies}
-            showHeatmap={showHeatmap}
             activeLayer={activeLayer}
             visualizationMode={visualizationMode}
             t={t}
-            //predictionPoints={predictionPoints} 
           />
-
         </div>
         
         {/* 右側：圖表和資訊 */}
@@ -252,7 +222,7 @@ function Dashboard() {
             <div className="research-info">
               <p><strong>{t('dashboard.projectName')}:</strong> Sharks from Space</p>
               <p><strong>{t('dashboard.dataSource')}:</strong> {t('dashboard.satelliteTracking')}</p>
-              <p><strong>{t('dashboard.trackedSpecies')}:</strong> {selectedSpecies.map(s => getSpeciesConfig(s).name).join(', ')}</p>
+              <p><strong>{t('dashboard.trackedSpecies')}:</strong> {selectedSpecies.map(s => getSpeciesConfig(s).name).join(', ') || t('common.noneSelected')}</p>
               <p><strong>{t('dashboard.researchPurpose')}:</strong> {t('dashboard.researchPurposeDesc')}</p>
               <p><strong>{t('dashboard.updateFrequency')}:</strong> {t('common.realTimeUpdate')}</p>
               <p><strong>{t('dashboard.coverage')}:</strong> {t('common.globalCoverage')}</p>
@@ -264,15 +234,15 @@ function Dashboard() {
             <div className="stats-grid">
               <div className="stat-item">
                 <div className="stat-label">{t('dashboard.trackingTags')}</div>
-                <div className="stat-value">3</div>
+                <div className="stat-value">2</div>
               </div>
               <div className="stat-item">
                 <div className="stat-label">{t('dashboard.dataPoints')}</div>
-                <div className="stat-value">1.2K</div>
+                <div className="stat-value">~1K</div>
               </div>
             </div>
             
-            {/* 視覺化模式說明 */}
+            {/* 視覺化模式說明 (已簡化) */}
             <div style={{ 
               marginTop: '12px',
               padding: '8px',
@@ -282,12 +252,9 @@ function Dashboard() {
               fontSize: '11px'
             }}>
               <strong>📍 {
-                visualizationMode === 'markers' ? t('dashboard.markingMode') :
-                visualizationMode === 'heatmap' ? t('dashboard.densityMode') : t('dashboard.environmentMode')
+                visualizationMode === 'markers' ? t('dashboard.markingMode') : t('dashboard.densityMode')
               }:</strong> {
-                visualizationMode === 'markers' ? t('dashboard.markerModeDesc') :
-                visualizationMode === 'heatmap' ? t('dashboard.densityModeDesc') :
-                t('dashboard.environmentalModeDesc')
+                visualizationMode === 'markers' ? t('dashboard.markerModeDesc') : t('dashboard.densityModeDesc')
               }
             </div>
           </div>

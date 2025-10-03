@@ -16,7 +16,7 @@ function DataStoryPanel() {
     const storyData = [
       {
         title: '深海覓食行為',
-        description: '大白鯊在中尺度渦流邊緣進行深海覓食，利用渦流帶來的營養上升流。',
+        description: '虎鯊在中尺度渦流邊緣進行深海覓食，利用渦流帶來的營養上升流。',
         location: [34.0522, -118.2437],
         species: 'Great White',
         timestamp: '2025-09-20T22:00:00Z',
@@ -24,7 +24,7 @@ function DataStoryPanel() {
       },
       {
         title: '洄游路徑',
-        description: '虎鯊沿著溫度梯度線進行季節性洄游，追蹤海龜產卵地點。',
+        description: '鯨鯊沿著溫度梯度線進行季節性洄游，追蹤海龜產卵地點。',
         location: [25.7617, -80.1918],
         species: 'Tiger Shark',
         timestamp: '2025-09-21T08:00:00Z',

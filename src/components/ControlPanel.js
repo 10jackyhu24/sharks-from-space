@@ -30,10 +30,8 @@ function ControlPanel() {
           }}
           style={{ width: '100%' }}
         >
-          <Option value="Tiger Shark">虎鯊</Option>
-          <Option value="Great White">大白鯊</Option>
-          <Option value="Hammerhead">雙髻鯊</Option>
           <Option value="Whale Shark">鯨鯊</Option>
+          <Option value="Tiger Shark">虎鯊</Option>
         </Select>
       </Card>
 

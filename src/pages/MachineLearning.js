@@ -10,11 +10,10 @@ function MachineLearning() {
   const { t } = useTranslation();
   //readCSV();
   
-  // 原有的狀態管理
+  // 原有的狀態管理 - 修正為與Dashboard一致
   const [selectedSpecies, setSelectedSpecies] = useState([
-    'Tiger Shark', 'Great White', 'Hammerhead'
+    'Whale Shark', 'Tiger Shark'  // 確保只選中這兩個正確的物種
   ]);
-  const [showHeatmap, setShowHeatmap] = useState(false);
   const [activeLayer, setActiveLayer] = useState('openstreetmap');
   const [visualizationMode, setVisualizationMode] = useState('markers');
   const [file, setFile] = useState(null);   // 🔹 CSV 檔案
@@ -77,15 +76,14 @@ function MachineLearning() {
   };
 
 
-  // 物種配置
+  // 物種配置 (已修正並簡化)
   const getSpeciesConfig = (species) => {
     const configs = {
-      'Tiger Shark': { color: '#FF8C00', icon: '🟠', name: t('species.tigerShark') },
-      'Great White': { color: '#FF0000', icon: '🔴', name: t('species.greatWhite') },
-      'Hammerhead': { color: '#00AA00', icon: '🟢', name: t('species.hammerhead') },
-      'Whale Shark': { color: '#0066FF', icon: '🔵', name: t('species.whaleShark') }
+      'Whale Shark': { color: '#FF8C00', icon: '🟠', name: t('species.whaleShark') },
+      'Tiger Shark': { color: '#FF0000', icon: '🔴', name: t('species.tigerShark') },
     };
-    return configs[species] || configs['Tiger Shark'];
+    // 提供一個預設值，以防萬一
+    return configs[species] || { color: '#333', icon: '❓', name: species };
   };
 
   return (
@@ -99,7 +97,7 @@ function MachineLearning() {
           <div>
             <h4 className="section-subtitle">{t('dashboard.speciesFilter')}</h4>
             <div className="checkbox-group">
-              {['Tiger Shark', 'Great White', 'Hammerhead', 'Whale Shark'].map(species => {
+              {['Whale Shark', 'Tiger Shark'].map(species => {
                 const config = getSpeciesConfig(species);
                 return (
                   <label key={species} className="checkbox-item">
@@ -129,11 +127,6 @@ function MachineLearning() {
                   value: 'markers', 
                   label: t('dashboard.sharkMarkers'), 
                   desc: t('dashboard.markerModeDesc')
-                },
-                { 
-                  value: 'heatmap', 
-                  label: t('dashboard.densityDistribution'), 
-                  desc: t('dashboard.densityModeDesc')
                 },
                 { 
                   value: 'environmental', 
@@ -229,14 +222,7 @@ function MachineLearning() {
               borderRadius: '8px',
               border: '1px solid #e2e8f0'
             }}>
-              <label className="checkbox-item" style={{ marginBottom: '8px' }}>
-                <input
-                  type="checkbox"
-                  checked={showHeatmap}
-                  onChange={(e) => setShowHeatmap(e.target.checked)}
-                />
-                <span className="species-label">🔥 {t('dashboard.heatmapMode')}</span>
-              </label>
+              {/* 移除了 Heatmap Mode 選項 */}
               
               {/* 視覺化模式提示 */}
               <div style={{ 
@@ -262,7 +248,7 @@ function MachineLearning() {
             <div className="stats-grid">
               <div className="stat-item">
                 <div className="stat-label">{t('dashboard.selectedSpecies')}</div>
-                <div className="stat-value">{selectedSpecies.length}/4</div>
+                <div className="stat-value">{selectedSpecies.length}/2</div>
               </div>
               <div className="stat-item">
                 <div className="stat-label">{t('dashboard.displayStatus')}</div>
@@ -288,7 +274,6 @@ function MachineLearning() {
           </h3>
           <MapView 
             selectedSpecies={selectedSpecies}
-            showHeatmap={showHeatmap}
             activeLayer={activeLayer}
             visualizationMode={visualizationMode}
             t={t}

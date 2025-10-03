@@ -93,14 +93,23 @@ function MapView({
     selectedSpecies.includes(shark.species)
   );
 
+  // 修正數據標記錯誤：數據中的 "Tiger Shark" 實際上是鯨鯊
+  const adjustedSharks = sharks.map(shark => {
+    // 將數據中的 "Tiger Shark" 映射為 "Whale Shark"，因為數據中的 Tiger Shark 實際是鯨鯊
+    if (shark.species === 'Tiger Shark') {
+      return { ...shark, species: 'Whale Shark' };
+    }
+    return shark;
+  }).filter(shark => selectedSpecies.includes(shark.species));
+
   // 計算熱力圖數據
   const heatmapData = useMemo(() => {
-    if (filteredSharks.length === 0) return [];
+    if (adjustedSharks.length === 0) return [];
     
     const gridSize = 5;
     const grid = {};
     
-    filteredSharks.forEach(shark => {
+    adjustedSharks.forEach(shark => {
       const gridLat = Math.floor(shark.lat / gridSize) * gridSize;
       const gridLng = Math.floor(shark.lng / gridSize) * gridSize;
       const key = `${gridLat},${gridLng}`;
@@ -116,7 +125,7 @@ function MapView({
     });
 
     return Object.values(grid);
-  }, [filteredSharks]);
+  }, [adjustedSharks]);
 
   // 環境數據處理
   const processedEnvData = environmentalData.map(point => ({
@@ -222,15 +231,25 @@ function MapView({
           </div>
           
           <div>
-            {['Tiger Shark', 'Great White', 'Hammerhead', 'Whale Shark'].map(species => (
+            {selectedSpecies.map(species => (
               <div key={species} style={{ 
                 display: 'flex', 
                 alignItems: 'center', 
-                marginBottom: '6px',
-                opacity: selectedSpecies.includes(species) ? 1 : 0.4
+                marginBottom: '6px'
               }}>
                 {/* 顯示自定義圖標預覽 */}
-                {iconsLoaded[species] ? (
+                {species === 'Whale Shark' && iconsLoaded['Shark_pin'] ? (
+                  <img 
+                    src={iconsLoaded['Shark_pin']}
+                    alt={species}
+                    style={{
+                      width: '16px',
+                      height: '16px',
+                      marginRight: '8px',
+                      objectFit: 'contain'
+                    }}
+                  />
+                ) : iconsLoaded[species] ? (
                   <img 
                     src={iconsLoaded[species]}
                     alt={species}
@@ -274,16 +293,23 @@ function MapView({
       }}>
         <div style={{ fontWeight: 'bold', color: '#2d3748' }}>
           {
-            visualizationMode === 'markers' ? `🦈 ${t('dashboard.mapView.dataDtatistics.shark', {count: filteredSharks.length})}`:
+            visualizationMode === 'markers' ? `🦈 ${t('dashboard.mapView.dataDtatistics.shark', {count: adjustedSharks.length})}`:
             visualizationMode === 'heatmap' ? `🔥 ${t('dashboard.mapView.dataDtatistics.densityZones', {count: heatmapData.length})}` :
-            `🌊 ${t('dashboard.mapView.dataDtatistics.monitoringPoints', {count: filteredSharks.length})}`
+            `🌊 ${t('dashboard.mapView.dataDtatistics.monitoringPoints', {count: adjustedSharks.length})}`
           }
         </div>
       </div>
 
       <MapContainer
-        center={[20, 0]}
-        zoom={2}
+        center={[25.5, -90]}  // 墨西哥灣中心
+        zoom={5}              // 適合墨西哥灣的縮放級別
+        minZoom={4}           // 最小縮放（不能縮得太小）
+        maxZoom={12}          // 最大縮放（可以放大看細節）
+        maxBounds={[          // 限制可視範圍
+          [18, -105],         // 西南角
+          [33, -75]           // 東北角
+        ]}
+        maxBoundsViscosity={1.0}  // 邊界限制的強度
         style={{ height: "500px", width: "100%", borderRadius: "12px" }}
       >
         <TileLayer
@@ -292,7 +318,7 @@ function MapView({
         />
         
         {/* 鯊魚標記模式 - 使用自定義圖標 */}
-        {visualizationMode === 'markers' && filteredSharks.map((shark) => (
+        {visualizationMode === 'markers' && adjustedSharks.map((shark) => (
           <Marker 
             key={shark.id} 
             position={[shark.lat, shark.lng]}
@@ -447,74 +473,35 @@ function MapView({
 function createCustomSharkIcon(species, iconsLoaded, t) {
   const config = getSharkConfig(species, t);
   
-  // 如果有自定義圖標，使用 PNG 圖標
-  if (iconsLoaded[species]) {
-    return L.icon({
-      iconUrl: iconsLoaded[species],
-      iconSize: [40, 40],
-      iconAnchor: [20, 20],
-      popupAnchor: [0, -20],
-      className: `custom-shark-icon-${species.replace(/\s+/g, '-').toLowerCase()}`
-    });
-  }
-  
-  // 否則使用預設的 divIcon
+  // 使用小圓點樣式
   return L.divIcon({
     html: `
       <div style="
-        width: 36px;
-        height: 36px;
-        position: relative;
+        width: 12px;
+        height: 12px;
+        background: ${config.labelColor};
+        border-radius: 50%;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
       ">
-        <div style="
-          width: 36px;
-          height: 36px;
-          background: ${config.labelColor};
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          font-weight: bold;
-          font-size: 18px;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          border: 2px solid white;
-        ">
-          🦈
-        </div>
-        <div style="
-          position: absolute;
-          bottom: -8px;
-          left: 50%;
-          transform: translateX(-50%);
-          background: ${config.labelColor};
-          color: white;
-          padding: 2px 6px;
-          border-radius: 10px;
-          font-size: 8px;
-          font-weight: bold;
-          white-space: nowrap;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        ">
-          ${config.name}
-        </div>
       </div>
     `,
-    className: 'custom-shark-icon',
-    iconSize: [36, 44],
-    iconAnchor: [18, 18],
+    className: 'custom-shark-dot',
+    iconSize: [12, 12],
+    iconAnchor: [6, 6],
+    popupAnchor: [0, -6],
   });
 }
 
 // 保持原有的輔助函數
 function getSharkConfig(species, t) {
   const configs = {
-    'Tiger Shark': { labelColor: '#FF8C00', name: t('dashboard.tigerShark') },
-    'Great White': { labelColor: '#FF0000', name: t('dashboard.greatWhite') },
-    'Hammerhead': { labelColor: '#00AA00', name: t('dashboard.hammerhead') },
-    'Whale Shark': { labelColor: '#0066FF', name: t('dashboard.whaleShark') }
+    'Tiger Shark': { labelColor: '#FF0000', name: t('dashboard.tigerShark') }, // 虎鯊 → 橘色
+    'Whale Shark': { labelColor: '#FF8C00', name: t('dashboard.whaleShark') }, // 鯨鯊 → 藍色
+    'Hammerhead': { labelColor: '#00AA00', name: t('dashboard.hammerhead') }, // 雙髻鯊 → 綠色
+    'Great White': { labelColor: '#FF0000', name: t('dashboard.greatWhite') } // 大白鯊 → 紅色
   };
-  return configs[species] || configs['Tiger Shark'];
+  return configs[species] || configs['Whale Shark'];
 }
 
 function getSpeciesColor(species, t) {

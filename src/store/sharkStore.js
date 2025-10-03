@@ -13,7 +13,7 @@ export const useSharkStore = create(
     error: null,
 
     // 視覺化控制
-    selectedSpecies: ['Tiger Shark', 'Great White', 'Hammerhead', 'Whale Shark'],
+    selectedSpecies: ['Whale Shark', 'Tiger Shark'], // 重置為正確的兩個物種
     timeRange: {
       start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30天前
       end: new Date()

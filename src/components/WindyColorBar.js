@@ -161,18 +161,7 @@ function WindyColorBar({
       </div>
 
       {/* 說明文字 */}
-      <div style={{ 
-        fontSize: '9px', 
-        color: '#718096',
-        textAlign: 'center',
-        marginTop: '6px',
-        maxWidth: '200px',
-        lineHeight: '1.3'
-      }}>
-        {mode === 'density' && '基於網格密度分析'}
-        {mode === 'chlorophyll' && '海洋初級生產力指標'}
-        {mode === 'temperature' && 'NASA 衛星觀測數據'}
-      </div>
+      {/* 移除中文說明文字 */}
     </div>
   );
 }
