@@ -82,8 +82,8 @@ const translations = {
       terrainMap: "地形圖",
       heatmapMode: "熱力圖模式",
       currentMode: "當前模式",
-      satelliteTracking: "NASA 衛星追蹤",
-      researchPurposeDesc: "海洋生態保護與鯊魚行為分析",
+      satelliteTracking: "MODIS(SST, CHL-a), MEaSUREs(SSHA), Movebank(鯨鯊)",
+      researchPurposeDesc: "鯊魚棲息地分析",
       markingMode: "標記模式",
       environmentMode: "環境數據模式",
       sharkSightingStatistics: "鯊魚出現統計",
@@ -110,7 +110,7 @@ const translations = {
           }
         },
         dataDtatistics: {
-          shark: "{{count}} 隻鯊魚",
+          shark: "{{count}} 個鯊魚紀錄",
           densityZones: "{{count}} 個密度區",
           monitoringPoints: "{{count}} 個監測點"
         }
@@ -277,8 +277,8 @@ const translations = {
     common: {
       loading: "載入中...",
       error: "發生錯誤",
-      realTimeUpdate: "即時更新",
-      globalCoverage: "全球海域"
+      realTimeUpdate: "等待資料上傳...",
+      globalCoverage: "墨西哥灣"
     }
   },
   en: {
@@ -364,8 +364,8 @@ const translations = {
       terrainMap: "Terrain Map",
       heatmapMode: "Heatmap Mode",
       currentMode: "Current Mode",
-      satelliteTracking: "NASA satellite tracking",
-      researchPurposeDesc: "Marine Ecological Conservation and Shark Behavior Analysis",
+      satelliteTracking: "MODIS(SST, CHL-a), MEaSUREs(SSHA), Movebank(Whale Shark)",
+      researchPurposeDesc: "Shark Habitat Analysis",
       markingMode: "Marking Mode",
       densityMode: "Density Mode",
       environmentMode: "Environment Mode",
@@ -394,7 +394,7 @@ const translations = {
           }
         },
         dataDtatistics: {
-          shark: "{{count}} Sharks",
+          shark: "{{count}} Sharks' Points",
           densityZones: "{{count}} Density Zones",
           monitoringPoints: "{{count}} Monitoring Points"
         }
@@ -562,8 +562,8 @@ const translations = {
     common: {
       loading: "Loading...",
       error: "Error occurred",
-      realTimeUpdate: "Real-time update",
-      globalCoverage: "Global coverage"
+      realTimeUpdate: "Waiting for data upload...",
+      globalCoverage: "Gulf of Mexico"
     }
   }
 };
