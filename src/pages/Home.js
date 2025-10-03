@@ -323,6 +323,16 @@ function Home() {
           }}>
             {t('home.missionDesc')}
           </p>
+          <img src={`${process.env.PUBLIC_URL}/images/fig1.png`} alt="Mission illustration" style={{width: '600px', margin: '2rem auto', display: 'block'}} />
+          <p style={{
+            fontSize: '1rem',
+            color: '#718096',
+            fontStyle: 'italic',
+            marginTop: '1rem',
+            textAlign: 'center'
+          }}>
+            {t('home.missionImageCaption')}
+          </p>
         </div>
       </section>
 
@@ -359,6 +369,16 @@ function Home() {
               }}>
                 {t('home.techDesc')}
               </p>
+              <img src={`${process.env.PUBLIC_URL}/images/fig2.png`} alt="Technology highlight illustration" style={{width: '600px', margin: '2rem auto', display: 'block'}} />
+              <p style={{
+                fontSize: '1rem',
+                color: '#718096',
+                fontStyle: 'italic',
+                marginTop: '1rem',
+                textAlign: 'center'
+              }}>
+                {t('home.techImageCaption')}
+              </p>
             </div>
           </div>
         </div>
@@ -392,6 +412,110 @@ function Home() {
             textAlign: 'left'
           }}>
             {t('home.methodDesc')}
+          </p>
+          <img src={`${process.env.PUBLIC_URL}/images/fig3.png`} alt="Method illustration" style={{width: '600px', margin: '2rem auto', display: 'block'}} />
+          <p style={{
+            fontSize: '1rem',
+            color: '#718096',
+            fontStyle: 'italic',
+            marginTop: '1rem',
+            textAlign: 'center'
+          }}>
+            {t('home.methodImageCaption')}
+          </p>
+        </div>
+      </section>
+
+      {/* 區域 3.5: Results Section */}
+      <section 
+        id="results-section"
+        style={{
+          padding: '100px 2rem',
+          background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+          position: 'relative'
+        }}
+      >
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{
+            fontSize: 'clamp(2rem, 6vw, 3rem)',
+            color: '#2d3748',
+            marginBottom: '2rem',
+            fontWeight: '800'
+          }}>
+            {t('home.resultsTitle')}
+          </h2>
+          <p style={{
+            fontSize: '1.3rem',
+            color: '#4a5568',
+            lineHeight: '1.8',
+            maxWidth: '1000px',
+            margin: '0 auto',
+            marginBottom: '4rem',
+            textAlign: 'left'
+          }}>
+            {t('home.resultsDesc')}
+          </p>
+          <img src={`${process.env.PUBLIC_URL}/images/fig4.png`} alt="Results illustration" style={{width: '600px', margin: '2rem auto', display: 'block'}} />
+          <p style={{
+            fontSize: '1rem',
+            color: '#718096',
+            fontStyle: 'italic',
+            marginTop: '1rem',
+            textAlign: 'center'
+          }}>
+            {t('home.resultsImageCaption')}
+          </p>
+          <img src={`${process.env.PUBLIC_URL}/images/fig5.png`} alt="Additional results illustration" style={{width: '600px', margin: '2rem auto', display: 'block'}} />
+          <p style={{
+            fontSize: '1rem',
+            color: '#718096',
+            fontStyle: 'italic',
+            marginTop: '1rem',
+            textAlign: 'center'
+          }}>
+            {t('home.resultsImageCaption2')}
+          </p>
+        </div>
+      </section>
+
+      {/* 區域 3.6: Results2 Section */}
+      <section 
+        id="results2-section"
+        style={{
+          padding: '100px 2rem',
+          background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+          position: 'relative'
+        }}
+      >
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{
+            fontSize: 'clamp(2rem, 6vw, 3rem)',
+            color: '#2d3748',
+            marginBottom: '2rem',
+            fontWeight: '800'
+          }}>
+            {t('home.results2Title')}
+          </h2>
+          <p style={{
+            fontSize: '1.3rem',
+            color: '#4a5568',
+            lineHeight: '1.8',
+            maxWidth: '1000px',
+            margin: '0 auto',
+            marginBottom: '4rem',
+            textAlign: 'left'
+          }}>
+            {t('home.results2Desc')}
+          </p>
+          <img src={`${process.env.PUBLIC_URL}/images/fig6.png`} alt="Results2 illustration" style={{width: '600px', margin: '2rem auto', display: 'block'}} />
+          <p style={{
+            fontSize: '1rem',
+            color: '#718096',
+            fontStyle: 'italic',
+            marginTop: '1rem',
+            textAlign: 'center'
+          }}>
+            {t('home.results2ImageCaption')}
           </p>
         </div>
       </section>

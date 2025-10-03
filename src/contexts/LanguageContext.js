@@ -12,30 +12,45 @@ const translations = {
     },
     home: {
       // Hero Section - 故事性內容
-      heroTitle: "遠端遙測墨西哥灣鯨鯊",
-      heroSubtitle: "當 NASA 衛星遇上海洋頂級掠食者",
-      heroDescription: "我們運用最先進的太空技術，追蹤地球海洋中最神秘的生物。每一次心跳、每一次游動，都是大自然寫給我們的密碼。",
-      heroMission: "這不僅是科學研究，更是為了拯救海洋生態的使命",
+      heroTitle: "Shark from Space",
+      heroSubtitle: "2025 NASA Space Apps Challenge",
+      heroDescription: "運用NASA衛星數據，追蹤海洋中的頂級掠食者。",
+      heroMission: "no water, no life. no blue, no green -- Dr. Sylvia Earle ",
       
       // Call to Action
-      exploreButton: "數據分析",
-      watchStory: "專題故事",
+      exploreButton: "追蹤鯊魚！",
+      watchStory: "鯊魚的故事",
       
       // Mission Statement
-      missionTitle: "目標：解碼鯨鯊棲息秘密",
-      missionDesc: "在人們的刻板印象中，鯊魚常被視為冷血的掠食者，象徵危險與恐懼。然而，正因為牠們位居食物鏈的頂端，鯊魚在維持海洋生態平衡中扮演了不可或缺的角色。缺少了鯊魚，整個食物網將失去穩定性，從浮游生物到漁業資源都會受到衝擊。根據 《Nature》2021 年的研究，自 1970 年以來，全球鯊魚與魟魚數量下降了 71%，其主要原因是過度捕撈，導致高達 四分之三的遠洋鯊魚與魟魚物種面臨滅絕風險。這不僅是物種保育的危機，更是整個海洋生態系功能崩解的警訊。",
+      missionTitle: "鯊魚滅絕的全球警訊",
+      missionDesc: "在人們的刻板印象中，鯊魚常被視為「冷血」的掠食者，象徵危險與恐懼。然而，正因為牠們位居食物鏈的頂端，鯊魚在維持海洋生態平衡中扮演了不可或缺的角色。若是缺少鯊魚，整個食物網將失去穩定性，從浮游生物到漁業資源都會受到衝擊。根據 pacoureau et al. 2021 年一篇刊登於《Nature》的研究，自 1970 年以來，全球鯊魚與魟魚數量下降了 71%，其主要原因是過度捕撈，導致高達四分之三的遠洋鯊魚與魟魚物種面臨滅絕風險，拉響整個海洋生態系功能崩解的警鈴。",
+      missionImageCaption: "Pacoureau et al.(2021) 顯示自 1970 年以來，不同海域與生態特徵的鯊魚族群變化。大西洋族群在長期下降後趨於低點，太平洋在 1970–1990 年快速下降後以較慢速度減少，而印度洋的下降最劇烈。從生態特徵來看，熱帶鯊魚比溫帶鯊魚下降更快，大型鯊魚（>500 公分）減少幅度最大，世代時間長（>30 年）的物種最脆弱，恢復速度最慢。這凸顯熱帶大型掠食性鯊魚的高風險。",
       
       // Technology Highlight
-      techTitle: "為什麼預測牠們的位置很重要?",
-      techDesc: "2025 年，一支加州大學研究團隊啟動了 Project SharkEye，利用 AI 影像辨識技術與微感測器即時追蹤大白鯊，並將數據分享給研究者與當地社群，降低人類與鯊魚的衝突。受到這個計畫的啟發，結合 NASA 開放衛星數據（PACE、SWOT） 與機器學習模型，不僅能在技術端預測鯊魚覓食熱點，還能和社群互動，推動海洋保育教育。藉由改進的鯊魚位置預測人類在決策上能夠更重視保育政策、漁業管理、社會安全和教育與公眾參與；透過科學數據與社群互動，我們的願景是建構一個 人類與鯊魚共存的和平海洋生態系。",
+      techTitle: "從數據到行動的鯊魚熱點預測計畫",
+      techDesc: "2020 年，Gorkin et al. 開發了一套名為 Sharkeye 的自主空中監控系統，利用飛艇與機器學習即時偵測鯊魚，並將數據分享給研究者與當地社群，降低人類與鯊魚的衝突。受到這個計畫的啟發，我們結合 NASA 開放衛星數據（MODIS, MEaSUREs） 與機器學習模型，預測鯊魚覓食熱點，並透過網站顯示科學數據與社群互動，推廣海洋保育教育，讓人類更重視保育政策、漁業管理與公民科學的參與。",
+      techImageCaption: "Gorkin et al.(2020) 開發的 Sharkeye 透過預處理空拍影像與物件偵測模型，分析出每個網格可能的物件，標示出偵測結果如鯊魚或泳客等。",
 
       // 新增區域 1 - 研究方法
       methodTitle: "研究方法：衛星遙測與機器學習整合",
-      methodDesc: "我們的研究方法結合了 NASA 的多光譜衛星影像、海洋環境數據，以及鯨鯊的生物遙測資料。透過 PACE 衛星監測海洋顏色變化來識別浮游生物聚集區，SWOT 任務則提供海面高度和洋流資訊。這些環境因子與鯨鯊的 GPS 追蹤數據結合後，我們使用隨機森林演算法建立預測模型，能夠以 85% 以上的準確率預測鯨鯊可能出現的海域。此外，我們也整合了漁業數據和海水溫度記錄，建構更全面的生態系統模型，為保育決策提供科學依據。",
+      methodDesc: "我們的研究方法結合了 NASA 的海洋環境數據，以及棲息在墨西哥灣的鯨鯊資料。透過 MODIS 衛星監測海洋溫度，並透過海洋顏色變化推論葉綠素濃度，MEASUREs 則結合多衛星數據提供海面高度異常數據。將環境數據與鯨鯊的位置資訊結合後，我們使用隨機森林(Random Forest)演算法建立模型，預測鯨鯊未來可能的棲息地位置。",
+      methodImageCaption: "隨機森林 (Random Forest) 模型使用 2014 年 9 月 26 日至 10 月 14 日的已知物種位置訓練資料來預測下週位置（左） 。 我們比較 2014 年 10 月 15 日至 10 月 21 日的實際位置（中）和預測位置（右）。暖色調（黃、綠色）區域表示物種出現的機率較高，預測熱點與實際觀測位置高度吻合。",
+      
+
+      // 新增區域 1.5 - 研究結果
+      resultsTitle: "鯨鯊與環境的互動",
+      resultsDesc: "我們發現鯊魚偏好溫暖且葉綠素濃度低的貧瘠表層水域，這看似與常理不符，理論上掠食者應該出現在營養的環境中。然而我們進一步發現，這些水域是巨大的「暖反氣旋渦流」，顯示出正海平面高度異常。鯊魚巧妙地利用這些從表層延伸至數百米深處的暖水柱，讓牠們能夠潛入富含獵物的深層進行更長時間的狩獵，同時又保持在相對溫暖的水體中。這項發現打破我們過往對於鯊魚棲地的認知。",
+      resultsImageCaption: "鯊魚位置與海面溫度（Sea Surface Temperature, SST）及葉綠素a（Chlorophyll-a, CHL-a）濃度的關係。數據顯示鯊魚的觀測點（綠點）絕大多數集中在海面溫度較高（通常高於 28°C）且葉綠素a濃度極低（通常低於 0.4 mg m⁻³）的水域。相比之下，隨機選取的控制點（灰點）則廣泛分佈於各種環境條件下，包括那些溫度較低、生產力較高的水域。",
+      resultsImageCaption2: "鯊魚的移動軌跡（多色線條）疊加在海面高度異常（Sea Surface Height Anomaly, SSHA）圖上。該地圖的地理範圍集中在墨西哥灣東北部，大約位於北緯 24-28 度與西經 85-90 度之間。",
+
+      // 新增區域 1.6 - 研究結果2
+      results2Title: "環境參數重要性",
+      results2Desc: "環境參數重要性分析顯示，葉綠素a濃度是預測鯊魚位置最強的變數，此結果量化葉綠素相比於溫度或海表高度異常，是辨識暖核渦流最清晰的表層指標。其次，年份日的重要性也極高，表明鯊魚的分佈具有強烈的季節性規律，並被模型成功捕捉。與此形成鮮明對比的是，經緯度等靜態地理座標的重要性極低，顯示鯊魚的棲地選擇是由水的動態特性所決定，而非其固定的地理位置。",
+      results2ImageCaption: "隨機森林特徵重要性條形圖，量化了每個環境變數對模型預測準確性的貢獻程度。",
 
       // 新增區域 2 - 未來願景
-      visionTitle: "未來願景：科技與保育的永續結合", 
-      visionDesc: "展望未來，我們計劃將此技術模型推廣到其他海洋物種的保育工作上。透過建立開放的數據平台，讓全球的研究者、保育團體、甚至是漁民都能即時獲得海洋生物的預測資訊。我們相信，當科技的力量與社會的參與結合，不僅能減少人類活動對海洋生物的負面影響，更能創造經濟與環境的雙贏局面。最終目標是建立一個智慧海洋監測網絡，讓每一次的科學發現都能轉化為實際的保育行動，確保後代子孫也能在健康的海洋環境中，與這些壯麗的生物共同生存。"
+      visionTitle: "未來願景：科技與保育的永續", 
+      visionDesc: "透過統計分析和機器學習，我們展示了墨西哥灣鯊魚的棲息地選擇行為及其背後的生態機制。這些掠食者喜好棲息在暖核反氣旋渦流的中心區域。透過其溫暖、低葉綠素的表層特徵以及正海面高度異常，我們將能從太空中透過衛星數據來推論鯊魚位置。同時，我們透過已知的鯊魚位置訓練隨機森林機器學習模型，該模型解釋環境變數與物種存在之間複雜、非線性的關係，並能夠生成準確、動態的棲息地預測，從而驗證了我們對於生態學的理解。未來我們能結合衛星數據與機器學習模型，分析追蹤器回傳的資料，藉此識別關鍵的生物熱點，包含鯊魚與各種被捕食的生物，從生產者到消費者，預測物種分佈因氣候變遷而可能發生的轉變，並為漁業禁捕進行動態管理，以減少對脆弱物種的誤捕，保護其關鍵棲息地。透過建立一個開放數據平台，研究人員與保育團體將能獲取關於海洋生物的即時預測資訊。透過資訊共享，如與OCEARCH或全球科學家合作，共同分析全球數據與更多鯊魚物種，我們將能建立一個智慧海洋監測網絡，確保未來世代能夠在健康的海洋環境中與這些多樣的生物共存。"
     },
     dashboard: {
       controlPanel: "🎛️ 控制面板",
@@ -252,30 +267,47 @@ const translations = {
     },
     home: {
       // Hero Section - Story-driven content
-      heroTitle: "Mexican Bay Whale Sharks Seen from Space",
-      heroSubtitle: "When NASA Satellites Meet Ocean Predators",
-      heroDescription: "We harness cutting-edge space technology to track the ocean's most mysterious creatures. Every heartbeat, every movement, is nature's code written just for us.",
-      heroMission: "This isn't just scientific research—it's our mission to save marine ecosystems",
+      heroTitle: "Shark from Space",
+      heroSubtitle: "2025 NASA Space Apps Challenge",
+      heroDescription: "Using NASA satellite data to track the top predators in the ocean.",
+      heroMission: "no water, no life. no blue, no green -- Dr. Sylvia Earle ",
+      
       
       // Call to Action
-      exploreButton: "Data Analysis",
-      watchStory: "Our Story",
+      exploreButton: "Track Sharks!",
+      watchStory: "The Story of Sharks",
       
       // Mission Statement
-      missionTitle: "Mission: Decode Whale Shark Habitat Secrets",
-      missionDesc: "In popular imagination, sharks are often seen as ruthless predators—symbols of danger and fear. Yet, precisely because they occupy the top of the food chain, sharks are indispensable for maintaining the balance of marine ecosystems. Without sharks, the stability of the entire food web—from phytoplankton to fisheries—would be at risk. According to a 2021 Nature study, global populations of sharks and rays have declined by 71% since 1970, primarily due to overfishing. Alarmingly, three-quarters of oceanic shark and ray species are now threatened with extinction, putting essential ecosystem functions at risk.",
+      missionTitle: "A Global Alert on Shark Extinction",
+      missionDesc: "In popular imagination, sharks are often seen as ruthless predators, symbols of danger and fear. Yet, precisely because they occupy the top of the food chain, sharks are indispensable for maintaining the balance of marine ecosystems. Without sharks, the stability of the entire food web—from phytoplankton to fisheries—would be at risk. According to a 2021 Nature study by Pacoureau et al., global populations of sharks and rays have declined by 71% since 1970, primarily due to overfishing, sounding the alarm for the collapse of entire marine ecosystem functions.",
+      missionImageCaption: "Pacoureau et al.(2021) show the changes in shark populations across different oceans and ecological traits since 1970. In the Atlantic, populations stabilized at low levels after a long decline; in the Pacific, sharp drops occurred before 1990 followed by slower declines; and in the Indian Ocean, the decline was most severe. By traits, tropical sharks declined faster than temperate ones, large-bodied species (>500 cm) declined more steeply, and long-generation species (>30 years) proved the most vulnerable with the slowest recovery. This highlights the high conservation risk faced by tropical, large predators.",
       
+
       // Technology Highlight
-      techTitle: "Why is Predicting Their Location Important?",
-      techDesc: "In 2025, a research team at the University of California launched Project SharkEye, applying AI and image analysis to track great white sharks and share data with both scientists and local communities. Inspired by this, we aim to integrate NASA's open satellite datasets (PACE, SWOT) with machine learning to identify shark foraging hotspots while fostering public engagement and education. By improving shark location prediction, humans can make more informed decisions that emphasize conservation policies, fisheries management, public safety, and education with community engagement. Through scientific data and social interaction, our vision is to build a peaceful ocean ecosystem where humans and sharks coexist.",
+      techTitle: "From Data to Action: Predicting Shark Hotspots",
+      techDesc: "In 2020, Gorkin et al. developed an autonomous aerial surveillance system named Sharkeye, which uses an airship and machine learning to detect sharks in real-time and shares data with researchers and local communities to reduce human-shark conflict. Inspired by this project, we combine NASA's open satellite data (MODIS, MEaSUREs) with machine learning models to predict shark foraging hotspots. Through a website, we display scientific data and facilitate community interaction to promote marine conservation education, encouraging people to place greater importance on conservation policies, fisheries management, and participation in citizen science.",
+      techImageCaption: "Sharkeye, developed by Gorkin et al. (2020), analyzes potential objects in each grid cell using pre-processed aerial imagery and an object detection model, marking the final detected results such as sharks or swimmers.",
 
       // New Section 1 - Research Methods
       methodTitle: "Research Methods: Satellite Remote Sensing and Machine Learning Integration",
-      methodDesc: "Our research methodology combines NASA's multispectral satellite imagery, ocean environmental data, and whale shark biotelemetry data. Through PACE satellite monitoring of ocean color changes to identify phytoplankton aggregation areas, while the SWOT mission provides sea surface height and ocean current information. When these environmental factors are combined with whale shark GPS tracking data, we use Random Forest algorithms to build predictive models that can predict whale shark occurrence areas with over 85% accuracy. Additionally, we integrate fisheries data and sea temperature records to construct more comprehensive ecosystem models, providing scientific basis for conservation decisions.",
+      methodDesc: "Our research methods combine NASA's ocean environmental data, as well as whale shark data inhabiting the Gulf of Mexico. Through MODIS satellite monitoring of ocean temperature, and inferring chlorophyll concentration through ocean color changes, MEASUREs combines multi-satellite data to provide sea surface height anomaly data. After combining environmental data with whale shark position information, we use Random Forest algorithm to build models to predict possible future habitat locations of whale sharks.",
+      methodImageCaption: "The Random Forest (RF) model was trained with known species locations from September 26 to October 14, 2014 (Left) to predict the distribution for the subsequent week. We then compare the actual locations from October 15 to October 21, 2014 (Center) with the model's prediction (Right). Warm-colored areas (yellow, green) represent a higher probability of species presence, and the predicted hotspots align well with the actual observations.",
+      
+
+      // New Section 1.5 - Research Results
+      resultsTitle: "Interaction Between Whale Sharks and Environment",
+      resultsDesc: "We discovered that sharks exhibit a preference for warm, nutrient-poor surface waters with low chlorophyll concentrations. This finding is counterintuitive, given that predators are typically expected to aggregate in productive environments. We identified these waters as large, warm anticyclonic eddies, characterized by positive sea surface height anomalies. Sharks use these warm water columns, extending hundreds of meters deep, to make prolonged dives into prey-rich deep waters for hunting, all while staying in a thermally favorable environment. This discovery fundamentally changes our previous understanding of shark habitats.",
+      resultsImageCaption: "Shark locations against Sea Surface Temperature (SST) and Chlorophyll-a (CHL-a) concentration. The data clearly shows that shark locations (green dots) are overwhelmingly clustered in waters with high SST (typically > 28°C) and very low CHL-a concentrations (typically < 0.4 mg m⁻³). In contrast, random control points (grey dots) are scattered across a much wider range of conditions, including cooler, more productive waters.",
+      resultsImageCaption2: "Shark tracks (multi-colored lines) on a map of Sea Surface Height Anomaly (SSHA). The map is geographically focused on the northeastern Gulf of Mexico, approximately between 24-28°N latitude and 85-90°W longitude",
+
+      // New Section 1.6 - Research Results2
+      results2Title: "Environmental Variable Importance",
+      results2Desc: "Analysis of environmental parameter importance reveals that chlorophyll-a concentration is the most powerful predictor of shark location, quantitatively confirming that extremely low chlorophyll is the clearest surface signature of warm-core eddies, comparing to the SST and SSHA. Furthermore, the high importance of 'day of the year' highlights a strong seasonality in shark distribution successfully captured by the model. In stark contrast, static geographic coordinates such as longitude and latitude were of minimal importance, demonstrating that shark habitat selection is driven by the dynamic properties of water masses, not by fixed geographic positions.",
+      results2ImageCaption: "A Random Forest feature importance bar plot, quantifying the contribution of each environmental variable to the model's predictive accuracy.",
 
       // New Section 2 - Future Vision  
       visionTitle: "Future Vision: Sustainable Integration of Technology and Conservation",
-      visionDesc: "Looking ahead, we plan to extend this technological model to conservation work for other marine species. By establishing an open data platform, researchers, conservation groups, and even fishermen worldwide can access real-time predictive information about marine life. We believe that when the power of technology combines with social participation, it can not only reduce the negative impact of human activities on marine life, but also create win-win situations for both economy and environment. The ultimate goal is to establish an intelligent ocean monitoring network, where every scientific discovery can be transformed into actual conservation action, ensuring that future generations can coexist with these magnificent creatures in healthy marine environments."
+      visionDesc: "Through statistical analysis and machine learning, we demonstrate the habitat selection behavior of sharks in the Gulf of Mexico and the ecological mechanisms behind it. These predators prefer to inhabit the central regions of warm-core anticyclonic eddies. By leveraging their warm, low-chlorophyll surface characteristics and positive sea surface height anomalies, we will be able to infer shark locations from space using satellite data. Concurrently, we are training a random forest machine learning model using known shark locations. This model explains the complex, non-linear relationships between environmental variables and species presence and is capable of generating accurate, dynamic habitat predictions, thereby validating our understanding of ecology. In the future, we can combine satellite data with machine learning models to analyze data from trackers. This will allow us to identify critical biological hotspots—including sharks and various prey species, from producers to consumers—predict potential shifts in species distribution due to climate change, and implement dynamic management for fishery closures to reduce the bycatch of vulnerable species and protect their critical habitats. By establishing an open data platform, researchers and conservation groups will be able to access real-time predictive information about marine life. Through information sharing, such as collaborating with OCEARCH or scientists worldwide to jointly analyze global data and more shark species, we can establish an intelligent ocean monitoring network, ensuring that future generations can coexist with these diverse creatures in healthy marine environments."
     },
     dashboard: {
       controlPanel: "🎛️ Control Panel",
