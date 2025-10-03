@@ -127,32 +127,60 @@ const translations = {
       }
     },
     detector: {
-      title: "智能鯊魚偵測器",
-      subtitle: "新一代概念標籤 · 即時行為偵測 · 銥衛星通訊",
-      modelTitle: "🎮 3D 標籤模型",
-      interactionHint: "滑鼠拖拽旋轉 • 滾輪縮放 • 點擊標籤互動",
-      techSpecs: "🚀 技術規格",
-      communication: {
-        title: "📡 通訊系統",
-        description: "銥衛星即時通訊 • 全球覆蓋 • 低功耗設計"
+      title: "EcoTag-Q：量子傳輸鯊魚生態追蹤系統",
+      subtitle: "整合式標籤・量子通訊・行為與食物網感測",
+      systemOverview: "系統概覽",
+      systemImageCaption: "EcoTag-Q 系統架構，從鯊魚身上的智慧標籤到量子安全的雲端資料庫傳輸",
+      
+      integratedTag: {
+        title: "EcoTag-Q",
+        description: "此標籤是高度整合的微型實驗室，附著在鯊魚身上進行偵測。"
       },
-      sensing: {
-        title: "🎯 感測功能",
-        description: "高頻加速度感測 • 覓食行為識別 • GPS 定位追蹤"
+      
+      feedingDetection: {
+        title: "覓食行為偵測",
+        description: "結合加速度計記錄三軸高頻動作如衝刺加速、咬合與衝擊，以及陀螺儀記錄捕食時的翻滾、俯仰和姿態變化，辨認捕食瞬間的爆發性動作並量化覓食能量消耗。"
       },
-      power: {
-        title: "🔋 電源管理",
-        description: "事件觸發式啟動 • 太陽能充電 • 超長待機時間"
+      
+      preyIdentification: {
+        title: "獵物種類判斷",
+        description: "透過胃溫感測器測量鯊魚胃部溫度變化，eDNA微型檢測模組從周圍水體採集樣本進行現場DNA分析，以及化學感測器偵測消化過程中的生物標記，精準判斷食物類別。"
       },
-      protection: {
-        title: "🌊 防護設計",
-        description: "深海防水 • 抗壓耐腐蝕 • 生物相容材質"
+      
+      aiProcessing: {
+        title: "運算與資料處理",
+        description: "部署預先訓練的一維卷積神經網絡(1D-CNN)，即時分析動作數據，當符合覓食模式時觸發其他感測器並生成事件摘要，讓被動記錄變為主動辨識，減少能耗增加電池壽命。"
       },
-      workflow: "⚡ 工作流程",
-      deployment: { title: "標籤部署", description: "安全附著於鯊魚背鰭，開始追蹤任務" },
-      dataCollection: { title: "數據收集", description: "持續監測位置、行為、環境參數" },
-      satelliteTransmission: { title: "衛星傳輸", description: "透過銥衛星即時上傳關鍵數據" },
-      intelligentAnalysis: { title: "智能分析", description: "AI 演算法識別覓食、游泳等行為模式" }
+      
+      quantumLink: {
+        title: "資料與量子傳輸",
+        description: "將打包的事件摘要從鯊魚傳送到雲端資料庫，利用量子通訊確保數據的絕對安全。"
+      },
+      
+      acousticUplink: {
+        title: "聲學上傳",
+        description: "將加密的事件摘要從鯊魚標籤短距離傳輸到固定的接收節點。聲波在水中傳輸效率高且不被吸收。"
+      },
+      
+      seafloorNode: {
+        title: "海底節點",
+        description: "接收聲學信號，轉換為光信號，並作為量子通訊的起點。連接到光纖網絡，支援量子和傳統數據的傳輸。"
+      },
+      
+      quantumRepeater: {
+        title: "量子重複器",
+        description: "部署於長距離光纖鏈路的中繼點，克服光子衰減問題。透過糾纏交換和量子記憶體，將量子安全通訊距離從幾十公里延伸到數百甚至數千公里。"
+      },
+      
+      quantumProcessor: {
+        title: "量子處理器",
+        description: "位於陸上資料中心入口，計算量子位元錯誤率，進行錯誤更正與隱私放大，生成最終的安全金鑰池進行解密。"
+      },
+      
+      cloudServer: {
+        title: "雲端伺服器",
+        description: "全球分佈的資料中心儲存解密後的數據，提供給科學家和保育單位進行分析和查詢，確保數據的即時性與可擴展性。"
+      }
     },
     ml: {
       title: "機器學習架構",
@@ -382,33 +410,62 @@ const translations = {
         loading: "Loading..."
       }
     },
+      
     detector: {
-      title: "Smart Shark Detector",
-      subtitle: "Next-generation concept tags · Real-time behavior detection · Iridium satellite communication",
-      modelTitle: "🎮 3D Tag Model",
-      interactionHint: "Mouse drag to rotate • Scroll to zoom • Click tag to interact",
-      techSpecs: "🚀 Technical Specifications",
-      communication: {
-        title: "📡 Communication System",
-        description: "Iridium satellite real-time communication • Global coverage • Low power design"
+      title: "EcoTag-Q: Quantum Enhanced Shark Ecology Tracking System",
+      subtitle: "Integrated Tag・Quantum Communication・Behavioral & Food Web Sensing",
+      systemOverview: "System Overview",
+      systemImageCaption: "EcoTag-Q System: From the smart tags on the shark to the quantum-secure cloud database transmission",
+
+      integratedTag: {
+        title: "EcoTag-Q",
+        description: "This tag is a highly integrated micro-laboratory attached to the shark for detection."
       },
-      sensing: {
-        title: "🎯 Sensing Functions", 
-        description: "High-frequency acceleration sensing • Feeding behavior recognition • GPS positioning tracking"
+
+      feedingDetection: {
+        title: "Foraging Behavior Detection",
+        description: "Combines an accelerometer to record high-frequency, tri-axial movements like burst acceleration, bites, and impacts, with a gyroscope to record rolls, pitches, and posture changes during predation. This allows for identifying the explosive moments of a predation event and quantifying the energy expenditure of foraging."
       },
-      power: {
-        title: "🔋 Power Management",
-        description: "Event-triggered activation • Solar charging • Ultra-long standby time"
+
+      preyIdentification: {
+        title: "Prey Type Identification",
+        description: "Utilizes a stomach temperature sensor to measure changes in the shark's stomach temperature, an eDNA micro-sensor module to collect water samples for on-site DNA analysis, and a chemical sensor to detect biomarkers during digestion, enabling accurate determination of prey type."
       },
-      protection: {
-        title: "🌊 Protection Design",
-        description: "Deep-sea waterproof • Pressure and corrosion resistant • Biocompatible materials"
+
+      aiProcessing: {
+        title: " Computing & Data Processing",
+        description: "Deploys a pre-trained 1D Convolutional Neural Network (1D-CNN) to analyze motion data in real-time. When a foraging pattern is detected, it triggers other sensors and generates an event summary. This shifts the process from passive recording to active identification, reducing power consumption and extending battery life."
       },
-      workflow: "⚡ Workflow",
-      deployment: { title: "Tag Deployment", description: "Safely attach to shark dorsal fin, begin tracking mission" },
-      dataCollection: { title: "Data Collection", description: "Continuously monitor location, behavior, environmental parameters" },
-      satelliteTransmission: { title: "Satellite Transmission", description: "Real-time upload of critical data via Iridium satellites" },
-      intelligentAnalysis: { title: "Intelligent Analysis", description: "AI algorithms identify feeding, swimming and other behavioral patterns" }
+
+      quantumLink: {
+        title: "Data & Quantum Transmission",
+        description: "Transmits the packaged event summaries from the shark to a cloud database, using quantum communication to ensure the absolute security of the data."
+      },
+
+      acousticUplink: {
+        title: "Acoustic Upload",
+        description: "Transmits encrypted event summaries over a short distance from the shark tag to a fixed receiving node. Acoustic waves are highly efficient for transmission in water."
+      },
+
+      seafloorNode: {
+        title: "Node",
+        description: "Receives the acoustic signal, converts it into an optical signal, and serves as the starting point for quantum communication. It connects to the optical fiber network, supporting the transmission of both quantum and classical data."
+      },
+
+      quantumRepeater: {
+        title: "Quantum Repeater",
+        description: "Deployed at intermediate points along long-distance fiber optic links to overcome photon attenuation. Through entanglement swapping and quantum memory, it extends the range of secure quantum communication from tens to hundreds or even thousands of kilometers."
+      },
+
+      quantumProcessor: {
+        title: "Quantum Processor",
+        description: "Located at the shore-based data center, it calculates the Quantum Bit Error Rate (QBER), performs error correction and privacy amplification, and generates the final secure key pool used for decryption."
+      },
+
+      cloudServer: {
+        title: "Cloud Server",
+        description: "Globally distributed data centers store the decrypted data, making it available to scientists and conservationists for analysis and querying. This ensures the data's real-time availability and scalability."
+      }
     },
     ml: {
       title: "Machine Learning Architecture",
