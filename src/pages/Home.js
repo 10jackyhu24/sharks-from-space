@@ -558,6 +558,56 @@ function Home() {
         </div>
       </section>
 
+      {/* References Section */}
+      <section 
+        id="references-section"
+        style={{
+          padding: '100px 2rem',
+          background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+          position: 'relative'
+        }}
+      >
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{
+            fontSize: 'clamp(2rem, 6vw, 3rem)',
+            color: '#2d3748',
+            marginBottom: '2rem',
+            fontWeight: '800'
+          }}>
+            {t('home.referencesTitle')}
+          </h2>
+          <div style={{
+            textAlign: 'left',
+            maxWidth: '1000px',
+            margin: '0 auto',
+            fontSize: '0.95rem',
+            lineHeight: '1.6',
+            color: '#4a5568'
+          }}>
+            <ol style={{ paddingLeft: '2rem' }}>
+              <li style={{ marginBottom: '1rem' }}>
+                Hoffmayer, Eric. (2015). Data from: Whale shark movements in Gulf of Mexico [Data set]. Movebank Data Repository. Movebank ID: 1153270750.
+              </li>
+              <li style={{ marginBottom: '1rem' }}>
+                NASA Ocean Biology Processing Group (OBPG). (2020). MODIS Aqua Global Level 3 Mapped SST, Version 2019.0 [Data set]. PO.DAAC.
+              </li>
+              <li style={{ marginBottom: '1rem' }}>
+                NASA Ocean Biology Processing Group (OBPG). (2022). MODIS-Aqua Level-3 Binned Mapped Chlorophyll-a Concentration [Data set]. NASA OB.DAAC. https://doi.org/10.5067/AQUA/MODIS/L3M/CHL/2022.0
+              </li>
+              <li style={{ marginBottom: '1rem' }}>
+                Fournier S., Willis J., Killett E., Qu Z. & Zlotnicki V. (2022). JPL MEaSUREs Gridded Sea Surface Height Anomalies Version 2205 [Data set]. Jet Propulsion Laboratory (JPL).
+              </li>
+              <li style={{ marginBottom: '1rem' }}>
+                Pacoureau, et al. "Half a century of global decline in oceanic sharks and rays." Nature 589.7843 (2021): 567-571.
+              </li>
+              <li style={{ marginBottom: '1rem' }}>
+                Gorkin et al. "Sharkeye: Real-time autonomous personal shark alerting via aerial surveillance." Drones 4.2 (2020): 18.
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
       {/* CSS Animations */}
       <style>{`
         @keyframes pulse {
