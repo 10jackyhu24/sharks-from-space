@@ -4,6 +4,7 @@ import { useTranslation } from '../contexts/LanguageContext';
 import Header from "../components/Header";
 import MapView from "../components/MapView";
 import SharkChart from "../components/SharkChart";
+import SharkProbability from '../components/SharkProbability';
 
 function Dashboard() {
   const { t } = useTranslation();
@@ -14,6 +15,7 @@ function Dashboard() {
   ]);
   const [activeLayer, setActiveLayer] = useState('openstreetmap');
   const [visualizationMode, setVisualizationMode] = useState('markers');
+  const [selectedSlot, setSelectedSlot] = useState(null);
 
   // 物種切換邏輯
   const toggleSpecies = (species) => {
@@ -208,13 +210,20 @@ function Dashboard() {
             activeLayer={activeLayer}
             visualizationMode={visualizationMode}
             t={t}
+            selectedSlot={selectedSlot}
           />
+          <br />
+          <h3 className="map-title"> 🗺️ {t('dashboard.mapView.sharkProbability')} </h3>
+          <SharkProbability selectedSlot={selectedSlot} />
         </div>
         
         {/* 右側：圖表和資訊 */}
         <div className="sidebar">
           <div className="card">
-            <SharkChart t={t}/>
+            <SharkChart 
+              t={t}
+              onTimeSlotChange={setSelectedSlot}
+            />
           </div>
           
           <div className="card">

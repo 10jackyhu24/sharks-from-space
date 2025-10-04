@@ -1,5 +1,6 @@
 // src/contexts/LanguageContext.js - 擴充完整翻譯版本
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import SharkProbability from '../components/SharkProbability';
 
 const translations = {
   zh: {
@@ -112,6 +113,7 @@ const translations = {
             unit: "數值"
           }
         },
+        sharkProbability: "鯊魚預測機率",
         dataDtatistics: {
           shark: "{{count}} 個鯊魚紀錄",
           densityZones: "{{count}} 個密度區",
@@ -199,6 +201,7 @@ const translations = {
         predictionResult: "預測結果 (機率分布)",
         resultAlert: "預測/訓練失敗，請檢查後端 API 是否正常運作"
       },
+      example_csv: "下載範例資料",
       dataProcessingWorkflow: {
         satelliteData: {
           title: "衛星數據",
@@ -399,6 +402,7 @@ const translations = {
             unit: "Value"
           }
         },
+        sharkProbability: "Sharks Predicted Probability",
         dataDtatistics: {
           shark: "{{count}} Sharks' Points",
           densityZones: "{{count}} Density Zones",
@@ -487,6 +491,7 @@ const translations = {
         predictionResult: "Prediction results (probability distribution)",
         resultAlert: "Prediction / training failed. Please check if the backend API is functioning correctly."
       },
+      example_csv: "Download sample file",
       dataProcessingWorkflow: {
         satelliteData: {
           title: "Satellite Data",

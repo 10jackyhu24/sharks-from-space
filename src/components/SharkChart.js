@@ -54,7 +54,7 @@ function MapCard({ title, points, bounds }) {
   );
 }
 
-export default function SharkHeatmaps({t}) {
+export default function SharkHeatmaps({t, onTimeSlotChange}) {
   const [sharkData, setSharkData] = useState([]);
   const [error, setError] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
@@ -142,7 +142,11 @@ export default function SharkHeatmaps({t}) {
       <div style={{ marginBottom: "1rem" }}>
         <label>{t('dashboard.sharkChart.selectPeriod')}: </label>
         <select
-          onChange={(e) => setSelectedSlot(timeSlots[e.target.value])}
+          onChange={(e) => {
+            const slot = timeSlots[e.target.value];
+            setSelectedSlot(slot);
+            if (onTimeSlotChange) onTimeSlotChange(slot);
+          }}
           defaultValue=""
         >
           <option value="" disabled>{t('dashboard.sharkChart.selectPeriod')}</option>

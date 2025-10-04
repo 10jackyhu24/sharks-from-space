@@ -333,6 +333,28 @@ function MachineLearning() {
               </div>
             )}
           </div>
+
+          <div style={{ marginTop: "12px", textAlign: "center" }}>
+            <a
+              href={`${process.env.PUBLIC_URL}/Sample_data.zip`}
+              download="Sample_data.zip"
+              style={{
+                display: "inline-block",
+                padding: "10px 20px",
+                backgroundColor: "#3182ce",
+                color: "white",
+                borderRadius: "6px",
+                textDecoration: "none",
+                fontSize: "14px",
+                fontWeight: "600",
+                transition: "background 0.2s ease"
+              }}
+              onMouseEnter={(e) => e.target.style.backgroundColor = "#2b6cb0"}
+              onMouseLeave={(e) => e.target.style.backgroundColor = "#3182ce"}
+            >
+              📥 {t('ml.example_csv')}
+            </a>
+          </div>
           
           <div className="card">
             <h3 className="section-title">{t('dashboard.researchInfo')}</h3>
