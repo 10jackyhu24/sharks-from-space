@@ -14,6 +14,7 @@ function Dashboard() {
   ]);
   const [activeLayer, setActiveLayer] = useState('openstreetmap');
   const [visualizationMode, setVisualizationMode] = useState('markers');
+  const [selectedSlot, setSelectedSlot] = useState(null);
 
   // 物種切換邏輯
   const toggleSpecies = (species) => {
@@ -208,13 +209,17 @@ function Dashboard() {
             activeLayer={activeLayer}
             visualizationMode={visualizationMode}
             t={t}
+            selectedSlot={selectedSlot}
           />
         </div>
         
         {/* 右側：圖表和資訊 */}
         <div className="sidebar">
           <div className="card">
-            <SharkChart t={t}/>
+            <SharkChart 
+              t={t}
+              onTimeSlotChange={setSelectedSlot}
+            />
           </div>
           
           <div className="card">

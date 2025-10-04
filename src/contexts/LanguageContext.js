@@ -196,6 +196,7 @@ const translations = {
         predictionResult: "預測結果 (機率分布)",
         resultAlert: "預測/訓練失敗，請檢查後端 API 是否正常運作"
       },
+      example_csv: "下載範例資料",
       dataProcessingWorkflow: {
         satelliteData: {
           title: "衛星數據",
@@ -481,6 +482,7 @@ const translations = {
         predictionResult: "Prediction results (probability distribution)",
         resultAlert: "Prediction / training failed. Please check if the backend API is functioning correctly."
       },
+      example_csv: "Download sample file",
       dataProcessingWorkflow: {
         satelliteData: {
           title: "Satellite Data",

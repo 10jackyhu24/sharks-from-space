@@ -336,8 +336,8 @@ function MachineLearning() {
 
           <div style={{ marginTop: "12px", textAlign: "center" }}>
             <a
-              href={`${process.env.PUBLIC_URL}/example_data.zip`}
-              download="example_data.zip"
+              href={`${process.env.PUBLIC_URL}/Sample_data.zip`}
+              download="Sample_data.zip"
               style={{
                 display: "inline-block",
                 padding: "10px 20px",
@@ -352,7 +352,7 @@ function MachineLearning() {
               onMouseEnter={(e) => e.target.style.backgroundColor = "#2b6cb0"}
               onMouseLeave={(e) => e.target.style.backgroundColor = "#3182ce"}
             >
-              📥 下載範例資料
+              📥 {t('ml.example_csv')}
             </a>
           </div>
           
