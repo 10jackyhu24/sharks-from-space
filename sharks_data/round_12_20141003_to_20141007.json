@@ -1,0 +1,834 @@
+[
+  {
+    "id": "0",
+    "species": "Tiger Shark",
+    "lng": -86.25063803,
+    "lat": 25.68908758,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "1",
+    "species": "Tiger Shark",
+    "lng": -86.1877839,
+    "lat": 25.7006025,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "2",
+    "species": "Tiger Shark",
+    "lng": -86.15356781,
+    "lat": 25.62013761,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "3",
+    "species": "Tiger Shark",
+    "lng": -86.27087045,
+    "lat": 25.4183119,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "4",
+    "species": "Tiger Shark",
+    "lng": -86.65892788,
+    "lat": 24.78360314,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "5",
+    "species": "Tiger Shark",
+    "lng": -96.23088918,
+    "lat": 27.2327037,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "6",
+    "species": "Tiger Shark",
+    "lng": -96.24291762,
+    "lat": 27.27108941,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "7",
+    "species": "Tiger Shark",
+    "lng": -95.8206144,
+    "lat": 27.45106541,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "8",
+    "species": "Tiger Shark",
+    "lng": -95.43977473,
+    "lat": 27.41249084,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "9",
+    "species": "Tiger Shark",
+    "lng": -95.41528947,
+    "lat": 27.39773266,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "10",
+    "species": "Tiger Shark",
+    "lng": -92.9265241,
+    "lat": 24.82900195,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "11",
+    "species": "Tiger Shark",
+    "lng": -93.36178853,
+    "lat": 24.96352009,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "12",
+    "species": "Tiger Shark",
+    "lng": -93.73877163,
+    "lat": 25.08613363,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "13",
+    "species": "Tiger Shark",
+    "lng": -94.06608095,
+    "lat": 24.8855202,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "14",
+    "species": "Tiger Shark",
+    "lng": -94.35200131,
+    "lat": 24.90595236,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "15",
+    "species": "Tiger Shark",
+    "lng": -86.00531893,
+    "lat": 27.26360553,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "16",
+    "species": "Tiger Shark",
+    "lng": -85.9890566,
+    "lat": 27.3259107,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "17",
+    "species": "Tiger Shark",
+    "lng": -85.7895142,
+    "lat": 27.46586463,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "18",
+    "species": "Tiger Shark",
+    "lng": -85.66477292,
+    "lat": 27.51955448,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "19",
+    "species": "Tiger Shark",
+    "lng": -85.81560135,
+    "lat": 27.53669151,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "20",
+    "species": "Tiger Shark",
+    "lng": -90.71560136,
+    "lat": 27.54699019,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "21",
+    "species": "Tiger Shark",
+    "lng": -90.41583784,
+    "lat": 27.60958907,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "22",
+    "species": "Tiger Shark",
+    "lng": -90.29234035,
+    "lat": 27.60043498,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "23",
+    "species": "Tiger Shark",
+    "lng": -90.16931932,
+    "lat": 27.61109349,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "24",
+    "species": "Tiger Shark",
+    "lng": -89.94685231,
+    "lat": 27.62247533,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "25",
+    "species": "Tiger Shark",
+    "lng": -88.86885062,
+    "lat": 28.91641044,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "26",
+    "species": "Tiger Shark",
+    "lng": -88.80599588,
+    "lat": 28.81409508,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "27",
+    "species": "Tiger Shark",
+    "lng": -88.67318102,
+    "lat": 28.61811909,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "28",
+    "species": "Tiger Shark",
+    "lng": -88.45445266,
+    "lat": 28.76712621,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "29",
+    "species": "Tiger Shark",
+    "lng": -88.3490923,
+    "lat": 28.77820436,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "30",
+    "species": "Tiger Shark",
+    "lng": -86.6360741,
+    "lat": 27.05209741,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "31",
+    "species": "Tiger Shark",
+    "lng": -86.41999553,
+    "lat": 27.22604573,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "32",
+    "species": "Tiger Shark",
+    "lng": -86.43555291,
+    "lat": 27.29940387,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "33",
+    "species": "Tiger Shark",
+    "lng": -86.37414263,
+    "lat": 27.31639756,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "34",
+    "species": "Tiger Shark",
+    "lng": -86.36718286,
+    "lat": 27.29050422,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "35",
+    "species": "Tiger Shark",
+    "lng": -92.58259988459878,
+    "lat": 26.52949847149808,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "36",
+    "species": "Tiger Shark",
+    "lng": -87.27489628201168,
+    "lat": 24.425516083501147,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "37",
+    "species": "Tiger Shark",
+    "lng": -89.27659972082357,
+    "lat": 23.75821474714326,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "38",
+    "species": "Tiger Shark",
+    "lng": -90.57725023574118,
+    "lat": 23.783223579443774,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "39",
+    "species": "Tiger Shark",
+    "lng": -95.65418158921402,
+    "lat": 25.25134137165311,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "40",
+    "species": "Tiger Shark",
+    "lng": -91.8714356269789,
+    "lat": 25.62134736064744,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "41",
+    "species": "Tiger Shark",
+    "lng": -91.76497981661166,
+    "lat": 28.85557905501856,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "42",
+    "species": "Tiger Shark",
+    "lng": -86.73155629895669,
+    "lat": 19.53255951269008,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "43",
+    "species": "Tiger Shark",
+    "lng": -89.45472280669023,
+    "lat": 29.296472272923616,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "44",
+    "species": "Tiger Shark",
+    "lng": -83.47156046026419,
+    "lat": 28.226539091708865,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "45",
+    "species": "Tiger Shark",
+    "lng": -94.74353851255783,
+    "lat": 24.572976938346915,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "46",
+    "species": "Tiger Shark",
+    "lng": -94.40466599451597,
+    "lat": 25.96227615902233,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "47",
+    "species": "Tiger Shark",
+    "lng": -91.11125998268594,
+    "lat": 24.45955470143944,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "48",
+    "species": "Tiger Shark",
+    "lng": -89.10613900385464,
+    "lat": 23.00909443946632,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "49",
+    "species": "Tiger Shark",
+    "lng": -98.17413040417128,
+    "lat": 21.815707982269963,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "50",
+    "species": "Tiger Shark",
+    "lng": -87.62196961972018,
+    "lat": 24.03159786852792,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "51",
+    "species": "Tiger Shark",
+    "lng": -88.59769539034373,
+    "lat": 25.23054708589808,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "52",
+    "species": "Tiger Shark",
+    "lng": -83.85961258388862,
+    "lat": 24.7480712552856,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "53",
+    "species": "Tiger Shark",
+    "lng": -85.77873277603305,
+    "lat": 25.72712081418341,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "54",
+    "species": "Tiger Shark",
+    "lng": -90.65504625860012,
+    "lat": 23.77161343792652,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "55",
+    "species": "Tiger Shark",
+    "lng": -88.87471528252583,
+    "lat": 23.061380589016785,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "56",
+    "species": "Tiger Shark",
+    "lng": -83.40828416436864,
+    "lat": 29.12703230266056,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "57",
+    "species": "Tiger Shark",
+    "lng": -88.50909808057595,
+    "lat": 23.19619396502954,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "58",
+    "species": "Tiger Shark",
+    "lng": -95.83094852342488,
+    "lat": 31.0508427008676,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "59",
+    "species": "Tiger Shark",
+    "lng": -90.23379098314965,
+    "lat": 24.889203908647005,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "60",
+    "species": "Tiger Shark",
+    "lng": -88.52919548589998,
+    "lat": 21.42817088684757,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "61",
+    "species": "Tiger Shark",
+    "lng": -93.00364071834228,
+    "lat": 24.39397310979587,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "62",
+    "species": "Tiger Shark",
+    "lng": -86.20174791168563,
+    "lat": 21.557355234263632,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "63",
+    "species": "Tiger Shark",
+    "lng": -90.80541851794604,
+    "lat": 21.98282874820081,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "64",
+    "species": "Tiger Shark",
+    "lng": -90.67098285391484,
+    "lat": 24.50236360328362,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "65",
+    "species": "Tiger Shark",
+    "lng": -89.49481399378558,
+    "lat": 28.968584042020737,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "66",
+    "species": "Tiger Shark",
+    "lng": -83.87903159300757,
+    "lat": 22.39476119631955,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "67",
+    "species": "Tiger Shark",
+    "lng": -96.16341348300226,
+    "lat": 26.77322945208895,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "68",
+    "species": "Tiger Shark",
+    "lng": -87.61300406276757,
+    "lat": 24.199683912590743,
+    "actual_presence": 0,
+    "predicted_probability": 0.0
+  },
+  {
+    "id": "69",
+    "species": "Tiger Shark",
+    "lng": -86.25063803,
+    "lat": 25.68908758,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "70",
+    "species": "Tiger Shark",
+    "lng": -86.1877839,
+    "lat": 25.7006025,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "71",
+    "species": "Tiger Shark",
+    "lng": -86.15356781,
+    "lat": 25.62013761,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "72",
+    "species": "Tiger Shark",
+    "lng": -86.27087045,
+    "lat": 25.4183119,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "73",
+    "species": "Tiger Shark",
+    "lng": -86.65892788,
+    "lat": 24.78360314,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "74",
+    "species": "Tiger Shark",
+    "lng": -96.23088918,
+    "lat": 27.2327037,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "75",
+    "species": "Tiger Shark",
+    "lng": -96.24291762,
+    "lat": 27.27108941,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "76",
+    "species": "Tiger Shark",
+    "lng": -95.8206144,
+    "lat": 27.45106541,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "77",
+    "species": "Tiger Shark",
+    "lng": -95.43977472999998,
+    "lat": 27.41249084,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "78",
+    "species": "Tiger Shark",
+    "lng": -95.41528947,
+    "lat": 27.39773266,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "79",
+    "species": "Tiger Shark",
+    "lng": -92.9265241,
+    "lat": 24.82900195,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "80",
+    "species": "Tiger Shark",
+    "lng": -93.36178853,
+    "lat": 24.96352009,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "81",
+    "species": "Tiger Shark",
+    "lng": -93.73877163,
+    "lat": 25.08613363,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "82",
+    "species": "Tiger Shark",
+    "lng": -94.06608095,
+    "lat": 24.8855202,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "83",
+    "species": "Tiger Shark",
+    "lng": -94.35200131,
+    "lat": 24.90595236,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "84",
+    "species": "Tiger Shark",
+    "lng": -86.00531893,
+    "lat": 27.26360553,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "85",
+    "species": "Tiger Shark",
+    "lng": -85.9890566,
+    "lat": 27.3259107,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "86",
+    "species": "Tiger Shark",
+    "lng": -85.7895142,
+    "lat": 27.46586463,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "87",
+    "species": "Tiger Shark",
+    "lng": -85.66477292,
+    "lat": 27.51955448,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "88",
+    "species": "Tiger Shark",
+    "lng": -85.81560134999998,
+    "lat": 27.53669151,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "89",
+    "species": "Tiger Shark",
+    "lng": -90.71560136,
+    "lat": 27.54699019,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "90",
+    "species": "Tiger Shark",
+    "lng": -90.41583784,
+    "lat": 27.60958907,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "91",
+    "species": "Tiger Shark",
+    "lng": -90.29234035,
+    "lat": 27.60043498,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "92",
+    "species": "Tiger Shark",
+    "lng": -90.16931932,
+    "lat": 27.61109349,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "93",
+    "species": "Tiger Shark",
+    "lng": -89.94685231,
+    "lat": 27.62247533,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "94",
+    "species": "Tiger Shark",
+    "lng": -88.86885062,
+    "lat": 28.91641044,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "95",
+    "species": "Tiger Shark",
+    "lng": -88.80599588,
+    "lat": 28.81409508,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "96",
+    "species": "Tiger Shark",
+    "lng": -88.67318102,
+    "lat": 28.61811909,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "97",
+    "species": "Tiger Shark",
+    "lng": -88.45445266,
+    "lat": 28.76712621,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "98",
+    "species": "Tiger Shark",
+    "lng": -88.3490923,
+    "lat": 28.77820436,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "99",
+    "species": "Tiger Shark",
+    "lng": -86.6360741,
+    "lat": 27.05209741,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "100",
+    "species": "Tiger Shark",
+    "lng": -86.41999553,
+    "lat": 27.22604573,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "101",
+    "species": "Tiger Shark",
+    "lng": -86.43555291,
+    "lat": 27.29940387,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "102",
+    "species": "Tiger Shark",
+    "lng": -86.37414263,
+    "lat": 27.31639756,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  },
+  {
+    "id": "103",
+    "species": "Tiger Shark",
+    "lng": -86.36718286,
+    "lat": 27.29050422,
+    "actual_presence": 1,
+    "predicted_probability": 1.0
+  }
+]
