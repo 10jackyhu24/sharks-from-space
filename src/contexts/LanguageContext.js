@@ -1,5 +1,6 @@
 // src/contexts/LanguageContext.js - 擴充完整翻譯版本
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import SharkProbability from '../components/SharkProbability';
 
 const translations = {
   zh: {
@@ -109,6 +110,7 @@ const translations = {
             unit: "數值"
           }
         },
+        sharkProbability: "鯊魚預測機率",
         dataDtatistics: {
           shark: "{{count}} 個鯊魚紀錄",
           densityZones: "{{count}} 個密度區",
@@ -394,6 +396,7 @@ const translations = {
             unit: "Value"
           }
         },
+        sharkProbability: "Sharks Predicted Probability",
         dataDtatistics: {
           shark: "{{count}} Sharks' Points",
           densityZones: "{{count}} Density Zones",

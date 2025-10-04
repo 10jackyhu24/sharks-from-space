@@ -163,7 +163,7 @@ function Navigation() {
         >
           {/* Logo 圖片 */}
           <img 
-            src="/images/logo.png" 
+            src={`${process.env.PUBLIC_URL}/images/logo.png`} 
             alt="Sharks from Space Logo"
             style={{
               height: '45px',

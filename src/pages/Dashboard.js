@@ -4,6 +4,7 @@ import { useTranslation } from '../contexts/LanguageContext';
 import Header from "../components/Header";
 import MapView from "../components/MapView";
 import SharkChart from "../components/SharkChart";
+import SharkProbability from '../components/SharkProbability';
 
 function Dashboard() {
   const { t } = useTranslation();
@@ -211,6 +212,9 @@ function Dashboard() {
             t={t}
             selectedSlot={selectedSlot}
           />
+          <br />
+          <h3 className="map-title"> 🗺️ {t('dashboard.mapView.sharkProbability')} </h3>
+          <SharkProbability selectedSlot={selectedSlot} />
         </div>
         
         {/* 右側：圖表和資訊 */}
