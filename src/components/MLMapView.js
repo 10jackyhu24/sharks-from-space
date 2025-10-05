@@ -41,7 +41,7 @@ export default function MLMapView({
           background: red;
           border-radius: 50%;
           border: 2px solid white;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          box-shadow: 0 2px 4px rgba(234, 140, 0, 0.5);
         ">
         </div>
       `,
