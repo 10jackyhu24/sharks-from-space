@@ -394,8 +394,8 @@ function MapView({
                 </div>
                 
                 <div style={{ fontSize: '13px', lineHeight: '1.5' }}>
-                  <div><strong>🕐 時間:</strong> {new Date(shark.timestamp).toLocaleString()}</div>
-                  <div><strong>📍 座標:</strong> {shark.lat.toFixed(4)}, {shark.lng.toFixed(4)}</div>
+                  <div><strong>🕐 {t('dashboard.mapView.point.time')}:</strong> {new Date(shark.timestamp).toLocaleString()}</div>
+                  <div><strong>📍 {t('dashboard.mapView.point.coordinate')}:</strong> {shark.lat.toFixed(4)}, {shark.lng.toFixed(4)}</div>
                   <div><strong>🏷️ ID:</strong> {shark.id}</div>
                 </div>
               </div>

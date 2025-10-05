@@ -308,7 +308,7 @@ function Dashboard() {
           />
           <br />
           <h3 className="map-title"> 🗺️ {t('dashboard.mapView.sharkProbability')} </h3>
-          <MLSharkProbability activeLayer={activeLayer} points={mapPoints} />
+          <MLSharkProbability activeLayer={activeLayer} points={mapPoints} t={t} />
         </div>
         
         {/* 右側：圖表和資訊 */}

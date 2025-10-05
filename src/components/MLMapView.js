@@ -7,6 +7,28 @@ export default function MLMapView({
   activeLayer="openstreetmap",
   t
 }) {
+  // 地圖圖層設置
+  const getTileLayerUrl = () => {
+    switch(activeLayer) {
+      case 'satellite':
+        return "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
+      case 'terrain':
+        return "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
+      default:
+        return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+    }
+  };
+
+  const getTileLayerAttribution = () => {
+    switch(activeLayer) {
+      case 'satellite':
+        return '&copy; Esri';
+      case 'terrain':
+        return '&copy; OpenTopoMap';
+      default:
+        return '&copy; OpenStreetMap contributors';
+    }
+  };
   // 創建自定義鯊魚圖標
   function createCustomSharkIcon(t) {
     
@@ -32,13 +54,19 @@ export default function MLMapView({
 
   return (
     <MapContainer
+      className="shark-probability-leaflet"
       center={[25.5, -90]}
       zoom={5}
+      minZoom={4}
+      maxZoom={12}
+      maxBounds={[[18, -105], [33, -75]]}
+      maxBoundsViscosity={1.0}
       style={{ height: "500px", width: "100%", borderRadius: "12px" }}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution="&copy; OpenStreetMap contributors"
+        key={activeLayer}
+        url={getTileLayerUrl()}
+        attribution={getTileLayerAttribution()}
       />
 
       {/* ✅ 這裡畫出所有點 */}
@@ -49,9 +77,9 @@ export default function MLMapView({
         >
           <Popup>
             <div>
-              <strong>經度：</strong>{p.lng}<br/>
-              <strong>緯度：</strong>{p.lat}<br/>
-              <strong>預測：</strong>{p.prediction}
+              <strong>{t('ml.point.longitude')}：</strong>{p.lng}<br/>
+              <strong>{t('ml.point.latitude')}：</strong>{p.lat}<br/>
+              <strong>{t('ml.point.predict')}：</strong>{p.prediction}
             </div>
           </Popup>
         </Marker>

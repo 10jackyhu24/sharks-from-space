@@ -119,6 +119,10 @@ const translations = {
           shark: "{{count}} 個鯊魚紀錄",
           densityZones: "{{count}} 個密度區",
           monitoringPoints: "{{count}} 個監測點"
+        },
+        point: {
+          time: "時間",
+          coordinate: "座標",
         }
       },
       sharkChart: {
@@ -201,6 +205,11 @@ const translations = {
         subtitle: "已選檔案",
         predictionResult: "預測結果 (機率分布)",
         resultAlert: "預測/訓練失敗，請檢查後端 API 是否正常運作"
+      },
+      point: {
+        longitude: "經度",
+        latitude: "緯度",
+        predict: "預測"
       },
       example_csv: "下載範例資料",
       dataProcessingWorkflow: {
@@ -409,6 +418,10 @@ const translations = {
           shark: "{{count}} Sharks' Points",
           densityZones: "{{count}} Density Zones",
           monitoringPoints: "{{count}} Monitoring Points"
+        },
+        point: {
+          time: "Time",
+          coordinate: "Coordinate",
         }
       },
       sharkChart: {
@@ -492,6 +505,11 @@ const translations = {
         subtitle: "Selected files",
         predictionResult: "Prediction results (probability distribution)",
         resultAlert: "Prediction / training failed. Please check if the backend API is functioning correctly."
+      },
+      point: {
+        longitude: "Longitude",
+        latitude: "Latitude",
+        predict: "predict"
       },
       example_csv: "Download sample file",
       dataProcessingWorkflow: {
