@@ -95,6 +95,7 @@ const translations = {
       tigerShark: "虎鯊",
       whaleShark: "鯨鯊",
       speciesDisplayed: "顯示 {{count}} 個物種",
+      titleDesc: "請選擇第4週以後的週期來觀測數據",
 
       mapView: {
         trackingSpecies: "追蹤物種",
@@ -385,6 +386,7 @@ const translations = {
       hammerhead: "Hammerhead",
       whaleShark: "Whale Shark",
       speciesDisplayed: "{{count}} species displayed",
+      titleDesc: "Please select the period after the 4th week to observe the data",
       mapView: {
         trackingSpecies: "Tracking Species",
         windyColorBar: {

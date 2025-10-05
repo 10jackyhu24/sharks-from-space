@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import MapView from "../components/MapView";
 import SharkChart from "../components/SharkChart";
 import SharkProbability from '../components/SharkProbability';
+import { Space } from 'antd';
 
 function Dashboard() {
   const { t } = useTranslation();
@@ -204,6 +205,7 @@ function Dashboard() {
                 visualizationMode === 'markers' ? t('dashboard.speciesDisplayed', {count: selectedSpecies.length}) : t('dashboard.densityMode')
               })
             </span>
+            <span> ({t('dashboard.titleDesc')})</span>
           </h3>
           <MapView 
             selectedSpecies={selectedSpecies}
