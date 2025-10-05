@@ -216,7 +216,7 @@ function Dashboard() {
           />
           <br />
           <h3 className="map-title"> 🗺️ {t('dashboard.mapView.sharkProbability')} </h3>
-          <SharkProbability selectedSlot={selectedSlot} />
+          <SharkProbability selectedSlot={selectedSlot} activeLayer={activeLayer} />
         </div>
         
         {/* 右側：圖表和資訊 */}

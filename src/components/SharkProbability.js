@@ -48,7 +48,31 @@ function HeatmapLayer({ points, options }) {
   return null;
 }
 
-export default function SharkProbability({ selectedSlot }) {
+export default function SharkProbability({ selectedSlot, activeLayer = 'openstreetmap' }) {
+
+    // 地圖圖層設置
+  const getTileLayerUrl = () => {
+    switch(activeLayer) {
+      case 'satellite':
+        return "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
+      case 'terrain':
+        return "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
+      default:
+        return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+    }
+  };
+
+  const getTileLayerAttribution = () => {
+    switch(activeLayer) {
+      case 'satellite':
+        return '&copy; Esri';
+      case 'terrain':
+        return '&copy; OpenTopoMap';
+      default:
+        return '&copy; OpenStreetMap contributors';
+    }
+  };
+
   const [sharks, setSharks] = useState([]);
 
   useEffect(() => {
@@ -87,8 +111,9 @@ export default function SharkProbability({ selectedSlot }) {
       style={{ height: "500px", width: "100%", borderRadius: "12px" }}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution="&copy; OpenStreetMap contributors"
+        key={activeLayer}  // 🔹 當 activeLayer 改變時，強制重建 TileLayer
+        url={getTileLayerUrl()}
+        attribution={getTileLayerAttribution()}
       />
       {sharks.length > 0 && <HeatmapLayer points={sharks} options={options} />}
     </MapContainer>
