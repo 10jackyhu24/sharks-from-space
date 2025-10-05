@@ -49,9 +49,9 @@ function MapView({
             img.src = path;
           });
           loadedIcons[species] = path;
-          console.log(`✅ 載入圖標: ${species}`);
+          // console.log(`✅ 載入圖標: ${species}`);
         } catch (error) {
-          console.warn(`⚠️ 無法載入 ${species} 圖標，使用預設圖標`);
+          // console.warn(`⚠️ 無法載入 ${species} 圖標，使用預設圖標`);
           loadedIcons[species] = null; // 使用預設圖標
         }
       }
@@ -98,11 +98,11 @@ function MapView({
       shark_data_path = slotToFileMap[key] || ""; // 找不到就給空字串
     }
 
-    console.log("🦈 對應檔案:", shark_data_path);
+    // console.log("🦈 對應檔案:", shark_data_path);
     fetch(`${process.env.PUBLIC_URL}/sharks_data/${shark_data_path}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("載入鯊魚數據:", data);
+        // console.log("載入鯊魚數據:", data);
         setSharks(data);
       })
       .catch((err) => console.error("載入鯊魚資料失敗：", err));
@@ -120,7 +120,7 @@ function MapView({
             return obj;
           }, {});
         });
-        console.log("載入環境數據:", data);
+        // console.log("載入環境數據:", data);
         setEnvironmentalData(data);
       })
       .catch((err) => console.error("載入環境數據失敗：", err));

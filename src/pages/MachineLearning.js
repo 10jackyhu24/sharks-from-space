@@ -1,26 +1,118 @@
-// src/pages/Dashboard.js - 支援翻譯版本
+// src/pages/Dashboard.js - 修正版本
 import React, { useState } from 'react';
 import { useTranslation } from '../contexts/LanguageContext';
 import Header from "../components/Header";
 import MapView from "../components/MapView";
 import SharkChart from "../components/SharkChart";
+import SharkProbability from '../components/SharkProbability';
+import { Space } from 'antd';
 import { mlAPI } from "../services/api";
+import Papa from "papaparse";
+import MLMapView from '../components/MLMapView';
+import MLSharkProbability from '../components/MLSharkProbability';
+import * as turf from "@turf/turf";
 
-function MachineLearning() {
+function Dashboard() {
   const { t } = useTranslation();
-  //readCSV();
   
-  // 原有的狀態管理 - 修正為與Dashboard一致
+  // 狀態管理：預設選中兩種鯊魚
   const [selectedSpecies, setSelectedSpecies] = useState([
     'Whale Shark', 'Tiger Shark'  // 確保只選中這兩個正確的物種
   ]);
   const [activeLayer, setActiveLayer] = useState('openstreetmap');
   const [visualizationMode, setVisualizationMode] = useState('markers');
+  const [selectedSlot, setSelectedSlot] = useState(null);
   const [file, setFile] = useState(null);   // 🔹 CSV 檔案
   const [prediction, setPrediction] = useState(null); // 🔹 預測結果
+  const [predictionPoints, setPredictionPoints] = useState([]);
+  const [mapPoints, setMapPoints] = useState([]);
 
 
-  // 原有的切換邏輯
+
+  const handleFileUpload = async (event) => {
+  const uploadedFile = event.target.files[0];
+  if (!uploadedFile) return;
+  setFile(uploadedFile);
+
+  // ✅ 1. 用 PapaParse 解析 CSV
+  Papa.parse(uploadedFile, {
+    header: true,
+    skipEmptyLines: true,
+    complete: async (results) => {
+      console.log("📄 CSV 內容:", results.data);
+
+      // 把 CSV 的經緯度取出
+      const filteredData = results.data.map(row => ({
+        lat: parseFloat(row["Latitude"]),
+        lng: parseFloat(row["Longitude"]),
+      }));
+
+      console.log("🎯 篩選後的欄位:", filteredData);
+
+      // ✅ 定義墨西哥灣的多邊形邊界（順序與 shapely 相同）
+      const gulfPolygon = turf.polygon([[
+        [-88.340037, 21.632458],
+        [-90.358898, 21.039513],
+        [-90.613529, 20.171280],
+        [-94.360244, 18.195934],
+        [-97.725013, 21.902715],
+        [-97.142999, 25.843384],
+        [-96.815616, 28.224622],
+        [-93.432660, 29.751845],
+        [-90.140643, 29.102355],
+        [-89.085742, 29.054669],
+        [-88.678740, 30.317403],
+        [-87.668368, 30.294529],
+        [-85.328981, 29.664102],
+        [-84.068312, 30.036088],
+        [-82.755656, 28.745213],
+        [-82.893000, 27.838119],
+        [-81.198495, 25.153368],
+        [-81.681720, 24.255506],
+        [-84.488387, 22.530819],
+        [-87.465895, 21.716910],
+        [-88.340037, 21.632458],
+      ]]);
+
+      // ✅ 2. 呼叫後端 ML API
+      const formData = new FormData();
+      formData.append("file", uploadedFile);
+
+      try {
+        const response = await mlAPI.predictWithCsv(formData);
+        const predictions = response['predictions']['values'];
+        console.log("✅ ML 預測回傳:", predictions);
+
+        // ✅ 3. 對應預測值
+        const combinedData = filteredData.map((point, i) => ({
+          ...point,
+          prediction: predictions[i] ?? 0,
+        }));
+
+        // ✅ 4. 篩選出預測為 1 且在海洋內的點
+        const positivePoints = combinedData.filter(d => {
+          if (d.prediction !== 1) return false;
+          const pt = turf.point([d.lng, d.lat]);
+          return turf.booleanPointInPolygon(pt, gulfPolygon);
+        });
+
+        console.log("🌊 留下的有效海上點:", positivePoints);
+
+        // ✅ 更新 state，傳給地圖畫
+        setPrediction(predictions);
+        setPredictionPoints(positivePoints);
+        setMapPoints(positivePoints);
+
+      } catch (err) {
+        console.error("❌ ML 預測或訓練失敗:", err);
+        alert(t('ml.fileUpload.resultAlert'));
+      }
+    }
+  });
+};
+
+
+  // 物種切換邏輯
   const toggleSpecies = (species) => {
     if (selectedSpecies.includes(species)) {
       setSelectedSpecies(selectedSpecies.filter(s => s !== species));
@@ -28,53 +120,6 @@ function MachineLearning() {
       setSelectedSpecies([...selectedSpecies, species]);
     }
   };
-
-  const [predictionPoints, setPredictionPoints] = useState([]);
-
-  const handleFileUpload = async (event) => {
-    const uploadedFile = event.target.files[0];
-    if (!uploadedFile) return;
-    setFile(uploadedFile);
-
-    try {
-      const formData = new FormData();
-      formData.append("file", uploadedFile);
-
-      console.log("📤 上傳檔案:", uploadedFile.name);
-
-      // Step 1: 先做預測
-      const response = await mlAPI.predictWithCsv(formData);
-      console.log("✅ ML 預測回傳:", response);
-
-      setPrediction(response);
-
-      // Step 2: 自動送去訓練
-      const trainResp = await mlAPI.trainWithCsv(formData);
-      console.log("✅ ML 訓練完成:", trainResp);
-
-      // Step 3: 把預測結果轉換成 {lat, lng, pred}
-      if (response && response["預測"] && response["預測"]["值"]) {
-        const features = response["文件資訊"]["功能名稱"];
-        const latIdx = features.findIndex(f => f.includes("緯度"));
-        const lngIdx = features.findIndex(f => f.includes("經度"));
-
-        const points = response["原始資料"].map((row, i) => ({
-         lat: parseFloat(row[latIdx]),
-         lng: parseFloat(row[lngIdx]),
-         pred: response["預測"]["值"][i],
-         prob: response["預測"]["樣本機率"]?.[i]?.[1] ?? 0  // 🔹 class=1 機率
-         }));
-
-        setPredictionPoints(points);
-      }
-
-
-    } catch (err) {
-      console.error("❌ ML 預測或訓練失敗:", err);
-      alert(t('ml.fileUpload.resultAlert'));
-    }
-  };
-
 
   // 物種配置 (已修正並簡化)
   const getSpeciesConfig = (species) => {
@@ -85,6 +130,9 @@ function MachineLearning() {
     // 提供一個預設值，以防萬一
     return configs[species] || { color: '#333', icon: '❓', name: species };
   };
+  
+  // 要顯示的物種列表 (已簡化)
+  const availableSpecies = ['Whale Shark', 'Tiger Shark'];
 
   return (
     <div className="app-container">
@@ -97,7 +145,7 @@ function MachineLearning() {
           <div>
             <h4 className="section-subtitle">{t('dashboard.speciesFilter')}</h4>
             <div className="checkbox-group">
-              {['Whale Shark', 'Tiger Shark'].map(species => {
+              {availableSpecies.map(species => {
                 const config = getSpeciesConfig(species);
                 return (
                   <label key={species} className="checkbox-item">
@@ -118,7 +166,7 @@ function MachineLearning() {
             </div>
           </div>
 
-          {/* 視覺化模式選擇 */}
+          {/* 視覺化模式選擇 (已移除 Environmental Data 和 Heatmap) */}
           <div>
             <h4 className="section-subtitle">{t('dashboard.visualization')}</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -127,16 +175,6 @@ function MachineLearning() {
                   value: 'markers', 
                   label: t('dashboard.sharkMarkers'), 
                   desc: t('dashboard.markerModeDesc')
-                },
-                { 
-                  value: 'environmental', 
-                  label: t('dashboard.environmentalData'), 
-                  desc: t('dashboard.environmentalModeDesc')
-                },
-                { 
-                   value: 'ml',
-                   label: t('ml.MLProbabilityHeatmap'),
-                   desc: t('MLProbabilityHeatmapDesc')
                 }
               ].map(mode => (
                 <label 
@@ -213,7 +251,7 @@ function MachineLearning() {
             </select>
           </div>
 
-          {/* 顯示選項 */}
+          {/* 顯示選項 (已移除熱力圖 checkbox) */}
           <div>
             <h4 className="section-subtitle">{t('dashboard.displayOptions')}</h4>
             <div style={{ 
@@ -222,33 +260,25 @@ function MachineLearning() {
               borderRadius: '8px',
               border: '1px solid #e2e8f0'
             }}>
-              {/* 移除了 Heatmap Mode 選項 */}
-              
-              {/* 視覺化模式提示 */}
               <div style={{ 
                 fontSize: '11px', 
-                color: '#718096',
-                marginTop: '8px',
-                paddingTop: '8px',
-                borderTop: '1px solid #e2e8f0'
+                color: '#718096'
               }}>
                 <div><strong>{t('dashboard.currentMode')}:</strong> {
-                  visualizationMode === 'markers' ? t('dashboard.sharkMarkers') :
-                  visualizationMode === 'heatmap' ? t('dashboard.densityDistribution') :
-                  t('dashboard.environmentalData')
+                  visualizationMode === 'markers' ? t('dashboard.sharkMarkers') : t('dashboard.densityDistribution')
                 }</div>
                 <div><strong>{t('dashboard.mapStyle')}:</strong> {getLayerName(activeLayer, t)}</div>
               </div>
             </div>
           </div>
 
-          {/* 即時統計 */}
+          {/* 即時統計 (總數已更新) */}
           <div>
             <h4 className="section-subtitle">{t('dashboard.realTimeStats')}</h4>
             <div className="stats-grid">
               <div className="stat-item">
                 <div className="stat-label">{t('dashboard.selectedSpecies')}</div>
-                <div className="stat-value">{selectedSpecies.length}/2</div>
+                <div className="stat-value">{selectedSpecies.length}/{availableSpecies.length}</div>
               </div>
               <div className="stat-item">
                 <div className="stat-label">{t('dashboard.displayStatus')}</div>
@@ -266,23 +296,23 @@ function MachineLearning() {
             🗺️ {t('dashboard.mapTitle')}
             <span className="species-count">
               ({
-                visualizationMode === 'markers' ? t('dashboard.speciesDisplayed', {count: selectedSpecies.length}) :
-                visualizationMode === 'heatmap' ? t('dashboard.densityMode') :
-                t('dashboard.environmentMode')
+                visualizationMode === 'markers' ? t('dashboard.speciesDisplayed', {count: selectedSpecies.length}) : t('dashboard.densityMode')
               })
             </span>
+            {/* <span> ({t('dashboard.titleDesc')})</span> */}
           </h3>
-          <MapView 
-            selectedSpecies={selectedSpecies}
+          <MLMapView 
+            points = {mapPoints}
             activeLayer={activeLayer}
-            visualizationMode={visualizationMode}
             t={t}
           />
+          <br />
+          <h3 className="map-title"> 🗺️ {t('dashboard.mapView.sharkProbability')} </h3>
+          <MLSharkProbability activeLayer={activeLayer} points={mapPoints} />
         </div>
         
-        {/* 右側 sidebar */}
+        {/* 右側：圖表和資訊 */}
         <div className="sidebar">
-          {/* 🔹 檔案上傳 + ML 預測 */}
           <div className="card" id="upload-area">
               <input
               
@@ -317,7 +347,7 @@ function MachineLearning() {
 
 
             {/* 🔹 顯示 ML 預測結果 */}
-            {prediction && (
+            {/* {prediction && (
               <div style={{ marginTop: "12px" }}>
                 <h4>📊 {t('ml.fileUpload.predictionResult')}</h4>
                 <pre style={{ 
@@ -331,7 +361,7 @@ function MachineLearning() {
                   {JSON.stringify(prediction, null, 2)}
                 </pre>
               </div>
-            )}
+            )} */}
           </div>
 
           <div style={{ marginTop: "12px", textAlign: "center" }}>
@@ -361,7 +391,7 @@ function MachineLearning() {
             <div className="research-info">
               <p><strong>{t('dashboard.projectName')}:</strong> Sharks from Space</p>
               <p><strong>{t('dashboard.dataSource')}:</strong> {t('dashboard.satelliteTracking')}</p>
-              <p><strong>{t('dashboard.trackedSpecies')}:</strong> {selectedSpecies.map(s => getSpeciesConfig(s).name).join(', ')}</p>
+              <p><strong>{t('dashboard.trackedSpecies')}:</strong> {selectedSpecies.map(s => getSpeciesConfig(s).name).join(', ') || t('common.noneSelected')}</p>
               <p><strong>{t('dashboard.researchPurpose')}:</strong> {t('dashboard.researchPurposeDesc')}</p>
               <p><strong>{t('dashboard.updateFrequency')}:</strong> {t('common.realTimeUpdate')}</p>
               <p><strong>{t('dashboard.coverage')}:</strong> {t('common.globalCoverage')}</p>
@@ -373,15 +403,15 @@ function MachineLearning() {
             <div className="stats-grid">
               <div className="stat-item">
                 <div className="stat-label">{t('dashboard.trackingTags')}</div>
-                <div className="stat-value">3</div>
+                <div className="stat-value">2</div>
               </div>
               <div className="stat-item">
                 <div className="stat-label">{t('dashboard.dataPoints')}</div>
-                <div className="stat-value">1.2K</div>
+                <div className="stat-value">~1K</div>
               </div>
             </div>
             
-            {/* 視覺化模式說明 */}
+            {/* 視覺化模式說明 (已簡化) */}
             <div style={{ 
               marginTop: '12px',
               padding: '8px',
@@ -391,12 +421,9 @@ function MachineLearning() {
               fontSize: '11px'
             }}>
               <strong>📍 {
-                visualizationMode === 'markers' ? t('dashboard.markingMode') :
-                visualizationMode === 'heatmap' ? t('dashboard.densityMode') : t('dashboard.environmentMode')
+                visualizationMode === 'markers' ? t('dashboard.markingMode') : t('dashboard.densityMode')
               }:</strong> {
-                visualizationMode === 'markers' ? t('dashboard.markerModeDesc') :
-                visualizationMode === 'heatmap' ? t('dashboard.densityModeDesc') :
-                t('dashboard.environmentalModeDesc')
+                visualizationMode === 'markers' ? t('dashboard.markerModeDesc') : t('dashboard.densityModeDesc')
               }
             </div>
           </div>
@@ -416,4 +443,4 @@ function getLayerName(layer, t) {
   return names[layer] || layer;
 }
 
-export default MachineLearning;
+export default Dashboard;
